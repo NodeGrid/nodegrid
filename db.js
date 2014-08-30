@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/nodegrid');
+var fs = require('fs');
+var configurations = JSON.parse(fs.readFileSync('config.json', encoding="ascii"));
+mongoose.connect('mongodb://'+configurations.DB_HOST+'/'+configurations.DB_NAME);
 
 var entity = mongoose.Schema({
     data: Object,
