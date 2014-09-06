@@ -1,29 +1,18 @@
 var express = require('express');
 var logger = require('./utils/log');
-var services = require('./services.js');
+
+var storingEndPoints = require('./end_points/store_end_points');
+var relationsEndPoints = require('./end_points/relations_end_points');
+var queryEndPoints = require('./end_points/query_end_points');
 
 var app = express();
 app.use(express.bodyParser());
 
-app.post('/:modelName', function (req, res) {
-    logger.info('NodeGrid:app/ [POST/:modelName]');
-    services.handlePost(req, res);
-});
+storingEndPoints.createStoreEndPoints(app);
+relationsEndPoints.createRelationsEndPoints(app);
+queryEndPoints.createQueryEndPoints(app);
 
-app.get('/:modelName', function (req, res) {
-    logger.info('NodeGrid:app/ [GET/:modelName]');
-    services.handleGet(req, res);
-});
-
-app.put('/:modelName/:id', function (req, res) {
-    services.handlePut(req, res);
-});
-
-app.post('/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier', function (req, res) {
-    logger.info('NodeGrid:app/ [POST/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
-    services.handleRelationalPost(req, res);
-});
-
+//starting the server
 var server = app.listen(3000, function () {
     logger.info('NodeGrid:app/ NodeGrid app started. Listen on port: ' + server.address().port);
 });
