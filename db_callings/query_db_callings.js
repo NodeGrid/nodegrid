@@ -20,9 +20,9 @@ module.exports.getAllFromDB = function (req, res) {
     var entityModel = mongoose.model(req.params.modelName, entity);
     entityModel.find({}, function (err, records) {
         if (err) {
-            logger.info("NodeGrid:query_db_callings/ " + req.params.modelName + " data querying was failed. ERROR: " + err);
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - " + req.params.modelName + " data querying was failed. ERROR: " + err);
         } else {
-            logger.info("NodeGrid:query_db_callings/ " + req.params.modelName + " data successfully retrieved");
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - " + req.params.modelName + " data successfully retrieved");
         }
         res.send(records);
     });

@@ -14,14 +14,14 @@ module.exports.createStoreEndPoints = function (app) {
     //Store new model or store data to given model (collection)
     app.post('/:modelName', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:store_end_points/ [POST/:modelName]');
+        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [POST/:modelName]');
         storeServices.handleStoreModelsPost(req, res);
     });
 
     //Update given model
     app.put('/:modelName/:id', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:store_end_points/ [PUT/:modelName/:id]');
+        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [PUT/:modelName/:id]');
         storeServices.handleStoreModelsPut(req, res);
     });
 };

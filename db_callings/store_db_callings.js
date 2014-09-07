@@ -21,9 +21,9 @@ module.exports.saveModelOrEntityToDb = function (req, res) {
     var newEntity = new entityModel({ data: req.body });
     newEntity.save(function (err, savedEntity) {
         if (err) {
-            logger.info("NodeGrid:store_db_callings/ New model adding failed. ERROR: " + err);
+            logger.info("NodeGrid:store_db_callings/saveModelOrEntityToDb - New model adding failed. ERROR: " + err);
         } else {
-            logger.info("NodeGrid:store_db_callings/ New model added successfully. OBJECT: " + JSON.stringify(savedEntity));
+            logger.info("NodeGrid:store_db_callings/saveModelOrEntityToDb - New model added successfully. OBJECT: " + JSON.stringify(savedEntity));
         }
         res.send(savedEntity);
     });
@@ -39,9 +39,9 @@ module.exports.updateEntity = function (req, res) {
     var entityModel = mongoose.model(req.params.modelName, entity);
     entityModel.update({_id: req.params.id}, {data: req.body}, function (err, savedEntity) {
         if (err) {
-            logger.info("NodeGrid:store_db_callings/ Object updating was failed. ERROR: " + err);
+            logger.info("NodeGrid:store_db_callings/updateEntity - Object updating was failed. ERROR: " + err);
         } else {
-            logger.info("NodeGrid:store_db_callings/ Object updated successfully. OBJECT: " + JSON.stringify(savedEntity));
+            logger.info("NodeGrid:store_db_callings/updateEntity - Object updated successfully. OBJECT: " + JSON.stringify(savedEntity));
         }
         res.send(req.body);
     });

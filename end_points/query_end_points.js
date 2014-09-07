@@ -14,7 +14,7 @@ module.exports.createQueryEndPoints = function (app) {
     //Retrieve all data from given model (collection)
     app.get('/:modelName', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:query_end_points/ [GET/:modelName]');
+        logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/:modelName]');
         queryServices.handleQueryModelGet(req, res);
     });
 };
