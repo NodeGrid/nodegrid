@@ -1,22 +1,13 @@
-var mongoose = require('mongoose');
-var fs = require('fs');
-var configurations = JSON.parse(fs.readFileSync('config.json', encoding="ascii"));
-mongoose.connect('mongodb://'+configurations.DB_HOST+'/'+configurations.DB_NAME);
+/**
+ * Created by kavi707 on 9/6/14.
+ * @author Kavimal Wijewardana <kavi707@gmail.com>
+ */
 
-var entity = mongoose.Schema({
-    data: Object,
-    relations: Object
-});
+var mongo_connection = require('../utils/mongoose_connection');
+var connectionObj = mongo_connection.createMongooseConnection();
 
-module.exports.saveToDb = function (req, res) {
-
-    var entityModel = mongoose.model(req.params.modelName, entity);
-    var newEntity = new entityModel({ data: req.body });
-    newEntity.save(function (err, savedEntity) {
-        if (err) console.error(err);
-        res.send(savedEntity);
-    });
-}
+var mongoose = connectionObj.mongooseObj;
+var entity = connectionObj.entityObj;
 
 module.exports.saveRelationToDb = function (req, res) {
     var firstEntity = req.params.firstEntity;
@@ -92,23 +83,4 @@ module.exports.saveRelationToDb = function (req, res) {
         }
     });
     /*********** check first entity existance **********/
-}
-
-module.exports.getAllFromDB = function (req, res) {
-
-    var entityModel = mongoose.model(req.params.modelName, entity);
-    entityModel.find({}, function (err, records) {
-        if (err) console.error(err);
-        res.send(records);
-    });
-
-}
-
-module.exports.updateEntity = function (req, res) {
-
-    var entityModel = mongoose.model(req.params.modelName, entity);
-    entityModel.update({_id: req.params.id}, {data: req.body}, function (err, savedEntity) {
-        if (err) console.error(err);
-        res.send(req.body);
-    });
-}
+};
