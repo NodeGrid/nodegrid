@@ -3,6 +3,7 @@
  * @author Kavimal Wijewardana <kavi707@gmail.com>
  */
 
+var logger = require('../utils/log');
 var mongo_connection = require('../utils/mongoose_connection');
 var connectionObj = mongo_connection.createMongooseConnection();
 

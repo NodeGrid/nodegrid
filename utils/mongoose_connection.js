@@ -13,6 +13,10 @@ var entity = mongoose.Schema({
     relations: Object
 });
 
+/**
+ * For retrieve created db connection objects
+ * @returns {{mongooseObj: *, entityObj: *}}
+ */
 module.exports.createMongooseConnection = function() {
 
     var connection = {

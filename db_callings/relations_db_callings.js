@@ -3,12 +3,18 @@
  * @author Kavimal Wijewardana <kavi707@gmail.com>
  */
 
+var logger = require('../utils/log');
 var mongo_connection = require('../utils/mongoose_connection');
 var connectionObj = mongo_connection.createMongooseConnection();
 
 var mongoose = connectionObj.mongooseObj;
 var entity = connectionObj.entityObj;
 
+/**
+ * Saving new relation between given two models in 'entity_relations' mongo collection
+ * @param req
+ * @param res
+ */
 module.exports.saveRelationToDb = function (req, res) {
     var firstEntity = req.params.firstEntity;
     var secondEntity = req.params.secondEntity;
@@ -23,8 +29,8 @@ module.exports.saveRelationToDb = function (req, res) {
     var checkCollection = mongoose.model(firstEntity, entity);
     checkCollection.find({_id: firstIdentifier}, function (firstErr, firstRecords) {
         if (firstErr) {
-            console.error(firstErr);
-            res.send("Error occured at first entity database check: " + firstErr);
+            logger.info("NodeGrid:relations_db_callings/ Error occurred at [" + firstEntity + "] database check. ERROR: " + firstErr);
+            res.send("Error occurred at first entity database check: " + firstErr);
         }
         else {
             if (firstRecords.length != 0) {
@@ -32,7 +38,7 @@ module.exports.saveRelationToDb = function (req, res) {
                 var checkSecondCollection = mongoose.model(secondEntity, entity);
                 checkSecondCollection.find({_id: secondIdentifier}, function (secondErr, secondRecords) {
                     if (secondErr) {
-                        console.error(secondErr);
+                        logger.info("NodeGrid:relations_db_callings/ Error occurred at [" + secondEntity + "] database check. ERROR: " + secondErr);
                         res.send("Error occured at second entity database check: " + secondErr);
                     } else {
                         if (secondRecords.length != 0) {
@@ -43,8 +49,8 @@ module.exports.saveRelationToDb = function (req, res) {
                                     "data.secondIdentifier": secondIdentifier, "data.relationType": relationType},
                                 function (relationExistanceErr, relationRecords) {
                                     if (relationExistanceErr) {
-                                        console.error(relationExistanceErr);
-                                        res.send("Error occured at entity_relations entity database check: " + relationExistanceErr);
+                                        logger.info("NodeGrid:relations_db_callings/ Error occurred at entity_relations database check. ERROR: " + relationExistanceErr);
+                                        res.send("Error occurred at entity_relations entity database check: " + relationExistanceErr);
                                     } else {
                                         if (relationRecords.length == 0) {
                                             dbObject = {
@@ -54,17 +60,19 @@ module.exports.saveRelationToDb = function (req, res) {
                                                 "secondEntity": secondEntity,
                                                 "secondIdentifier": secondIdentifier
                                             };
-                                            console.log("Database object: " + JSON.stringify(dbObject));
+                                            logger.info("NodeGrid:relations_db_callings/ Created database OBJECT: " + JSON.stringify(dbObject));
                                             var newEntry = new entity_relations({data: dbObject});
                                             newEntry.save(function (err, savedRelationship) {
                                                 if (err) {
-                                                    console.error(err);
-                                                    res.send("Error occured at database insertion: " + err);
+                                                    logger.info("NodeGrid:relations_db_callings/ Error occurred at database insertion. ERROR: " + err);
+                                                    res.send("Error occurred at database insertion: " + err);
                                                 } else {
+                                                    logger.info("NodeGrid:relations_db_callings/ New relations added successfully. OBJECT: " + savedRelationship);
                                                     res.send(savedRelationship);
                                                 }
                                             });
                                         } else {
+                                            logger.info("NodeGrid:relations_db_callings/ Given relation is already exists");
                                             res.send("Given relation is already exists");
                                         }
                                     }
@@ -72,12 +80,14 @@ module.exports.saveRelationToDb = function (req, res) {
                             /******* check relation existance ********/
 
                         } else {
+                            logger.info("NodeGrid:relations_db_callings/ Given second entity is not available in the database");
                             res.send("Given second entity is not available in the database");
                         }
                     }
                 });
                 /********* check second entity existance **********/
             } else {
+                logger.info("NodeGrid:relations_db_callings/ Given first entity is not available in the database");
                 res.send("Given first entity is not available in the database");
             }
         }

@@ -5,10 +5,16 @@
 var logger = require('../utils/log');
 var queryServices = require('../services/query_services');
 
+/**
+ * Create REST end-points for querying
+ * @param app
+ */
 module.exports.createQueryEndPoints = function (app) {
 
+    //Retrieve all data from given model (collection)
     app.get('/:modelName', function (req, res) {
-        logger.info('NodeGrid:app/ [GET/:modelName]');
+        logger.info("================================================================================================");
+        logger.info('NodeGrid:query_end_points/ [GET/:modelName]');
         queryServices.handleQueryModelGet(req, res);
     });
 };

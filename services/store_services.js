@@ -6,11 +6,21 @@
 var storeDb = require('../db_callings/store_db_callings');
 var logger = require('../utils/log');
 
+/**
+ * This method handles new collection creating and add objects to given collections
+ * @param req
+ * @param res
+ */
 module.exports.handleStoreModelsPost = function (req, res) {
     logger.info('NodeGrid:store_services/ Adding attempt a new model (collection) with data');
     storeDb.saveModelOrEntityToDb(req, res);
 };
 
+/**
+ * This method responsible for update existing objects in given collections
+ * @param req
+ * @param res
+ */
 module.exports.handleStoreModelsPut = function (req, res) {
     logger.info('NodeGrid:store_services/ handle put');
     storeDb.updateEntity(req, res);
