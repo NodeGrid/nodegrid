@@ -12,6 +12,16 @@ var logger = require('../utils/log');
  * @param res
  */
 module.exports.handleCreateRelationsPost = function (req, res) {
-    logger.info('NodeGrid:relations_services/ Adding attempt a new relationship');
+    logger.info('NodeGrid:relations_services/handleCreateRelationsPost - Adding attempt a new relationship');
     relationsDb.saveRelationToDb(req, res);
+};
+
+module.exports.handleRetrieveRelationsWithType = function (req, res) {
+    logger.info('NodeGrid:relations_services/handleRetrieveRelationsWithType - Retrieving attempt relationships with entity, identifier and type');
+    relationsDb.getRelationsWithTypesFromDb(req, res);
+};
+
+module.exports.handleRetrieveRelationsWithIdentifier = function (req, res) {
+    logger.info('NodeGrid:relations_services/handleRetrieveRelationsWithIdentifier - Retrieving attempt relationships with entity and identifier');
+    relationsDb.getRelationsWithIdentifierFromDb(req, res);
 };

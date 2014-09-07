@@ -14,7 +14,19 @@ module.exports.createRelationsEndPoints = function(app) {
     //Create new relation between given models
     app.post('/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:relations_end_points/ [POST/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
+        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [POST/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
         relationsServices.handleCreateRelationsPost(req, res);
+    });
+
+    app.get('/getRelations/:entity/:identifier/:type', function(req, res){
+        logger.info("================================================================================================");
+        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/getRelations/:entity/:identifier/:type]');
+        relationsServices.handleRetrieveRelationsWithType(req, res);
+    });
+
+    app.get('/getRelations/:entity/:identifier', function(req, res){
+        logger.info("================================================================================================");
+        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/getRelations/:entity/:identifier]');
+        relationsServices.handleRetrieveRelationsWithIdentifier(req, res);
     });
 };
