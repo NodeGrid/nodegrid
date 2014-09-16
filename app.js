@@ -1,5 +1,6 @@
 var express = require('express');
 var logger = require('./utils/log');
+var utils = require('./utils/utils');
 var io = require('socket.io');
 
 var storingEndPoints = require('./end_points/store_end_points');
@@ -19,6 +20,7 @@ queryEndPoints.createQueryEndPoints(app);
 
 //starting the server
 var server = app.listen(3000, function () {
+	utils.createLoggerDir(); //check logs dir exsits or not, if not create logs dir
     logger.info('NodeGrid:app/ NodeGrid app started. Listen on port: ' + server.address().port);
 });
 
