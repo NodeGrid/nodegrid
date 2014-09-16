@@ -20,7 +20,7 @@ queryEndPoints.createQueryEndPoints(app);
 
 //starting the server
 var server = app.listen(3000, function () {
-	utils.createLoggerDir(); //check logs dir exsits or not, if not create logs dir
+	utils.createLoggerDir(); //check logs dir exists or not, if not create logs dir
     logger.info('NodeGrid:app/ NodeGrid app started. Listen on port: ' + server.address().port);
 });
 
