@@ -7,7 +7,7 @@ var logger = require('./log');
 var fs = require('fs');
 
 /**
- * This method is for check the logs directory existance
+ * This method is for check the logs directory existence
  * and if dir is not exists, then create
  */
 module.exports.createLoggerDir = function () {
