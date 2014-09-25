@@ -15,10 +15,10 @@ NodeGrid contains REST API for provide the services. NodeGrid provide following 
 - Create relations between dynamic entities
 
 -----------
-#### User Authentication
+##### User Authentication
 In each API requests are authenticated using token authentication. For using the NodeGrid, user need to log-in and get a token from system to access the  other REST calls.
 
-#### Store and Query dynamic entities
+##### Store and Query dynamic entities
 Authenticated user can create, read, update, delete entities just using simple REST calls
 
-#### Create relations between stored entities
+##### Create relations between stored entities
