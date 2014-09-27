@@ -5,7 +5,7 @@ var io = require('socket.io');
 
 var storingEndPoints = require('./end_points/store_end_points');
 var relationsEndPoints = require('./end_points/relations_end_points');
-var securityEndPoints = require('./end_points/security_end_points');
+var systemEndPoints = require('./end_points/system_end_points');
 var queryEndPoints = require('./end_points/query_end_points');
 var pushEndPoints = require('./end_points/push_end_points');
 
@@ -14,7 +14,7 @@ app.use(express.bodyParser());
 
 storingEndPoints.createStoreEndPoints(app);
 relationsEndPoints.createRelationsEndPoints(app);
-securityEndPoints.createSecurityEndPoints(app);
+systemEndPoints.createSystemEndPoints(app);
 queryEndPoints.createQueryEndPoints(app);
 
 
