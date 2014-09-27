@@ -7,6 +7,24 @@ var systemService = require('../services/system_services');
 
 module.exports.createSystemEndPoints = function(app) {
 
+    app.post('/system/user/create', function(req, res) {
+        logger.info("================================================================================================");
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/user/create]');
+        systemService.handleCreateSystemUserPost(req, res);
+    });
+
+    app.get('/system/user/get/:userId', function(req, res) {
+        logger.info("================================================================================================");
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/user/get/:userId]');
+        systemService.handleGetSystemUserGet(req, res);
+    });
+
+    app.get('/system/user/remove/:userId', function(req, res) {
+        logger.info("================================================================================================");
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/user/remove/:userId]');
+        systemService.handleRemoveSystemUserGet(req, res);
+    });
+
     app.post('/system/security/generateToken', function(req, res){
         logger.info("================================================================================================");
         logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/security/generateToken]');
