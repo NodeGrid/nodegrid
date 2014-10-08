@@ -1,0 +1,67 @@
+body{
+font-family: 'Raleway', sans-serif;
+padding-top:0px;
+}
+
+
+.jumbotron{
+ background-color:#fff;
+ text-align:center;
+ color:#00a4e8;
+ margin-bottom: 0px;
+
+}
+
+
+.jumbotron .btn{
+color:#00a4e8;
+background-color: #fff;
+border-color: #00a4e8;
+border-width:2px;
+padding-left:50px;
+padding-right:50px;
+margin-top:30px;
+}
+
+.jumbotron .btn:hover{
+background-color: #00a4e8;
+color:#fff;
+}
+
+.logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.ribbon{
+background-color: #00a4e8;
+padding-bottom:20px;
+}
+
+.whiteh1{
+ color:#fff;
+ text-align:center;
+ margin-bottom:20px;
+}
+
+.centerh1{
+	text-align:center;
+	margin-bottom:20px;
+	 margin-top:40px;
+}
+
+.ribbon .row{
+text-align:center;
+color:#fff;
+}
+
+.media-heading{
+ margin-bottom:10px;
+ color:#00a4e8;
+}
+
+.media-body{
+ margin-top:20px;
+}
