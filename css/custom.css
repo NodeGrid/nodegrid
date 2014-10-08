@@ -15,7 +15,7 @@ padding-top:0px;
 
 .jumbotron .btn{
 color:#00a4e8;
-background-color: #fff;
+background-color: transparent;
 border-color: #00a4e8;
 border-width:2px;
 padding-left:50px;
@@ -32,6 +32,11 @@ color:#fff;
     display: block;
     margin-left: auto;
     margin-right: auto;
+	-webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+
 
 }
 
@@ -65,3 +70,10 @@ color:#fff;
 .media-body{
  margin-top:20px;
 }
+
+.logo:hover {
+    -ms-transform: rotate(-30deg); /* IE 9 */
+    -webkit-transform: rotate(-30deg); /* Chrome, Safari, Opera */
+    transform: rotate(-30deg);
+}
+
