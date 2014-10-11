@@ -8,17 +8,17 @@ var logger = require('../utils/log');
 
 module.exports.handleCreateSystemUserPost = function (req, res) {
     logger.info('NodeGrid:system_services/handleCreateSystemUserPost - Create new system user');
-    res.send("Get new system user create req");
+    systemDb.createNewSystemUser(req, res);
 };
 
 module.exports.handleGetSystemUserGet = function (req, res) {
     logger.info('NodeGrid:system_services/handleGetSystemUserGet - Query given system user');
-    res.send("Get query req to get given system user");
+    systemDb.GetSystemUser(req, res);
 };
 
 module.exports.handleRemoveSystemUserGet = function (req, res) {
     logger.info('NodeGrid:system_services/handleRemoveSystemUserGet - Remove given system user');
-    res.send("Get remove req to delete given system user");
+    systemDb.RemoveSystemUser(req, res);
 };
 
 module.exports.handleGenerateTokenPost = function (req, res) {
