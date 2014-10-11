@@ -47,10 +47,10 @@ module.exports.saveRelationToDb = function (req, res) {
                             var checkRelationCollection = mongoose.model('entity_relations', entity);
                             checkRelationCollection.find({"data.firstIdentifier": firstIdentifier,
                                     "data.secondIdentifier": secondIdentifier, "data.relationType": relationType},
-                                function (relationExistanceErr, relationRecords) {
-                                    if (relationExistanceErr) {
+                                function (relationExistenceErr, relationRecords) {
+                                    if (relationExistenceErr) {
                                         logger.info("NodeGrid:relations_db_callings/saveRelationToDb - Error occurred at entity_relations database check. ERROR: " + relationExistanceErr);
-                                        res.send("Error occurred at entity_relations entity database check: " + relationExistanceErr);
+                                        res.send("Error occurred at entity_relations entity database check: " + relationExistenceErr);
                                     } else {
                                         if (relationRecords.length == 0) {
                                             dbObject = {

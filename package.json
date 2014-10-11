@@ -1,11 +1,12 @@
 {
-    "name": "nodegrid",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "express": "3.3.4",
-        "mongoose": "3.8.14",
-        "winston": "0.7.3",
-        "socket.io":"1.1.0"
-    }
+  "name": "nodegrid",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "express": "3.3.4",
+    "mongoose": "3.8.14",
+    "socket.io": "1.1.0",
+    "winston": "0.7.3"
+  }
 }
