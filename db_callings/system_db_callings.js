@@ -120,5 +120,19 @@ module.exports.GetSystemUser = function (req, res, endPoint) {
 };
 
 module.exports.RemoveSystemUser = function (req, res) {
-    res.send("Get remove req to delete given system user");
+
+    //create collection object for system_users
+    var system_users = mongoose.model('system_users', entity);
+
+    var userId = req.params.userId;
+
+    system_users.remove({"_id": userId}, function (systemUserExistenceErr, systemUserDelete) {
+        if (systemUserExistenceErr) {
+            logger.info("NodeGrid:system_db_callings/RemoveSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
+            res.send("Error occurred at system_users entity database check: " + systemUserExistenceErr);
+        } else {
+            logger.info("NodeGrid:system_db_callings/RemoveSystemUser - System user removed from the collection successfully. STATUS: " + systemUserDelete);
+            res.send("System user removed from the collection successfully. STATUS: " + systemUserDelete);
+        }
+    });
 };
