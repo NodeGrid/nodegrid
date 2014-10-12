@@ -11,9 +11,14 @@ module.exports.handleCreateSystemUserPost = function (req, res) {
     systemDb.createNewSystemUser(req, res);
 };
 
-module.exports.handleGetSystemUserGet = function (req, res) {
-    logger.info('NodeGrid:system_services/handleGetSystemUserGet - Query given system user');
-    systemDb.GetSystemUser(req, res);
+module.exports.handleGetSystemUserFromUserIdGet = function (req, res) {
+    logger.info('NodeGrid:system_services/handleGetSystemUserFromUserIdGet - Query given system user from userId');
+    systemDb.GetSystemUser(req, res, 'USER_ID');
+};
+
+module.exports.handleGetSystemUserFromUsernameGet = function (req, res) {
+    logger.info('NodeGrid:system_services/handleGetSystemUserFromUsernameGet - Query given system user from username');
+    systemDb.GetSystemUser(req, res, 'USERNAME');
 };
 
 module.exports.handleRemoveSystemUserGet = function (req, res) {

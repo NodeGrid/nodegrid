@@ -14,11 +14,18 @@ module.exports.createSystemEndPoints = function(app) {
         systemService.handleCreateSystemUserPost(req, res);
     });
 
-    //Get given system user
-    app.get('/system/user/get/:userId', function(req, res) {
+    //Get given system user from userId
+    app.get('/system/user/get/user_id/:userId', function(req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/user/get/:userId]');
-        systemService.handleGetSystemUserGet(req, res);
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/user/get/user_id/:userId]');
+        systemService.handleGetSystemUserFromUserIdGet(req, res);
+    });
+
+    //Get given system user from username
+    app.get('/system/user/get/username/:username', function(req, res) {
+        logger.info("================================================================================================");
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/user/get/username/:username]');
+        systemService.handleGetSystemUserFromUsernameGet(req, res);
     });
 
     //Remove given system user

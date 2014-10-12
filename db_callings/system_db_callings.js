@@ -76,8 +76,47 @@ module.exports.createNewSystemUser = function (req, res) {
     }
 };
 
-module.exports.GetSystemUser = function (req, res) {
-    res.send("Get query req to get given system user");
+module.exports.GetSystemUser = function (req, res, endPoint) {
+
+    //create collection object for system_users
+    var system_users = mongoose.model('system_users', entity);
+
+    if (endPoint.toString() === 'USER_ID') {
+        var userId = req.params.userId;
+
+        system_users.find({"_id": userId}, function (systemUserExistenceErr, systemUserRecord) {
+           if (systemUserExistenceErr) {
+               logger.info("NodeGrid:system_db_callings/GetSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
+               res.send("Error occurred at system_users entity database check: " + systemUserExistenceErr);
+           } else {
+               if (systemUserRecord.length != 0) {
+                   res.send(systemUserRecord);
+               } else {
+                   logger.info("NodeGrid:system_db_callings/GetSystemUser - No records found from given system userId");
+                   res.send("No records found from given system userId");
+               }
+           }
+        });
+    } else {
+        if (endPoint.toString() === 'USERNAME') {
+            var username = req.params.username;
+
+            system_users.find({"data.username": username}, function (systemUserExistenceErr, systemUserRecord) {
+                if (systemUserExistenceErr) {
+                    logger.info("NodeGrid:system_db_callings/GetSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
+                    res.send("Error occurred at system_users entity database check: " + systemUserExistenceErr);
+                } else {
+                    if (systemUserRecord.length != 0) {
+                        res.send(systemUserRecord);
+                    } else {
+                        logger.info("NodeGrid:system_db_callings/GetSystemUser - No records found from given system username");
+                        res.send("No records found from given system username");
+                    }
+                }
+            });
+        }
+    }
+
 };
 
 module.exports.RemoveSystemUser = function (req, res) {
