@@ -4,6 +4,7 @@
  */
 
 var systemDb = require('../db_callings/system_db_callings');
+var tokenMaster = require('../utils/token_master');
 var logger = require('../utils/log');
 
 module.exports.handleCreateSystemUserPost = function (req, res) {
@@ -13,22 +14,30 @@ module.exports.handleCreateSystemUserPost = function (req, res) {
 
 module.exports.handleGetSystemUserFromUserIdGet = function (req, res) {
     logger.info('NodeGrid:system_services/handleGetSystemUserFromUserIdGet - Query given system user from userId');
-    systemDb.GetSystemUser(req, res, 'USER_ID');
+
+    var userId = req.params.userId;
+    systemDb.getSystemUser(userId, 'USER_ID', function(status, data) {
+        res.send(data);
+    });
 };
 
 module.exports.handleGetSystemUserFromUsernameGet = function (req, res) {
     logger.info('NodeGrid:system_services/handleGetSystemUserFromUsernameGet - Query given system user from username');
-    systemDb.GetSystemUser(req, res, 'USERNAME');
+
+    var username = req.params.username;
+    systemDb.getSystemUser(username, 'USERNAME', function (status, data) {
+        res.send(data);
+    });
 };
 
 module.exports.handleRemoveSystemUserGet = function (req, res) {
     logger.info('NodeGrid:system_services/handleRemoveSystemUserGet - Remove given system user');
-    systemDb.RemoveSystemUser(req, res);
+    systemDb.removeSystemUser(req, res);
 };
 
 module.exports.handleGenerateTokenPost = function (req, res) {
     logger.info('NodeGrid:system_services/handleGenerateTokenPost - Generating new user security token');
-    res.send("Get generate token req");
+    tokenMaster.generateUserToken(req, res);
 };
 
 module.exports.handleGetTokenPost = function (req, res) {
