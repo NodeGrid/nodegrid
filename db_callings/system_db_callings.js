@@ -189,8 +189,13 @@ module.exports.checkTokenValidity = function (accessToken, callback) {
                 if (tokenExpiringTime > currentTimestamp) {
                     callback(1, tokenRecord);
                 } else {
-                    updateTokenObject(accessToken, "expired");
-                    callback(3, "Given token is expired");
+                    updateTokenObject(accessToken, "expired", function(status, response) {
+                        if (status == 1) {
+                            callback(3, "Given token is expired. OBJECT: " + response);
+                        } else {
+                            callback(3, "Given token is expired. Token object updating failed. ERROR: " + response);
+                        }
+                    });
                 }
             } else {
                 callback(2, "No records from given token");
@@ -209,11 +214,27 @@ function updateTokenObject (accessToken, status, callback) {
             logger.info("NodeGrid:system_db_callings/updateTokenObject - Error occurred at tokens database check. ERROR: " + tokenExistenceErr);
             callback(0, "Error occurred at tokens entity database check: " + tokenExistenceErr);
         } else {
-            var tokenObjectId = tokenObject[0]._id;
+            var tokenObjectId = tokenRecord[0]._id;
             var tokenObject = tokenRecord[0];
             tokenObject.data.status = status;
 
             //TODO: New object is created, need to update the object in the database
+            tokens.remove({"_id": tokenObjectId}, function (tokenRemoveErr, tokenDelete){
+                if (tokenRemoveErr) {
+                    logger.info("NodeGrid:system_db_callings/updateTokenObject - Error occurred at token database check. ERROR: " + tokenRemoveErr);
+                } else {
+                    var newEntity = new tokens(tokenObject);
+                    newEntity.save(function (err, savedToken) {
+                        if (err) {
+                            logger.info("NodeGrid:system_db_callings/updateTokenObject - Token update failed. ERROR: " + err);
+                            callback(0, err);
+                        } else {
+                            logger.info("NodeGrid:system_db_callings/updateTokenObject - Token updated successfully. OBJECT: " + JSON.stringify(savedToken));
+                            callback(1, savedToken);
+                        }
+                    });
+                }
+            });
         }
     });
 }

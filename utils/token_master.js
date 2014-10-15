@@ -52,16 +52,10 @@ module.exports.generateUserToken = function (req, res) {
 module.exports.validateAccessToken = function (accessToken, callback) {
 
     systemDb.checkTokenValidity(accessToken, function (status, resultData) {
-        if (status == 0) {
-            callback(0, resultData);
+        if (status == 1) {
+            callback(1, resultData);
         } else {
-            if (status == 2) {
-                callback(0, resultData);
-            } else {
-                if (status == 1) {
-                    callback(1, resultData);
-                }
-            }
+            callback(0, resultData);
         }
     });
 };
