@@ -11,6 +11,7 @@ var systemDb = require('../db_callings/system_db_callings');
 module.exports.generateUserToken = function (req, res) {
 
     var current_date = (new Date()).valueOf().toString();
+    var currentTimestamp = Math.round((new Date()).getTime() / 1000);
     var random = Math.random().toString();
 
     systemDb.getSystemUser(req.body.username, 'USERNAME', function (status, resultData) {
@@ -23,8 +24,11 @@ module.exports.generateUserToken = function (req, res) {
                         //var userToken = (crypto.createHash('sha1').update(current_date + req.body.username + req.body.password).digest('hex'));
                         var accessToken = (crypto.createHash('sha1').update(current_date + random + req.body.username).digest('hex'));
                         var tokenDbObject = {
-                            "accessToke": accessToken,
-                            "userId": resultData[0]._id
+                            "accessToken": accessToken,
+                            "userId": resultData[0]._id,
+                            "createdTime": currentTimestamp,
+                            "expiringTime":(currentTimestamp + (3600 * 24)),
+                            "status":"valid"
                         };
                         systemDb.saveNewToken(tokenDbObject, function (response){
                             res.send(response);
@@ -45,6 +49,19 @@ module.exports.generateUserToken = function (req, res) {
     });
 };
 
-module.exports.validateAccessToken = function (username, userToken, accessToken) {
+module.exports.validateAccessToken = function (accessToken, callback) {
 
+    systemDb.checkTokenValidity(accessToken, function (status, resultData) {
+        if (status == 0) {
+            callback(0, resultData);
+        } else {
+            if (status == 2) {
+                callback(0, resultData);
+            } else {
+                if (status == 1) {
+                    callback(1, resultData);
+                }
+            }
+        }
+    });
 };

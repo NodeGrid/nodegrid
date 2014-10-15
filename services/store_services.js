@@ -5,6 +5,7 @@
 
 var storeDb = require('../db_callings/store_db_callings');
 var logger = require('../utils/log');
+var tokenMaster = require('../utils/token_master');
 
 /**
  * This method handles new collection creating and add objects to given collections
@@ -13,7 +14,15 @@ var logger = require('../utils/log');
  */
 module.exports.handleStoreModelsPost = function (req, res) {
     logger.info('NodeGrid:store_services/ Adding attempt a new model (collection) with data');
-    storeDb.saveModelOrEntityToDb(req, res);
+    //Access token from headers
+    var accessToken = req.headers.authorization;
+    tokenMaster.validateAccessToken(accessToken, function (status, response) {
+        if (status == 1) {
+            storeDb.saveModelOrEntityToDb(req, res);
+        } else {
+            res.send(response);
+        }
+    });
 };
 
 /**
