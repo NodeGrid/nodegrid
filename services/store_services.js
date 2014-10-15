@@ -32,5 +32,13 @@ module.exports.handleStoreModelsPost = function (req, res) {
  */
 module.exports.handleStoreModelsPut = function (req, res) {
     logger.info('NodeGrid:store_services/ handle put');
-    storeDb.updateEntity(req, res);
+    //Access token from headers
+    var accessToken = req.headers.authorization;
+    tokenMaster.validateAccessToken(accessToken, function (status, response) {
+        if (status == 1) {
+            storeDb.updateEntity(req, res);
+        } else {
+            res.send(response)
+        }
+    });
 };

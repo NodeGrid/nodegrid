@@ -187,11 +187,11 @@ module.exports.checkTokenValidity = function (accessToken, callback) {
 
                 var tokenExpiringTime = tokenRecord[0].data.expiringTime;
                 if (tokenExpiringTime > currentTimestamp) {
-                    callback(1, tokenRecord);
+                    callback(1, JSON.stringify(tokenRecord));
                 } else {
                     updateTokenObject(accessToken, "expired", function(status, response) {
                         if (status == 1) {
-                            callback(3, "Given token is expired. OBJECT: " + response);
+                            callback(3, "Given token is expired. OBJECT: " + JSON.stringify(response));
                         } else {
                             callback(3, "Given token is expired. Token object updating failed. ERROR: " + response);
                         }
