@@ -42,3 +42,21 @@ module.exports.handleStoreModelsPut = function (req, res) {
         }
     });
 };
+
+/**
+ * This method responsible for deleting existing objects in given collections
+ * @param req
+ * @param res
+ */
+module.exports.handleDeleteModelsItem = function (req, res) {
+    logger.info('NodeGrid:store_services/ handle put');
+    //Access token from headers
+    var accessToken = req.headers.authorization;
+    tokenMaster.validateAccessToken(accessToken, function (status, response) {
+        if (status == 1) {
+            storeDb.deleteEntity(req, res);
+        } else {
+            res.send(response)
+        }
+    });
+};

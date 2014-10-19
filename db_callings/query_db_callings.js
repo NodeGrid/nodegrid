@@ -28,3 +28,22 @@ module.exports.getAllFromDB = function (req, res) {
     });
 
 };
+
+/**
+ * Query One object from given mongo collection
+ * @param req
+ * @param res
+ */
+module.exports.getOneFromDB = function (req, res) {
+
+    var entityModel = mongoose.model(req.params.modelName, entity);
+    entityModel.findOne({_id: req.params.id}, function (err, records) {
+        if (err) {
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - " + req.params.modelName + " data querying was failed. ERROR: " + err);
+        } else {
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - " + req.params.modelName + " data successfully retrieved");
+        }
+        res.send(records);
+    });
+
+};

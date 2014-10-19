@@ -7,6 +7,7 @@
     "express": "3.3.4",
     "mongoose": "3.8.14",
     "socket.io": "1.1.0",
-    "winston": "0.7.3"
+    "winston": "0.7.3",
+    "node.extend":"1.1.2"
   }
 }

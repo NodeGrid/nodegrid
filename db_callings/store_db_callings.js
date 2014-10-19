@@ -5,6 +5,8 @@
 
 var logger = require('../utils/log');
 var mongo_connection = require('../utils/mongoose_connection');
+var extend = require('node.extend');
+
 var connectionObj = mongo_connection.createMongooseConnection();
 
 var mongoose = connectionObj.mongooseObj;
@@ -37,12 +39,43 @@ module.exports.saveModelOrEntityToDb = function (req, res) {
 module.exports.updateEntity = function (req, res) {
 
     var entityModel = mongoose.model(req.params.modelName, entity);
-    entityModel.update({_id: req.params.id}, {data: req.body}, function (err, savedEntity) {
+
+    entityModel.findOne({_id: req.params.id}, function (err, oldEntity) {
         if (err) {
             logger.info("NodeGrid:store_db_callings/updateEntity - Object updating was failed. ERROR: " + err);
         } else {
-            logger.info("NodeGrid:store_db_callings/updateEntity - Object updated successfully. OBJECT: " + JSON.stringify(savedEntity));
+            Object.keys(req.body).forEach(function(key) {
+            delete oldEntity.data[key];
+            });
+            var destObject = extend(req.body, oldEntity.data);
+            entityModel.update({_id: req.params.id}, {data: destObject}, function (err, savedEntity) {
+                if (err) {
+                    logger.info("NodeGrid:store_db_callings/updateEntity - Object updating was failed. ERROR: " + err);
+                } else {
+                    logger.info("NodeGrid:store_db_callings/updateEntity - Object updated successfully. OBJECT: " + JSON.stringify(savedEntity));
+                }
+                res.send(req.body);
+            });
+
         }
-        res.send(req.body);
     });
-}
+};
+
+/**
+ * Query One object from given mongo collection
+ * @param req
+ * @param res
+ */
+module.exports.deleteEntity = function (req, res) {
+
+    var entityModel = mongoose.model(req.params.modelName, entity);
+    entityModel.findOneAndRemove({_id: req.params.id}, function (err, records) {
+        if (err) {
+            logger.info("NodeGrid:query_db_callings/deleteEntity - " + req.params.modelName + " data querying was failed. ERROR: " + err);
+        } else {
+            logger.info("NodeGrid:query_db_callings/deleteEntity - " + req.params.modelName + " data successfully deleted");
+        }
+        res.send(records);
+    });
+
+};

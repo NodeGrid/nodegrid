@@ -100,39 +100,58 @@ module.exports.getRelationsWithTypesFromDb = function (req, res) {
     var getEntity = req.params.entity;
     var getIdentifier = req.params.identifier;
     var getType = req.params.type;
+    var secondEntity = req.params.secondEntity;
 
     var entityModel = mongoose.model('entity_relations', entity);
     var qryObj = {
         "data.firstEntity":getEntity,
         "data.firstIdentifier":getIdentifier,
-        "data.relationType":getType
+        "data.relationType":getType,
+        "data.secondEntity":secondEntity,
     };
     entityModel.find(qryObj, function (err, records) {
         if (err) {
             logger.info("NodeGrid:relations_db_callings/getRelationsWithTypesFromDb - [entity_relations] data querying was failed. ERROR: " + err);
         } else {
             logger.info("NodeGrid:relations_db_callings/getRelationsWithTypesFromDb - [entity_relations] data successfully retrieved");
+            
+            var relationModel = mongoose.model(secondEntity, entity);
+            var entityArray = [];
+            records.forEach(function(ele){entityArray.push(ele.data.secondIdentifier)});
+            var qryObj = {
+                '_id':{ $in: entityArray}
+                };
+            relationModel.find(qryObj, function (err, relationRecords) {
+                res.send(relationRecords);
+            });
+
         }
-        res.send(records);
+       // res.send(records);
     });
 };
 
-module.exports.getRelationsWithIdentifierFromDb = function (req, res) {
+module.exports.deleteRelationsFromDB = function (req, res) {
 
-    var getEntity = req.params.entity;
-    var getIdentifier = req.params.identifier;
+    var firstEntity = req.params.firstEntity;
+    var secondEntity = req.params.secondEntity;
+    var firstIdentifier = req.params.firstIdentifier;
+    var secondIdentifier = req.params.secondIdentifier;
+    var relationType = req.params.relationType;
 
     var entityModel = mongoose.model('entity_relations', entity);
     var qryObj = {
-        "data.firstEntity":getEntity,
-        "data.firstIdentifier":getIdentifier
+        "data.firstEntity":firstEntity,
+        "data.firstIdentifier":firstIdentifier,
+        "data.relationType":relationType,
+        "data.secondEntity":secondEntity,
+        "data.secondIdentifier":secondIdentifier,
     };
-    entityModel.find(qryObj, function (err, records) {
+    entityModel.findOneAndRemove(qryObj, function (err, records) {
         if (err) {
-            logger.info("NodeGrid:query_db_callings/getRelationsWithIdentifierFromDb - [entity_relations] data querying was failed. ERROR: " + err);
+            logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data querying was failed. ERROR: " + err);
         } else {
-            logger.info("NodeGrid:query_db_callings/getRelationsWithIdentifierFromDb - [entity_relations] data successfully retrieved");
+            logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data relationship successfully deleted");
+            res.send(records);
         }
-        res.send(records);
     });
 };

@@ -18,15 +18,15 @@ module.exports.createRelationsEndPoints = function(app) {
         relationsServices.handleCreateRelationsPost(req, res);
     });
 
-    app.get('/getRelations/:entity/:identifier/:type', function(req, res){
+    app.get('/:entity/:identifier/:type/:secondEntity', function(req, res){
         logger.info("================================================================================================");
-        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/getRelations/:entity/:identifier/:type]');
+        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/:entity/:identifier/:type]');
         relationsServices.handleRetrieveRelationsWithType(req, res);
     });
 
-    app.get('/getRelations/:entity/:identifier', function(req, res){
+    app.del('/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier', function(req, res){
         logger.info("================================================================================================");
-        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/getRelations/:entity/:identifier]');
-        relationsServices.handleRetrieveRelationsWithIdentifier(req, res);
+        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [DELETE/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
+        relationsServices.handleDeleteRelations(req, res);
     });
 };

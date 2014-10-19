@@ -38,13 +38,13 @@ module.exports.handleRetrieveRelationsWithType = function (req, res) {
     });
 };
 
-module.exports.handleRetrieveRelationsWithIdentifier = function (req, res) {
-    logger.info('NodeGrid:relations_services/handleRetrieveRelationsWithIdentifier - Retrieving attempt relationships with entity and identifier');
+module.exports.handleDeleteRelations = function (req, res) {
+    logger.info('NodeGrid:relations_services/handleDeleteRelations - Deleteing attempt relationships with entity and identifier');
     //Access token from headers
     var accessToken = req.headers.authorization;
     tokenMaster.validateAccessToken(accessToken, function (status, response) {
         if (status == 1) {
-            relationsDb.getRelationsWithIdentifierFromDb(req, res);
+            relationsDb.deleteRelationsFromDB(req, res);
         } else {
             res.send(response);
         }

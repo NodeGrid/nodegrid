@@ -24,3 +24,21 @@ module.exports.handleQueryModelGet = function (req, res) {
         }
     });
 };
+
+/**
+ * This method responsible for query and showing the data in given collection (model)
+ * @param req
+ * @param res
+ */
+module.exports.handleQueryModelGetOne = function (req, res) {
+    logger.info('NodeGrid:query_services/ Querying attempt data from given model (collection)');
+    //Access token from headers
+    var accessToken = req.headers.authorization;
+    tokenMaster.validateAccessToken(accessToken, function (status, response) {
+        if (status == 1) {
+            queryDb.getOneFromDB(req,res);
+        } else {
+            res.send(response);
+        }
+    });
+};

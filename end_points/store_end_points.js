@@ -24,4 +24,11 @@ module.exports.createStoreEndPoints = function (app) {
         logger.info('NodeGrid:store_end_points/createStoreEndPoints - [PUT/:modelName/:id]');
         storeServices.handleStoreModelsPut(req, res);
     });
+
+    //Delete given model
+    app.del('/:modelName/:id', function (req, res) {
+        logger.info("================================================================================================");
+        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [DELETE/:modelName/:id]');
+        storeServices.handleDeleteModelsItem(req, res);
+    });
 };
