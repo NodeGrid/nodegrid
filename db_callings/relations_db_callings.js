@@ -122,7 +122,11 @@ module.exports.getRelationsWithTypesFromDb = function (req, res) {
                 '_id':{ $in: entityArray}
                 };
             relationModel.find(qryObj, function (err, relationRecords) {
-                res.send(relationRecords);
+                if (err) {
+                    logger.info("NodeGrid:relations_db_callings/getRelationsWithTypesFromDb - [entity_relations] data querying was failed. ERROR: " + err);
+                } else {
+                    res.send(relationRecords);
+                }
             });
 
         }

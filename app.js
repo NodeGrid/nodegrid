@@ -16,7 +16,7 @@ storingEndPoints.createStoreEndPoints(app);
 relationsEndPoints.createRelationsEndPoints(app);
 systemEndPoints.createSystemEndPoints(app);
 queryEndPoints.createQueryEndPoints(app);
-
+pushEndPoints.createPushEndPoints(app);
 
 //starting the server
 var server = app.listen(3000, function () {
@@ -25,5 +25,5 @@ var server = app.listen(3000, function () {
 });
 
 // setting server io
-var server_io = io.listen(server);
-pushEndPoints.createPushEndPoints(app, server_io);
+// var server_io = io.listen(server);
+// pushEndPoints.createPushEndPoints(app, server_io);

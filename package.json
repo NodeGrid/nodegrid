@@ -6,8 +6,8 @@
     "bcrypt-nodejs": "0.0.3",
     "express": "3.3.4",
     "mongoose": "3.8.14",
+    "node.extend": "1.1.2",
     "socket.io": "1.1.0",
-    "winston": "0.7.3",
-    "node.extend":"1.1.2"
+    "winston": "0.7.3"
   }
 }
