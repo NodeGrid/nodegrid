@@ -8,13 +8,17 @@ var mongo_connection = require('../utils/mongoose_connection');
 var connectionObj = mongo_connection.createMongooseConnection();
 var bCrypt = require('bcrypt-nodejs');
 
+//Reading the config file
+var fs = require('fs');
+var configurations = JSON.parse(fs.readFileSync('config.json', encoding="ascii"));
+
 var mongoose = connectionObj.mongooseObj;
 var entity = connectionObj.entityObj;
 
 module.exports.createNewSystemUser = function (req, res) {
 
     //create collection object for system_users
-    var system_users = mongoose.model('system_users', entity);
+    var system_users = mongoose.model(configurations.USERS_TABLE, entity);
 
     // name validation
     if (req.body.name != null) {
@@ -25,7 +29,7 @@ module.exports.createNewSystemUser = function (req, res) {
             var username = req.body.username;
 
             /******* check relation existance ********/
-            var checkSystemUserCollection = mongoose.model('system_users', entity);
+            var checkSystemUserCollection = mongoose.model(configurations.USERS_TABLE, entity);
             checkSystemUserCollection.find({"data.username": username}, function (systemUserExistenceErr, systemUserRecord) {
                 if (systemUserExistenceErr) {
                     logger.info("NodeGrid:system_db_callings/createNewSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
@@ -79,7 +83,7 @@ module.exports.createNewSystemUser = function (req, res) {
 module.exports.getSystemUser = function (userData, endPoint, callback) {
 
     //create collection object for system_users
-    var system_users = mongoose.model('system_users', entity);
+    var system_users = mongoose.model(configurations.USERS_TABLE, entity);
 
     if (endPoint.toString() === 'USER_ID') {
 
@@ -122,7 +126,7 @@ module.exports.getSystemUser = function (userData, endPoint, callback) {
 module.exports.removeSystemUser = function (req, res) {
 
     //create collection object for system_users
-    var system_users = mongoose.model('system_users', entity);
+    var system_users = mongoose.model(configurations.USERS_TABLE, entity);
 
     var userId = req.params.userId;
 
@@ -140,7 +144,7 @@ module.exports.removeSystemUser = function (req, res) {
 module.exports.saveNewToken = function (tokenObj, callback) {
 
     //create collection object for tokens
-    var tokens = mongoose.model('tokens', entity);
+    var tokens = mongoose.model(configurations.TOKEN_TABLE, entity);
 
     var newEntity = new tokens({ data: tokenObj });
     newEntity.save(function (err, savedToken) {
@@ -175,7 +179,7 @@ module.exports.updateExpiredToken = function (oldTokenObject, newAccessToken, ne
 module.exports.checkTokenExistence = function (userId, callback) {
 
     //create collection object for tokens
-    var tokens = mongoose.model('tokens', entity);
+    var tokens = mongoose.model(configurations.TOKEN_TABLE, entity);
     tokens.find({"data.userId": userId}, function (tokenExistenceErr, tokenRecord) {
         if (tokenExistenceErr) {
             logger.info("NodeGrid:system_db_callings/checkTokenExistence - Error occurred at tokens database check. ERROR: " + tokenExistenceErr);
@@ -202,7 +206,7 @@ module.exports.checkTokenValidity = function (accessToken, callback) {
     var currentTimestamp = Math.round((new Date()).getTime() / 1000);
 
     //create collection object for tokens
-    var tokens = mongoose.model('tokens', entity);
+    var tokens = mongoose.model(configurations.TOKEN_TABLE, entity);
     tokens.find({"data.accessToken": accessToken, "data.status": "valid"}, function (tokenExistenceErr, tokenRecord) {
         if (tokenExistenceErr) {
             logger.info("NodeGrid:system_db_callings/checkTokenValidity - Error occurred at tokens database check. ERROR: " + tokenExistenceErr);
@@ -232,7 +236,7 @@ module.exports.checkTokenValidity = function (accessToken, callback) {
 function updateTokenObject(tokenRecord, status, callback) {
 
     //create collection object for tokens
-    var tokens = mongoose.model('tokens', entity);
+    var tokens = mongoose.model(configurations.TOKEN_TABLE, entity);
 
     var tokenObjectId = tokenRecord._id;
     var tokenObject = tokenRecord;

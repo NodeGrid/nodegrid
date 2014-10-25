@@ -2,5 +2,7 @@
     "DB_HOST": "localhost",
     "DB_PORT": 27017,
     "DB_NAME": "nodegrid",
-    "RELATIONS_TABLE":"entity_relations"
+    "RELATIONS_TABLE":"entity_relations",
+    "USERS_TABLE":"users",
+    "TOKEN_TABLE":"tokens"
 }

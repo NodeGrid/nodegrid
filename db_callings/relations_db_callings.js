@@ -7,6 +7,10 @@ var logger = require('../utils/log');
 var mongo_connection = require('../utils/mongoose_connection');
 var connectionObj = mongo_connection.createMongooseConnection();
 
+//Reading the config file
+var fs = require('fs');
+var configurations = JSON.parse(fs.readFileSync('config.json', encoding="ascii"));
+
 var mongoose = connectionObj.mongooseObj;
 var entity = connectionObj.entityObj;
 
@@ -23,7 +27,7 @@ module.exports.saveRelationToDb = function (req, res) {
     var relationType = req.params.relationType;
 
     //create collection object for relations
-    var entity_relations = mongoose.model('entity_relations', entity);
+    var entity_relations = mongoose.model(configurations.RELATIONS_TABLE, entity);
 
     /*********** check first entity existance **********/
     var checkCollection = mongoose.model(firstEntity, entity);
@@ -44,7 +48,7 @@ module.exports.saveRelationToDb = function (req, res) {
                         if (secondRecords.length != 0) {
 
                             /******* check relation existance ********/
-                            var checkRelationCollection = mongoose.model('entity_relations', entity);
+                            var checkRelationCollection = mongoose.model(configurations.RELATIONS_TABLE, entity);
                             checkRelationCollection.find({"data.firstIdentifier": firstIdentifier,
                                     "data.secondIdentifier": secondIdentifier, "data.relationType": relationType},
                                 function (relationExistenceErr, relationRecords) {
@@ -102,12 +106,12 @@ module.exports.getRelationsWithTypesFromDb = function (req, res) {
     var getType = req.params.type;
     var secondEntity = req.params.secondEntity;
 
-    var entityModel = mongoose.model('entity_relations', entity);
+    var entityModel = mongoose.model(configurations.RELATIONS_TABLE, entity);
     var qryObj = {
         "data.firstEntity":getEntity,
         "data.firstIdentifier":getIdentifier,
         "data.relationType":getType,
-        "data.secondEntity":secondEntity,
+        "data.secondEntity":secondEntity
     };
     entityModel.find(qryObj, function (err, records) {
         if (err) {
@@ -142,13 +146,13 @@ module.exports.deleteRelationsFromDB = function (req, res) {
     var secondIdentifier = req.params.secondIdentifier;
     var relationType = req.params.relationType;
 
-    var entityModel = mongoose.model('entity_relations', entity);
+    var entityModel = mongoose.model(configurations.RELATIONS_TABLE, entity);
     var qryObj = {
         "data.firstEntity":firstEntity,
         "data.firstIdentifier":firstIdentifier,
         "data.relationType":relationType,
         "data.secondEntity":secondEntity,
-        "data.secondIdentifier":secondIdentifier,
+        "data.secondIdentifier":secondIdentifier
     };
     entityModel.findOneAndRemove(qryObj, function (err, records) {
         if (err) {
