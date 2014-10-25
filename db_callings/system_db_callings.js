@@ -26,7 +26,7 @@ module.exports.createNewSystemUser = function (req, res) {
 
             /******* check relation existance ********/
             var checkSystemUserCollection = mongoose.model('system_users', entity);
-            checkSystemUserCollection.find({"data.username": username}, function (systemUserExistenceErr, systemUserRecord){
+            checkSystemUserCollection.find({"data.username": username}, function (systemUserExistenceErr, systemUserRecord) {
                 if (systemUserExistenceErr) {
                     logger.info("NodeGrid:system_db_callings/createNewSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
                     res.send("Error occurred at system_users entity database check: " + systemUserExistenceErr);
@@ -41,8 +41,8 @@ module.exports.createNewSystemUser = function (req, res) {
                                 "name": name,
                                 "username": username,
                                 "password": password,
-                                "createdTime":currentTimestamp,
-                                "lastAccessedTime":""
+                                "createdTime": currentTimestamp,
+                                "lastAccessedTime": ""
                             };
 
                             logger.info("NodeGrid:system_db_callings/createNewSystemUser - Created database OBJECT: " + JSON.stringify(dbObject));
@@ -84,18 +84,18 @@ module.exports.getSystemUser = function (userData, endPoint, callback) {
     if (endPoint.toString() === 'USER_ID') {
 
         system_users.find({"_id": userData}, function (systemUserExistenceErr, systemUserRecord) {
-           if (systemUserExistenceErr) {
-               logger.info("NodeGrid:system_db_callings/getSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
-               callback(0, "Error occurred at system_users entity database check: " + systemUserExistenceErr);
-           } else {
-               if (systemUserRecord.length != 0) {
-                   logger.info("NodeGrid:system_db_callings/getSystemUser - Successfully data captured");
-                   callback(1, systemUserRecord);
-               } else {
-                   logger.info("NodeGrid:system_db_callings/getSystemUser - No records found from given system userId");
-                   callback(0, "No records found from given system userId");
-               }
-           }
+            if (systemUserExistenceErr) {
+                logger.info("NodeGrid:system_db_callings/getSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
+                callback(0, "Error occurred at system_users entity database check: " + systemUserExistenceErr);
+            } else {
+                if (systemUserRecord.length != 0) {
+                    logger.info("NodeGrid:system_db_callings/getSystemUser - Successfully data captured");
+                    callback(1, systemUserRecord);
+                } else {
+                    logger.info("NodeGrid:system_db_callings/getSystemUser - No records found from given system userId");
+                    callback(0, "No records found from given system userId");
+                }
+            }
         });
     } else {
         if (endPoint.toString() === 'USERNAME') {
@@ -154,19 +154,44 @@ module.exports.saveNewToken = function (tokenObj, callback) {
     });
 };
 
+module.exports.updateExpiredToken = function (oldTokenObject, newAccessToken, newCreatedTime, callback) {
+
+    var newTokenObject = oldTokenObject;
+    newTokenObject.data.accessToken = newAccessToken;
+    newTokenObject.data.createdTime = newCreatedTime;
+    newTokenObject.data.expiringTime = newCreatedTime + (3600 * 24);
+
+    updateTokenObject(newTokenObject, "valid", function (status, response) {
+        if (status == 1) {
+            logger.info("NodeGrid:system_db_callings/updateExpiredToken - AccessToken updated successfully. OBJECT: " + JSON.stringify(response));
+            callback("AccessToken updated successfully. OBJECT: " + JSON.stringify(response));
+        } else {
+            logger.info("NodeGrid:system_db_callings/updateExpiredToken - AccessToken object updating failed. ERROR: " + response);
+            callback("AccessToken object updating failed. ERROR: " + response);
+        }
+    });
+};
+
 module.exports.checkTokenExistence = function (userId, callback) {
 
     //create collection object for tokens
     var tokens = mongoose.model('tokens', entity);
-    tokens.find({"data.userId": userId, "data.status":"valid"}, function (tokenExistenceErr, tokenRecord) {
+    tokens.find({"data.userId": userId}, function (tokenExistenceErr, tokenRecord) {
         if (tokenExistenceErr) {
             logger.info("NodeGrid:system_db_callings/checkTokenExistence - Error occurred at tokens database check. ERROR: " + tokenExistenceErr);
             callback(0, "Error occurred at tokens entity database check: " + tokenExistenceErr);
         } else {
             if (tokenRecord.length == 0) {
+                logger.info("NodeGrid:system_db_callings/checkTokenExistence - No created tokens");
                 callback(1, "no created tokens");
             } else {
-                callback(0, tokenRecord);
+                if (tokenRecord[0].data.status == 'expired') {
+                    logger.info("NodeGrid:system_db_callings/checkTokenExistence - Token expired");
+                    callback(2, tokenRecord)
+                } else {
+                    logger.info("NodeGrid:system_db_callings/checkTokenExistence - Valid token already exist for given userId");
+                    callback(0, tokenRecord);
+                }
             }
         }
     });
@@ -178,7 +203,7 @@ module.exports.checkTokenValidity = function (accessToken, callback) {
 
     //create collection object for tokens
     var tokens = mongoose.model('tokens', entity);
-    tokens.find({"data.accessToken": accessToken, "data.status":"valid"}, function (tokenExistenceErr, tokenRecord) {
+    tokens.find({"data.accessToken": accessToken, "data.status": "valid"}, function (tokenExistenceErr, tokenRecord) {
         if (tokenExistenceErr) {
             logger.info("NodeGrid:system_db_callings/checkTokenValidity - Error occurred at tokens database check. ERROR: " + tokenExistenceErr);
             callback(0, "Error occurred at tokens entity database check: " + tokenExistenceErr);
@@ -189,7 +214,7 @@ module.exports.checkTokenValidity = function (accessToken, callback) {
                 if (tokenExpiringTime > currentTimestamp) {
                     callback(1, JSON.stringify(tokenRecord));
                 } else {
-                    updateTokenObject(accessToken, "expired", function(status, response) {
+                    updateTokenObject(tokenRecord[0], "expired", function (status, response) {
                         if (status == 1) {
                             callback(3, "Given token is expired. OBJECT: " + JSON.stringify(response));
                         } else {
@@ -204,35 +229,28 @@ module.exports.checkTokenValidity = function (accessToken, callback) {
     });
 };
 
-function updateTokenObject (accessToken, status, callback) {
+function updateTokenObject(tokenRecord, status, callback) {
 
     //create collection object for tokens
     var tokens = mongoose.model('tokens', entity);
 
-    tokens.find({"data.accessToken": accessToken, "data.status":"valid"}, function (tokenExistenceErr, tokenRecord) {
-        if (tokenExistenceErr) {
-            logger.info("NodeGrid:system_db_callings/updateTokenObject - Error occurred at tokens database check. ERROR: " + tokenExistenceErr);
-            callback(0, "Error occurred at tokens entity database check: " + tokenExistenceErr);
-        } else {
-            var tokenObjectId = tokenRecord[0]._id;
-            var tokenObject = tokenRecord[0];
-            tokenObject.data.status = status;
+    var tokenObjectId = tokenRecord._id;
+    var tokenObject = tokenRecord;
+    tokenObject.data.status = status;
 
-            //TODO: New object is created, need to update the object in the database
-            tokens.remove({"_id": tokenObjectId}, function (tokenRemoveErr, tokenDelete){
-                if (tokenRemoveErr) {
-                    logger.info("NodeGrid:system_db_callings/updateTokenObject - Error occurred at token database check. ERROR: " + tokenRemoveErr);
+    //TODO: New object is created, need to update the object in the database
+    tokens.remove({"_id": tokenObjectId}, function (tokenRemoveErr, tokenDelete) {
+        if (tokenRemoveErr) {
+            logger.info("NodeGrid:system_db_callings/updateTokenObject - Error occurred at token database check. ERROR: " + tokenRemoveErr);
+        } else {
+            var newEntity = new tokens(tokenObject);
+            newEntity.save(function (err, savedToken) {
+                if (err) {
+                    logger.info("NodeGrid:system_db_callings/updateTokenObject - Token update failed. ERROR: " + err);
+                    callback(0, err);
                 } else {
-                    var newEntity = new tokens(tokenObject);
-                    newEntity.save(function (err, savedToken) {
-                        if (err) {
-                            logger.info("NodeGrid:system_db_callings/updateTokenObject - Token update failed. ERROR: " + err);
-                            callback(0, err);
-                        } else {
-                            logger.info("NodeGrid:system_db_callings/updateTokenObject - Token updated successfully. OBJECT: " + JSON.stringify(savedToken));
-                            callback(1, savedToken);
-                        }
-                    });
+                    logger.info("NodeGrid:system_db_callings/updateTokenObject - Token updated successfully. OBJECT: " + JSON.stringify(savedToken));
+                    callback(1, savedToken);
                 }
             });
         }
