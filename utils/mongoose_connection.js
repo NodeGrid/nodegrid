@@ -4,6 +4,7 @@
  */
 
 var mongoose = require('mongoose');
+var logger = require('./log');
 var fs = require('fs');
 var configurations = JSON.parse(fs.readFileSync('config.json', encoding="ascii"));
 mongoose.connect('mongodb://'+configurations.DB_HOST+'/'+configurations.DB_NAME);
@@ -26,3 +27,7 @@ module.exports.createMongooseConnection = function() {
 
     return connection;
 };
+
+mongoose.connection.on('error', function (err) {
+ 	logger.error("Could not connect to a mongodb instance "+err);
+});
