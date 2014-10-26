@@ -6,6 +6,7 @@
 var crypto = require('crypto');
 var bCrypt = require('bcrypt-nodejs');
 var logger = require('./log');
+var utils = require('./utils');
 var systemDb = require('../db_callings/system_db_callings');
 
 module.exports.generateUserToken = function (req, res) {
@@ -32,30 +33,38 @@ module.exports.generateUserToken = function (req, res) {
                             "expiringTime":(currentTimestamp + (3600 * 24)),
                             "status":"valid"
                         };
-                        systemDb.saveNewToken(tokenDbObject, function (response){
+                        systemDb.saveNewToken(tokenDbObject, function (status, response){
                             logger.info("NodeGrid:token_master/generateUserToken - Saving new token");
-                            res.send(response);
+                            if (status == 1) {
+                                utils.sendResponse(res, 200, 'New accessToken saved successfully', response);
+                            } else {
+                                utils.sendResponse(res, 500, 'Internal Server Error - New token adding failed', response);
+                            }
                         });
                     } else {
                         if (status == 2) {
                             accessToken = (crypto.createHash('sha1').update(current_date + random + req.body.username).digest('hex'));
-                            systemDb.updateExpiredToken(checkData[0], accessToken, currentTimestamp, function (response) {
+                            systemDb.updateExpiredToken(checkData[0], accessToken, currentTimestamp, function (status, response) {
                                 logger.info("NodeGrid:token_master/generateUserToken - Updating existing token");
-                                res.send(response);
+                                if (status == 1) {
+                                    utils.sendResponse(res, 200, 'AccessToken updated successfully', response);
+                                } else {
+                                    utils.sendResponse(res, 500, 'Internal Server Error - AccessToken object updating failed', response);
+                                }
                             });
                         } else {
-                            res.send(checkData);
+                            utils.sendResponse(res, 409, 'Conflict - Valid token already exist', checkData);
                         }
                     }
                 });
 
             } else {
                 logger.info("NodeGrid:token_master/generateUserToken - User authentication failed. Please check username & password");
-                res.send("User authentication failed. Please check username & password");
+                utils.sendResponse(res, 401, 'Unauthorized - Please check username & password', 'EMPTY');
             }
         } else {
             logger.info("NodeGrid:token_master/generateUserToken - No user found from given username");
-            res.send("No user found from given username");
+            utils.sendResponse(res, 401, 'Unauthorized - No user found', 'EMPTY');
         }
     });
 };

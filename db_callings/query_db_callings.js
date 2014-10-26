@@ -4,6 +4,7 @@
  */
 
 var logger = require('../utils/log');
+var utils = require('../utils/utils');
 var mongo_connection = require('../utils/mongoose_connection');
 var connectionObj = mongo_connection.createMongooseConnection();
 
@@ -20,11 +21,12 @@ module.exports.getAllFromDB = function (req, res) {
     var entityModel = mongoose.model(req.params.modelName, entity);
     entityModel.find({}, function (err, records) {
         if (err) {
-            logger.info("NodeGrid:query_db_callings/getAllFromDB - " + req.params.modelName + " data querying was failed. ERROR: " + err);
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
+            utils.sendResponse(res, 500, 'Internal Server Error - ['+ req.params.modelName +'] data querying was failed', err);
         } else {
-            logger.info("NodeGrid:query_db_callings/getAllFromDB - " + req.params.modelName + " data successfully retrieved");
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data successfully retrieved");
+            utils.sendResponse(res, 200, '['+ req.params.modelName +'] data successfully retrieved', records);
         }
-        res.send(records);
     });
 
 };
@@ -39,11 +41,12 @@ module.exports.getOneFromDB = function (req, res) {
     var entityModel = mongoose.model(req.params.modelName, entity);
     entityModel.findOne({_id: req.params.id}, function (err, records) {
         if (err) {
-            logger.info("NodeGrid:query_db_callings/getAllFromDB - " + req.params.modelName + " data querying was failed. ERROR: " + err);
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
+            utils.sendResponse(res, 500, 'Internal Server Error - ['+ req.params.modelName +'] data querying was failed', err);
         } else {
-            logger.info("NodeGrid:query_db_callings/getAllFromDB - " + req.params.modelName + " data successfully retrieved");
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data successfully retrieved");
+            utils.sendResponse(res, 200, '['+ req.params.modelName +'] data successfully retrieved', records);
         }
-        res.send(records);
     });
 
 };

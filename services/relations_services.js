@@ -5,6 +5,7 @@
 
 var relationsDb = require('../db_callings/relations_db_callings');
 var logger = require('../utils/log');
+var utils = require('../utils/utils');
 var tokenMaster = require('../utils/token_master');
 
 /**
@@ -20,7 +21,7 @@ module.exports.handleCreateRelationsPost = function (req, res) {
         if (status == 1) {
             relationsDb.saveRelationToDb(req, res);
         } else {
-            res.send(response);
+            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
         }
     });
 };
@@ -33,7 +34,7 @@ module.exports.handleRetrieveRelationsWithType = function (req, res) {
         if (status == 1) {
             relationsDb.getRelationsWithTypesFromDb(req, res);
         } else {
-            res.send(response);
+            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
         }
     });
 };
@@ -46,7 +47,7 @@ module.exports.handleDeleteRelations = function (req, res) {
         if (status == 1) {
             relationsDb.deleteRelationsFromDB(req, res);
         } else {
-            res.send(response);
+            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
         }
     });
 };

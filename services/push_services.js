@@ -1,6 +1,7 @@
 var pushDb = require('../db_callings/push_db_callings');
 var pushNotifierDb = require('../db_callings/push_notifiers_db_callings');
 var logger = require('../utils/log');
+var utils = require('../utils/utils');
 var tokenMaster = require('../utils/token_master');
 
 /**
@@ -16,6 +17,7 @@ module.exports.sendPushByEntities = function (req, res, sendToAll) {
         if (status == 1) {
             pushDb.getEntitiesForPush(req, res, sendToAll);
         } else {
+            //TODO: set response as follows. [utils.sendResponse(res, <statusCode>, <statusMessage>, <data object if any else 'EMPTY'>)]
             res.send(response);
         }
     });
@@ -34,6 +36,7 @@ module.exports.sendPushByEntityRelations = function (req, res) {
         if (status == 1) {
             pushDb.getEntityRelationsForPush(req, res);
         } else {
+            //TODO: set response as follows. [utils.sendResponse(res, <statusCode>, <statusMessage>, <data object if any else 'EMPTY'>)]
             res.send(response);
         }
     });
@@ -52,6 +55,7 @@ module.exports.setPushNotifiers = function (req, res, type) {
         if (status == 1) {
             pushNotifierDb.setNotifier(req, res, type);
         } else {
+            //TODO: set response as follows. [utils.sendResponse(res, <statusCode>, <statusMessage>, <data object if any else 'EMPTY'>)]
             res.send(response);
         }
     });
@@ -70,6 +74,7 @@ module.exports.getPushNotifiers = function (req, res, type) {
         if (status == 1) {
             pushNotifierDb.getNotifier(req, res, type);
         } else {
+            //TODO: set response as follows. [utils.sendResponse(res, <statusCode>, <statusMessage>, <data object if any else 'EMPTY'>)]
             res.send(response);
         }
     });

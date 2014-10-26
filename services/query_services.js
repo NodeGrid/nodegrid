@@ -5,6 +5,7 @@
 
 var queryDb = require('../db_callings/query_db_callings');
 var logger = require('../utils/log');
+var utils = require('../utils/utils');
 var tokenMaster = require('../utils/token_master');
 
 /**
@@ -20,7 +21,7 @@ module.exports.handleQueryModelGet = function (req, res) {
         if (status == 1) {
             queryDb.getAllFromDB(req,res);
         } else {
-            res.send(response);
+            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
         }
     });
 };
@@ -38,7 +39,7 @@ module.exports.handleQueryModelGetOne = function (req, res) {
         if (status == 1) {
             queryDb.getOneFromDB(req,res);
         } else {
-            res.send(response);
+            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
         }
     });
 };

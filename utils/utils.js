@@ -24,4 +24,31 @@ module.exports.createLoggerDir = function () {
     		logger.info('NodeGrid:util/createLoggerDir - Logs dir is exists');
     	}
   	}); 
- }
+ };
+
+module.exports.sendResponse = function (res, statusCode, statusMessage, dataObject) {
+
+    var responseObj;
+    if (dataObject != 'EMPTY') {
+        responseObj = {
+            "status":"ERROR",
+            "msg":statusMessage,
+            "data":dataObject
+        };
+    } else {
+        responseObj = {
+            "status":"ERROR",
+            "msg":statusMessage
+        };
+    }
+
+    if (statusCode == 200) {
+        logger.info('NodeGrid:util/sendResponse - [' + statusCode + '] success response sent');
+        responseObj.status = "SUCCESS";
+        res.send(responseObj);
+    } else {
+        logger.info('NodeGrid:util/sendResponse - [' + statusCode + '] error response sent');
+        responseObj.status = "ERROR";
+        res.send(statusCode, responseObj);
+    }
+};

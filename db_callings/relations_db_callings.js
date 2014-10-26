@@ -4,6 +4,7 @@
  */
 
 var logger = require('../utils/log');
+var utils = require('../utils/utils');
 var mongo_connection = require('../utils/mongoose_connection');
 var connectionObj = mongo_connection.createMongooseConnection();
 
@@ -34,7 +35,7 @@ module.exports.saveRelationToDb = function (req, res) {
     checkCollection.find({_id: firstIdentifier}, function (firstErr, firstRecords) {
         if (firstErr) {
             logger.info("NodeGrid:relations_db_callings/saveRelationToDb - Error occurred at [" + firstEntity + "] database check. ERROR: " + firstErr);
-            res.send("Error occurred at first entity database check: " + firstErr);
+            utils.sendResponse(res, 500, "Internal Server Error - Error occurred at [" + firstEntity + "] database check", firstErr);
         }
         else {
             if (firstRecords.length != 0) {
@@ -43,7 +44,7 @@ module.exports.saveRelationToDb = function (req, res) {
                 checkSecondCollection.find({_id: secondIdentifier}, function (secondErr, secondRecords) {
                     if (secondErr) {
                         logger.info("NodeGrid:relations_db_callings/saveRelationToDb - Error occurred at [" + secondEntity + "] database check. ERROR: " + secondErr);
-                        res.send("Error occured at second entity database check: " + secondErr);
+                        utils.sendResponse(res, 500, "Internal Server Error - Error occurred at [" + secondEntity + "] database check", secondErr);
                     } else {
                         if (secondRecords.length != 0) {
 
@@ -54,10 +55,10 @@ module.exports.saveRelationToDb = function (req, res) {
                                 function (relationExistenceErr, relationRecords) {
                                     if (relationExistenceErr) {
                                         logger.info("NodeGrid:relations_db_callings/saveRelationToDb - Error occurred at entity_relations database check. ERROR: " + relationExistanceErr);
-                                        res.send("Error occurred at entity_relations entity database check: " + relationExistenceErr);
+                                        utils.sendResponse(res, 500, "Internal Server Error - Error occurred at entity_relations entity database check", relationExistenceErr);
                                     } else {
                                         if (relationRecords.length == 0) {
-                                            dbObject = {
+                                            var dbObject = {
                                                 "firstEntity": firstEntity,
                                                 "firstIdentifier": firstIdentifier,
                                                 "relationType": relationType,
@@ -69,15 +70,15 @@ module.exports.saveRelationToDb = function (req, res) {
                                             newEntry.save(function (err, savedRelationship) {
                                                 if (err) {
                                                     logger.info("NodeGrid:relations_db_callings/saveRelationToDb - Error occurred at database insertion. ERROR: " + err);
-                                                    res.send("Error occurred at database insertion: " + err);
+                                                    utils.sendResponse(res, 500, "Internal Server Error - Error occurred at database insertion", err);
                                                 } else {
                                                     logger.info("NodeGrid:relations_db_callings/saveRelationToDb - New relations added successfully. OBJECT: " + savedRelationship);
-                                                    res.send(savedRelationship);
+                                                    utils.sendResponse(res, 200, "New relations added successfully", savedRelationship);
                                                 }
                                             });
                                         } else {
                                             logger.info("NodeGrid:relations_db_callings/saveRelationToDb - Given relation is already exists");
-                                            res.send("Given relation is already exists");
+                                            utils.sendResponse(res, 409, "Conflict - Given relation is already exists", 'EMPTY');
                                         }
                                     }
                                 });
@@ -85,14 +86,14 @@ module.exports.saveRelationToDb = function (req, res) {
 
                         } else {
                             logger.info("NodeGrid:relations_db_callings/saveRelationToDb - Given second entity is not available in the database");
-                            res.send("Given second entity is not available in the database");
+                            utils.sendResponse(res, 404, "Not Found - Given second entity is not available in the database", 'EMPTY');
                         }
                     }
                 });
                 /********* check second entity existance **********/
             } else {
                 logger.info("NodeGrid:relations_db_callings/saveRelationToDb - Given first entity is not available in the database");
-                res.send("Given first entity is not available in the database");
+                utils.sendResponse(res, 404, "Not Found - Given first entity is not available in the database", 'EMPTY');
             }
         }
     });
@@ -116,6 +117,7 @@ module.exports.getRelationsWithTypesFromDb = function (req, res) {
     entityModel.find(qryObj, function (err, records) {
         if (err) {
             logger.info("NodeGrid:relations_db_callings/getRelationsWithTypesFromDb - [entity_relations] data querying was failed. ERROR: " + err);
+            utils.sendResponse(res, 500, "Internal Server Error - [entity_relations] data querying was failed", err);
         } else {
             logger.info("NodeGrid:relations_db_callings/getRelationsWithTypesFromDb - [entity_relations] data successfully retrieved");
             
@@ -128,13 +130,14 @@ module.exports.getRelationsWithTypesFromDb = function (req, res) {
             relationModel.find(qryObj, function (err, relationRecords) {
                 if (err) {
                     logger.info("NodeGrid:relations_db_callings/getRelationsWithTypesFromDb - [entity_relations] data querying was failed. ERROR: " + err);
+                    utils.sendResponse(res, 500, "Internal Server Error - [entity_relations] data querying was failed", err);
                 } else {
-                    res.send(relationRecords);
+                    logger.info("NodeGrid:query_db_callings/getRelationsWithTypesFromDb - [entity_relations] data successfully retrieved");
+                    utils.sendResponse(res, 200, "[entity_relations] data retrieved successfully", relationRecords);
                 }
             });
 
         }
-       // res.send(records);
     });
 };
 
@@ -157,9 +160,10 @@ module.exports.deleteRelationsFromDB = function (req, res) {
     entityModel.findOneAndRemove(qryObj, function (err, records) {
         if (err) {
             logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data querying was failed. ERROR: " + err);
+            utils.sendResponse(res, 500, "Internal Server Error - [entity_relations] data querying was failed", err);
         } else {
             logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data relationship successfully deleted");
-            res.send(records);
+            utils.sendResponse(res, 200, "[entity_relations] data relationship successfully deleted", records);
         }
     });
 };

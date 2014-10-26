@@ -4,6 +4,7 @@
  */
 
 var logger = require('../utils/log');
+var utils = require('../utils/utils');
 var mongo_connection = require('../utils/mongoose_connection');
 var connectionObj = mongo_connection.createMongooseConnection();
 var bCrypt = require('bcrypt-nodejs');
@@ -54,29 +55,29 @@ module.exports.createNewSystemUser = function (req, res) {
                             newEntry.save(function (err, savedUser) {
                                 if (err) {
                                     logger.info("NodeGrid:system_db_callings/createNewSystemUser - Error occurred at database insertion. ERROR: " + err);
-                                    res.send("Error occurred at database insertion: " + err);
+                                    utils.sendResponse(res, 500, "Internal Server Error - Error occurred at database insertion.", err);
                                 } else {
                                     logger.info("NodeGrid:system_db_callings/createNewSystemUser - New system user added successfully. OBJECT: " + savedUser);
-                                    res.send(savedUser);
+                                    utils.sendResponse(res, 200, "New system user added successfully", savedUser);
                                 }
                             });
                         } else {
                             logger.info("NodeGrid:system_db_callings/createNewSystemUser - User's [password] can't be empty.");
-                            res.send("User's [password] can't be empty.");
+                            utils.sendResponse(res, 400, "Bad Request - - User's [password] can't be empty.", "EMPTY");
                         }
                     } else {
                         logger.info("NodeGrid:system_db_callings/createNewSystemUser - Given [username] is already exists");
-                        res.send("Given [username] is already exists");
+                        utils.sendResponse(res, 409, "Conflict - Given [username] is already exists", "EMPTY");
                     }
                 }
             });
         } else {
             logger.info("NodeGrid:system_db_callings/createNewSystemUser - User's [username] can't be empty.");
-            res.send("User's [username] can't be empty.");
+            utils.sendResponse(res, 400, "Bad Request - User's [username] can't be empty.", "EMPTY");
         }
     } else {
         logger.info("NodeGrid:system_db_callings/createNewSystemUser - User's [name] can't be empty.");
-        res.send("User's [name] can't be empty.");
+        utils.sendResponse(res, 400, "Bad Request - User's [name] can't be empty.", "EMPTY");
     }
 };
 
@@ -90,7 +91,7 @@ module.exports.getSystemUser = function (userData, endPoint, callback) {
         system_users.find({"_id": userData}, function (systemUserExistenceErr, systemUserRecord) {
             if (systemUserExistenceErr) {
                 logger.info("NodeGrid:system_db_callings/getSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
-                callback(0, "Error occurred at system_users entity database check: " + systemUserExistenceErr);
+                callback(2, "Error occurred at system_users entity database check: " + systemUserExistenceErr);
             } else {
                 if (systemUserRecord.length != 0) {
                     logger.info("NodeGrid:system_db_callings/getSystemUser - Successfully data captured");
@@ -107,7 +108,7 @@ module.exports.getSystemUser = function (userData, endPoint, callback) {
             system_users.find({"data.username": userData}, function (systemUserExistenceErr, systemUserRecord) {
                 if (systemUserExistenceErr) {
                     logger.info("NodeGrid:system_db_callings/getSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
-                    callback(0, "Error occurred at system_users entity database check: " + systemUserExistenceErr);
+                    callback(2, "Error occurred at system_users entity database check: " + systemUserExistenceErr);
                 } else {
                     if (systemUserRecord.length != 0) {
                         logger.info("NodeGrid:system_db_callings/getSystemUser - Successfully data captured");
@@ -133,10 +134,10 @@ module.exports.removeSystemUser = function (req, res) {
     system_users.remove({"_id": userId}, function (systemUserExistenceErr, systemUserDelete) {
         if (systemUserExistenceErr) {
             logger.info("NodeGrid:system_db_callings/removeSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
-            res.send("Error occurred at system_users entity database check: " + systemUserExistenceErr);
+            utils.sendResponse(res, 500, "Internal Server Error - Error occurred at system_users entity database check.", systemUserExistenceErr);
         } else {
             logger.info("NodeGrid:system_db_callings/removeSystemUser - System user removed from the collection successfully. STATUS: " + systemUserDelete);
-            res.send("System user removed from the collection successfully. STATUS: " + systemUserDelete);
+            utils.sendResponse(res, 200, "System user removed from the collection successfully.", systemUserDelete);
         }
     });
 };
@@ -150,10 +151,10 @@ module.exports.saveNewToken = function (tokenObj, callback) {
     newEntity.save(function (err, savedToken) {
         if (err) {
             logger.info("NodeGrid:system_db_callings/saveNewToken - New token adding failed. ERROR: " + err);
-            callback(err);
+            callback(0, err);
         } else {
             logger.info("NodeGrid:system_db_callings/saveNewToken - New token added successfully. OBJECT: " + JSON.stringify(savedToken));
-            callback(savedToken);
+            callback(1, savedToken);
         }
     });
 };
@@ -168,10 +169,10 @@ module.exports.updateExpiredToken = function (oldTokenObject, newAccessToken, ne
     updateTokenObject(newTokenObject, "valid", function (status, response) {
         if (status == 1) {
             logger.info("NodeGrid:system_db_callings/updateExpiredToken - AccessToken updated successfully. OBJECT: " + JSON.stringify(response));
-            callback("AccessToken updated successfully. OBJECT: " + JSON.stringify(response));
+            callback(1, response);
         } else {
             logger.info("NodeGrid:system_db_callings/updateExpiredToken - AccessToken object updating failed. ERROR: " + response);
-            callback("AccessToken object updating failed. ERROR: " + response);
+            callback(0, response);
         }
     });
 };

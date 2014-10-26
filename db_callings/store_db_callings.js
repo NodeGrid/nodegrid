@@ -4,6 +4,7 @@
  */
 
 var logger = require('../utils/log');
+var utils = require('../utils/utils');
 var mongo_connection = require('../utils/mongoose_connection');
 var extend = require('node.extend');
 
@@ -24,10 +25,11 @@ module.exports.saveModelOrEntityToDb = function (req, res) {
     newEntity.save(function (err, savedEntity) {
         if (err) {
             logger.info("NodeGrid:store_db_callings/saveModelOrEntityToDb - New model adding failed. ERROR: " + err);
+            utils.sendResponse(res, 500, "Internal Server Error - New model adding failed", err);
         } else {
             logger.info("NodeGrid:store_db_callings/saveModelOrEntityToDb - New model added successfully. OBJECT: " + JSON.stringify(savedEntity));
+            utils.sendResponse(res, 200, "New model added successfully", savedEntity);
         }
-        res.send(savedEntity);
     });
 };
 
@@ -51,10 +53,11 @@ module.exports.updateEntity = function (req, res) {
             entityModel.update({_id: req.params.id}, {data: destObject}, function (err, savedEntity) {
                 if (err) {
                     logger.info("NodeGrid:store_db_callings/updateEntity - Object updating was failed. ERROR: " + err);
+                    utils.sendResponse(res, 500, "Internal Server Error - Object updating was failed.", err);
                 } else {
                     logger.info("NodeGrid:store_db_callings/updateEntity - Object updated successfully. OBJECT: " + JSON.stringify(savedEntity));
+                    utils.sendResponse(res, 200, "Object updated successfully", savedEntity);
                 }
-                res.send(req.body);
             });
 
         }
@@ -71,11 +74,12 @@ module.exports.deleteEntity = function (req, res) {
     var entityModel = mongoose.model(req.params.modelName, entity);
     entityModel.findOneAndRemove({_id: req.params.id}, function (err, records) {
         if (err) {
-            logger.info("NodeGrid:query_db_callings/deleteEntity - " + req.params.modelName + " data querying was failed. ERROR: " + err);
+            logger.info("NodeGrid:query_db_callings/deleteEntity - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
+            utils.sendResponse(res, 500, "Internal Server Error - [" + req.params.modelName + "] data querying was failed.", err);
         } else {
-            logger.info("NodeGrid:query_db_callings/deleteEntity - " + req.params.modelName + " data successfully deleted");
+            logger.info("NodeGrid:query_db_callings/deleteEntity - [" + req.params.modelName + "] data successfully deleted");
+            utils.sendResponse(res, 200, "[" + req.params.modelName + "] data successfully deleted", records);
         }
-        res.send(records);
     });
 
 };

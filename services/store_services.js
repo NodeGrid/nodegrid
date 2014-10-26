@@ -5,6 +5,7 @@
 
 var storeDb = require('../db_callings/store_db_callings');
 var logger = require('../utils/log');
+var utils = require('../utils/utils');
 var tokenMaster = require('../utils/token_master');
 
 /**
@@ -20,7 +21,7 @@ module.exports.handleStoreModelsPost = function (req, res) {
         if (status == 1) {
             storeDb.saveModelOrEntityToDb(req, res);
         } else {
-            res.send(response);
+            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
         }
     });
 };
@@ -38,7 +39,7 @@ module.exports.handleStoreModelsPut = function (req, res) {
         if (status == 1) {
             storeDb.updateEntity(req, res);
         } else {
-            res.send(response)
+            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
         }
     });
 };
@@ -56,7 +57,7 @@ module.exports.handleDeleteModelsItem = function (req, res) {
         if (status == 1) {
             storeDb.deleteEntity(req, res);
         } else {
-            res.send(response)
+            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
         }
     });
 };

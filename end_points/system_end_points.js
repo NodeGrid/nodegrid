@@ -44,16 +44,16 @@ module.exports.createSystemEndPoints = function(app) {
     });
 
     //Get generated user security token
-    app.post('/system/security/getToken', function(req, res) {
+    /*app.post('/system/security/getToken', function(req, res) {
         logger.info("================================================================================================");
         logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/security/getToken]');
         systemService.handleGetTokenPost(req, res);
-    });
+    });*/
 
     //Check the validity of given security token
-    app.post('/system/security/checkTokenValidity', function(req, res) {
+    /*app.post('/system/security/checkTokenValidity', function(req, res) {
         logger.info("================================================================================================");
         logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/security/checkTokenValidity]');
         systemService.handleCheckTokenValidityPost(req, res);
-    });
+    });*/
 };
