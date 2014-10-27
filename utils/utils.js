@@ -26,6 +26,13 @@ module.exports.createLoggerDir = function () {
   	}); 
  };
 
+/**
+ * This method is for create final response object
+ * @param res NodeJS res object
+ * @param statusCode HTTP status code
+ * @param statusMessage status message
+ * @param dataObject return data object
+ */
 module.exports.sendResponse = function (res, statusCode, statusMessage, dataObject) {
 
     var responseObj;
