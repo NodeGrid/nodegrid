@@ -179,6 +179,8 @@ module.exports.updateExpiredToken = function (oldTokenObject, newAccessToken, ne
 
 module.exports.checkTokenExistence = function (userId, callback) {
 
+    var currentTimestamp = Math.round((new Date()).getTime() / 1000);
+
     //create collection object for tokens
     var tokens = mongoose.model(configurations.TOKEN_TABLE, entity);
     tokens.find({"data.userId": userId}, function (tokenExistenceErr, tokenRecord) {
@@ -194,8 +196,14 @@ module.exports.checkTokenExistence = function (userId, callback) {
                     logger.info("NodeGrid:system_db_callings/checkTokenExistence - Token expired");
                     callback(2, tokenRecord)
                 } else {
-                    logger.info("NodeGrid:system_db_callings/checkTokenExistence - Valid token already exist for given userId");
-                    callback(0, tokenRecord);
+                    var tokenExpiringTime = tokenRecord[0].data.expiringTime;
+                    if (tokenExpiringTime > currentTimestamp) {
+                        logger.info("NodeGrid:system_db_callings/checkTokenExistence - Valid token already exist for given userId");
+                        callback(0, tokenRecord);
+                    } else {
+                        logger.info("NodeGrid:system_db_callings/checkTokenExistence - Token expired");
+                        callback(2, tokenRecord);
+                    }
                 }
             }
         }
@@ -221,9 +229,11 @@ module.exports.checkTokenValidity = function (accessToken, callback) {
                 } else {
                     updateTokenObject(tokenRecord[0], "expired", function (status, response) {
                         if (status == 1) {
-                            callback(3, "Given token is expired. OBJECT: " + JSON.stringify(response));
+                            logger.info("NodeGrid:system_db_callings/checkTokenValidity - Given token is expired. OBJECT: " + response);
+                            callback(3, response);
                         } else {
-                            callback(3, "Given token is expired. Token object updating failed. ERROR: " + response);
+                            logger.info("NodeGrid:system_db_callings/checkTokenValidity - Given token is expired. Token object updating failed. ERROR: " + response);
+                            callback(3, response);
                         }
                     });
                 }
