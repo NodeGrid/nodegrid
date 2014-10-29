@@ -8,13 +8,17 @@ var relationsEndPoints = require('./end_points/relations_end_points');
 var systemEndPoints = require('./end_points/system_end_points');
 var queryEndPoints = require('./end_points/query_end_points');
 var pushEndPoints = require('./end_points/push_end_points');
+var secureApp = require('./security/secure_app');
 
 var app = express();
 app.use(express.bodyParser());
+app.use(function(req, res, next){
+	secureApp.setSecureApp(req, res, next);
+});
 
+systemEndPoints.createSystemEndPoints(app);
 storingEndPoints.createStoreEndPoints(app);
 relationsEndPoints.createRelationsEndPoints(app);
-systemEndPoints.createSystemEndPoints(app);
 queryEndPoints.createQueryEndPoints(app);
 pushEndPoints.createPushEndPoints(app);
 

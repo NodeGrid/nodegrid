@@ -13,7 +13,8 @@ var logger = new(winston.Logger)({
     transports: [
         new(winston.transports.Console)({
             json: false,
-            timestamp: true
+            timestamp: true,
+            colorize: 'true'
         }),
         new winston.transports.File({
             filename: __dirname + '/logs/node_grid-debug.log',
@@ -23,7 +24,8 @@ var logger = new(winston.Logger)({
     exceptionHandlers: [
         new(winston.transports.Console)({
             json: false,
-            timestamp: true
+            timestamp: true,
+            colorize: 'true'
         }),
         new winston.transports.File({
             filename: __dirname + '/logs/node_grid-exceptions.log',

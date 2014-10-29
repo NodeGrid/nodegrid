@@ -11,16 +11,8 @@ var tokenMaster = require('../utils/token_master');
  */
 module.exports.sendPushByEntities = function (req, res, sendToAll) {
     logger.info('NodeGrid:push_services/ sendPushByEntities');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            pushDb.getEntitiesForPush(req, res, sendToAll);
-        } else {
-            //TODO: set response as follows. [utils.sendResponse(res, <statusCode>, <statusMessage>, <data object if any else 'EMPTY'>)]
-            res.send(response);
-        }
-    });
+    pushDb.getEntitiesForPush(req, res, sendToAll);
+
 };
 
 /**
@@ -30,16 +22,8 @@ module.exports.sendPushByEntities = function (req, res, sendToAll) {
  */
 module.exports.sendPushByEntityRelations = function (req, res) {
     logger.info('NodeGrid:push_services/ sendPushByEntityRelations');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            pushDb.getEntityRelationsForPush(req, res);
-        } else {
-            //TODO: set response as follows. [utils.sendResponse(res, <statusCode>, <statusMessage>, <data object if any else 'EMPTY'>)]
-            res.send(response);
-        }
-    });
+    pushDb.getEntityRelationsForPush(req, res);
+
 };
 
 /**
@@ -49,16 +33,8 @@ module.exports.sendPushByEntityRelations = function (req, res) {
  */
 module.exports.setPushNotifiers = function (req, res, type) {
     logger.info('NodeGrid:push_services/ setPushNotifiers');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            pushNotifierDb.setNotifier(req, res, type);
-        } else {
-            //TODO: set response as follows. [utils.sendResponse(res, <statusCode>, <statusMessage>, <data object if any else 'EMPTY'>)]
-            res.send(response);
-        }
-    });
+    pushNotifierDb.setNotifier(req, res, type);
+
 };
 
 /**
@@ -68,14 +44,5 @@ module.exports.setPushNotifiers = function (req, res, type) {
  */
 module.exports.getPushNotifiers = function (req, res, type) {
     logger.info('NodeGrid:push_services/ setPushNotifiers');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            pushNotifierDb.getNotifier(req, res, type);
-        } else {
-            //TODO: set response as follows. [utils.sendResponse(res, <statusCode>, <statusMessage>, <data object if any else 'EMPTY'>)]
-            res.send(response);
-        }
-    });
+    pushNotifierDb.getNotifier(req, res, type);
 };

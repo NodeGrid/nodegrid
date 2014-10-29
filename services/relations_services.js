@@ -15,39 +15,17 @@ var tokenMaster = require('../utils/token_master');
  */
 module.exports.handleCreateRelationsPost = function (req, res) {
     logger.info('NodeGrid:relations_services/handleCreateRelationsPost - Adding attempt a new relationship');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            relationsDb.saveRelationToDb(req, res);
-        } else {
-            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
-        }
-    });
+    relationsDb.saveRelationToDb(req, res);
+
 };
 
 module.exports.handleRetrieveRelationsWithType = function (req, res) {
     logger.info('NodeGrid:relations_services/handleRetrieveRelationsWithType - Retrieving attempt relationships with entity, identifier and type');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            relationsDb.getRelationsWithTypesFromDb(req, res);
-        } else {
-            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
-        }
-    });
+    relationsDb.getRelationsWithTypesFromDb(req, res);
+
 };
 
 module.exports.handleDeleteRelations = function (req, res) {
     logger.info('NodeGrid:relations_services/handleDeleteRelations - Deleteing attempt relationships with entity and identifier');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            relationsDb.deleteRelationsFromDB(req, res);
-        } else {
-            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
-        }
-    });
+    relationsDb.deleteRelationsFromDB(req, res);
 };

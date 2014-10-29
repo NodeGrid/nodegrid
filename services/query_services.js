@@ -15,15 +15,8 @@ var tokenMaster = require('../utils/token_master');
  */
 module.exports.handleQueryModelGet = function (req, res) {
     logger.info('NodeGrid:query_services/ Querying attempt data from given model (collection)');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            queryDb.getAllFromDB(req,res);
-        } else {
-            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
-        }
-    });
+    queryDb.getAllFromDB(req,res);
+ 
 };
 
 /**
@@ -33,13 +26,6 @@ module.exports.handleQueryModelGet = function (req, res) {
  */
 module.exports.handleQueryModelGetOne = function (req, res) {
     logger.info('NodeGrid:query_services/ Querying attempt data from given model (collection)');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            queryDb.getOneFromDB(req,res);
-        } else {
-            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
-        }
-    });
+    queryDb.getOneFromDB(req,res);
+
 };

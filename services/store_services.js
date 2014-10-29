@@ -15,15 +15,7 @@ var tokenMaster = require('../utils/token_master');
  */
 module.exports.handleStoreModelsPost = function (req, res) {
     logger.info('NodeGrid:store_services/ Adding attempt a new model (collection) with data');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            storeDb.saveModelOrEntityToDb(req, res);
-        } else {
-            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
-        }
-    });
+    storeDb.saveModelOrEntityToDb(req, res);
 };
 
 /**
@@ -33,15 +25,7 @@ module.exports.handleStoreModelsPost = function (req, res) {
  */
 module.exports.handleStoreModelsPut = function (req, res) {
     logger.info('NodeGrid:store_services/ handle put');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            storeDb.updateEntity(req, res);
-        } else {
-            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
-        }
-    });
+    storeDb.updateEntity(req, res);
 };
 
 /**
@@ -51,13 +35,6 @@ module.exports.handleStoreModelsPut = function (req, res) {
  */
 module.exports.handleDeleteModelsItem = function (req, res) {
     logger.info('NodeGrid:store_services/ handle put');
-    //Access token from headers
-    var accessToken = req.headers.authorization;
-    tokenMaster.validateAccessToken(accessToken, function (status, response) {
-        if (status == 1) {
-            storeDb.deleteEntity(req, res);
-        } else {
-            utils.sendResponse(res, 401, 'Unauthorized - No valid accessToken', response);
-        }
-    });
+    storeDb.deleteEntity(req, res);
+
 };
