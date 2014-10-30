@@ -57,6 +57,11 @@ module.exports.handleGenerateTokenPost = function (req, res) {
     tokenMaster.generateUserToken(req, res);
 };
 
+module.exports.getSystemStatus = function (req, res) {
+    logger.info('NodeGrid:system_services/getSystemStatus - Get current system status');
+    systemDb.checkSystemStatus(req, res);
+};
+
 /*
 module.exports.handleGetTokenPost = function (req, res) {
     logger.info('NodeGrid:system_services/handleGetTokenPost - Returning generated user security token');

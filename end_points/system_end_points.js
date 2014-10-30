@@ -43,6 +43,12 @@ module.exports.createSystemEndPoints = function(app) {
         systemService.handleGenerateTokenPost(req, res);
     });
 
+    app.get('/system/status', function(req, res){
+        logger.info("================================================================================================");
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/status]');
+        systemService.getSystemStatus(req, res);
+    });
+
     //Get generated user security token
     /*app.post('/system/security/getToken', function(req, res) {
         logger.info("================================================================================================");
