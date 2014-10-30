@@ -75,9 +75,12 @@ module.exports.validateAccessToken = function (accessToken, callback) {
         if (status == 1) {
             logger.info("NodeGrid:token_master/validateAccessToken - Valid accessToken received");
             callback(1, resultData);
-        } else {
-            logger.info("NodeGrid:token_master/validateAccessToken - No valid accessToken received");
-            callback(0, resultData);
+        } else if (status == 2) {
+            logger.info("NodeGrid:token_master/validateAccessToken - No valid token records from given token");
+            callback(2, resultData);
+        } else if (status == 3) {
+            logger.info("NodeGrid:token_master/validateAccessToken - Given token is expired");
+            callback(3, resultData);
         }
     });
 };

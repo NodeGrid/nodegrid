@@ -6,7 +6,6 @@
 var relationsDb = require('../db_callings/relations_db_callings');
 var logger = require('../utils/log');
 var utils = require('../utils/utils');
-var tokenMaster = require('../utils/token_master');
 
 /**
  * This method responsible for creating and saving new relations among existing models

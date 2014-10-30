@@ -2,7 +2,6 @@ var pushDb = require('../db_callings/push_db_callings');
 var pushNotifierDb = require('../db_callings/push_notifiers_db_callings');
 var logger = require('../utils/log');
 var utils = require('../utils/utils');
-var tokenMaster = require('../utils/token_master');
 
 /**
  * This method sends the push notifications based on the devices

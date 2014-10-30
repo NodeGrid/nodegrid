@@ -6,7 +6,6 @@
 var storeDb = require('../db_callings/store_db_callings');
 var logger = require('../utils/log');
 var utils = require('../utils/utils');
-var tokenMaster = require('../utils/token_master');
 
 /**
  * This method handles new collection creating and add objects to given collections
