@@ -37,6 +37,8 @@ This is one of special feature NodeGrid provide to developers. Developers can cr
 
 -----------
 
+<br/>
+
 Installation
 --------------
 
@@ -64,10 +66,14 @@ After setup the pre-requisite clone the NodeGrid to your system.
 
 ----------
 
+<br/>
+
 Samples
 ----------
 
-After you install start `NodeGrid` you can check the application status
+### Application Status
+
+After you install and start `NodeGrid` you can check the application status
 
 #### **check status**
 
@@ -76,9 +82,11 @@ URL: `http://localhost:3000/system/status`
 
 > curl -X GET -H "Content-Type: application/json" http://localhost:3000/system/status
 
-----------
+<br/>
 
-To Use NodeGrid you need to create users, Those created users can access the REST API after authenticate through generated access token.
+### Users
+
+To use NodeGrid you need to create users, Those users can access the REST API.
 
 #### **Create user**
 
@@ -115,9 +123,11 @@ URL: `http://localhost:3000/system/user/remove/<userId>`
 
 > curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/remove/\<userId\>
 
------------
+<br/>
 
-To authenticate REST API user need an accessToken. For each and every REST call, user need to pass generated accessToken from here.
+### Token Authentication
+
+Created user need to authenticate NodeGrid to access the REST API. This authentication happen from accessToken. For each and every REST call, user need to pass accessToken.
 
 #### **Generate AccessToken**
 
