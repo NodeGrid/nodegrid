@@ -45,7 +45,7 @@ module.exports.createSystemEndPoints = function(app) {
 
     app.get('/system/status', function(req, res){
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/status]');
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/status]');
         systemService.getSystemStatus(req, res);
     });
 
