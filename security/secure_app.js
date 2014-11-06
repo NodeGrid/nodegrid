@@ -3,6 +3,22 @@ var utils = require('../utils/utils');
 var logger = require('../utils/log');
 var mongo_connection = require('../utils/mongoose_connection');
 
+//these URL are skips from the Token Valiations
+var skipAuth = [
+    "/system/",
+    "/analytics/"
+];
+
+function isSkippingURL(url){
+    var base = url.split("/")[1];
+    if(skipAuth.indexOf("/"+base+"/") >= 0 ){
+        return true;
+    }
+    else{
+        return false;
+    }
+};
+
 module.exports.setSecureApp = function (req, res, next) {
     logger.info(req.path);
 
@@ -10,7 +26,7 @@ module.exports.setSecureApp = function (req, res, next) {
     var mongo_connection_status = mongo_connection.mongoConnectionStatus();
 
     if (mongo_connection_status == 'CONNECTED') {
-        if (req.path.lastIndexOf('/system/') == 0) {
+        if (isSkippingURL(req.path)) {
             next();
             return;
         }

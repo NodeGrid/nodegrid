@@ -8,6 +8,7 @@
     "mongoose": "3.8.14",
     "node.extend": "1.1.2",
     "socket.io": "1.1.0",
+    "ua-parser": "0.3.3",
     "winston": "0.7.3"
   }
 }

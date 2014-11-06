@@ -3,7 +3,7 @@ var logger = require('./utils/log');
 var utils = require('./utils/utils');
 var io = require('socket.io');
 
-var analytics = require('./analytics/analytics_end_points');
+var analytics = require('./analytics/analytics_services');
 var storingEndPoints = require('./end_points/store_end_points');
 var relationsEndPoints = require('./end_points/relations_end_points');
 var systemEndPoints = require('./end_points/system_end_points');
@@ -14,9 +14,10 @@ var secureApp = require('./security/secure_app');
 var app = express();
 app.use(express.bodyParser());
 app.use(function(req, res, next){
-	secureApp.setSecureApp(req, res, next);
 	analytics.save(req,res,next);
+	secureApp.setSecureApp(req, res, next);
 });
+app.use("/analytics", express.static(__dirname + '/analytics/ui'));
 
 
 systemEndPoints.createSystemEndPoints(app);
