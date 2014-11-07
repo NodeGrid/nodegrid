@@ -17,7 +17,7 @@ module.exports.createSystemAnalyticsEndPoints = function (app) {
 
 module.exports.save = function (req,res,next) {
 
-	if (req.path.lastIndexOf('/analytics/') == 0) {
+	if (req.path.lastIndexOf('/analytics') == 0) {
         return;
     }
 	var token  = false;
