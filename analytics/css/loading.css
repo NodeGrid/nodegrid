@@ -26,10 +26,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  width: 200px;
+  width: 300px;
   height: 25px;
   border: 2px solid #2f2f2f;
-  background-color: #232323;
+  background-color: #fff;
 }
 
 .pace .pace-progress {
@@ -56,20 +56,20 @@
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 
-  max-width: 190px;
+  max-width: 290px;
   position: fixed;
   z-index: 2000;
   display: block;
   position: absolute;
   left: 3px;
-  top: 3px;
-  height: 15px;
-  font-size: 12px;
+  top: 2px;
+  height: 17px;
   background: #2f2f2f;
-  color: #2f2f2f;
-  line-height: 60px;
-  font-weight: bold;
-  font-family:  Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #fff;
+  text-align:center;
+  font-size:40px;
+  line-height: 90px;
+  font-family: 'Raleway', sans-serif;
 }
 
 .pace .pace-progress:after {
@@ -78,5 +78,5 @@
 }
 
 .pace.pace-inactive {
-  display: none;
+  display: none; 
 }

@@ -61,8 +61,8 @@
 
       </div>
 
-      <footer>
-        <p>Build by <span class="text-white"> NodeGrid </span> - 2014</p>
+      <footer id="footerc">
+        
       </footer>
     </div> <!-- /container -->
 
@@ -82,7 +82,9 @@
     <script src="charts/pie_chart_token.js"></script>  
 	<script type="text/javascript">
 	 var newChart = document.getElementById("chart-new");
+	 var footer = document.getElementById("footerc");
 	 newChart.innerHTML = "<div class=\"new\"><p>ADD NEW</p><img src=\"imgs/plus.png\"/></div>";
+	 footer.innerHTML = "<p>Build by <span class=\"text-white\"> NodeGrid </span> - 2014</p>";
 	</script>
   </body>
 </html>
