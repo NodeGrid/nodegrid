@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+	<script src="js/pace.min.js"></script> 
     <link rel="icon" href="../../favicon.ico">
     <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
     <title>NodeGrid - Analytics</title>
@@ -16,6 +17,7 @@
     <!-- Custom styles for this template -->
     <link href="css/jumbotron.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+	<link href="css/loading.css" rel="stylesheet">
   </head>
 
   <body>
@@ -55,10 +57,6 @@
         <div class="col-md-2" id="pie-token">
         </div>
         <div class="col-md-2" id="chart-new">
-          <div class="new">
-          <p>ADD NEW</p>
-          <img src="imgs/plus.png"/>
-          </div>
         </div>
 
       </div>
@@ -82,5 +80,9 @@
     <script src="charts/pie_chart_method.js"></script>
     <script src="charts/pie_chart_device.js"></script>  
     <script src="charts/pie_chart_token.js"></script>  
+	<script type="text/javascript">
+	 var newChart = document.getElementById("chart-new");
+	 newChart.innerHTML = "<div class=\"new\"><p>ADD NEW</p><img src=\"imgs/plus.png\"/></div>";
+	</script>
   </body>
 </html>
