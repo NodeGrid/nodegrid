@@ -73,10 +73,10 @@ After you install and start `NodeGrid` you can check the application status
 
 #### **check status**
 
-URL: `http://localhost:3000/system/status`
+URL: `http://localhost:3000/api/system/status`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json" http://localhost:3000/system/status
+> curl -X GET -H "Content-Type: application/json" http://localhost:3000/api/system/status
 
 <br/>
 
@@ -86,38 +86,38 @@ To use NodeGrid you need to create users, Those users can access the REST API.
 
 #### **Create user**
 
-URL: `http://localhost:3000/system/user/create`
+URL: `http://localhost:3000/api/system/user`
 <br/>Request Type: `POST`
 <br/>Data Object: `{"name":"John Smith", "username":"john", "password":"john123"}`
 
-> curl -X POST -H "Content-Type: application/json" -d '{"name":"John Smith", "username":"john", "password":"john123"}' http://localhost:3000/system/user/create
+> curl -X POST -H "Content-Type: application/json" -d '{"name":"John Smith", "username":"john", "password":"john123"}' http://localhost:3000/api/system/user
 
 #### **Get user from** - *userId*
 
 Replace the `<userId>` from your user's id.
 
-URL: `http://localhost:3000/system/user/get/user_id/<userId>`
+URL: `http://localhost:3000/system/user/<userId>`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/get/user_id/\<userId\>
+> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/\<userId\>
 
 #### **Get user from** - *username*
 
 Replace the `<username>` from your user's username.
 
-URL: `http://localhost:3000/system/user/get/user_id/<username>`
+URL: `http://localhost:3000/system/user/<username>`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/get/user_id/\<username\>
+> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/\<username\>
 
 #### **Delete user from** - *userId*
 
 Replace the `<userId>` from your user's id.
 
-URL: `http://localhost:3000/system/user/remove/<userId>`
-<br/>Request Type: `GET`
+URL: `http://localhost:3000/system/user/<userId>`
+<br/>Request Type: `DELETE`
 
-> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/remove/\<userId\>
+> curl -X DELETE -H "Content-Type: application/json"http://localhost:3000/system/user/\<userId\>
 
 <br/>
 
