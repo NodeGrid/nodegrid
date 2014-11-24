@@ -13,24 +13,53 @@ module.exports.handleCreateSystemUserPost = function (req, res) {
     systemDb.createNewSystemUser(req, res);
 };
 
-module.exports.handleGetSystemUserFromUserIdGet = function (req, res) {
-    logger.info('NodeGrid:system_services/handleGetSystemUserFromUserIdGet - Query given system user from userId');
+module.exports.handleGetSystemUserFromUserParamGet = function (req, res) {
+    logger.info('NodeGrid:system_services/handleGetSystemUserFromUserParamGet - Query given system user from userId');
 
-    var userId = req.params.userId;
-    systemDb.getSystemUser(userId, 'USER_ID', function(status, data) {
-        if (status == 1) {
-            utils.sendResponse(res, 200, 'Data retrieved successfully', data);
-        } else {
-            if (status == 2) {
-                utils.sendResponse(res, 500, 'Internal Server Error - Error occurred at system_users entity database check', 'EMPTY');
+    var userParam = req.params.userParam;
+
+    if (userParam.length == 24) {
+        // First check from UserID, because given parameter is on user-id pattern.
+        systemDb.getSystemUser(userParam, 'USER_ID', function(status, data) {
+            if (status == 1) {
+                utils.sendResponse(res, 200, 'Data retrieved successfully', data);
             } else {
-                utils.sendResponse(res, 204, 'No records found from given system userId', 'EMPTY');
+                if (status == 2) {
+                    utils.sendResponse(res, 500, 'Internal Server Error - Error occurred at system_users entity database check', 'EMPTY');
+                } else {
+                    // No data available from given parameter against user-id.
+                    // Check data from UserName
+                    systemDb.getSystemUser(userParam, 'USERNAME', function (status, data) {
+                        if (status == 1) {
+                            utils.sendResponse(res, 200, 'Data retrieved successfully', data);
+                        } else {
+                            if (status == 2) {
+                                utils.sendResponse(res, 500, 'Internal Server Error - Error occurred at system_users entity database check', 'EMPTY');
+                            } else {
+                                utils.sendResponse(res, 204, 'No records found from given system user-id or username', 'EMPTY');
+                            }
+                        }
+                    });
+                }
             }
-        }
-    });
+        });
+    } else {
+        // Given parameter is not in UserID pattern. Check data from UserName
+        systemDb.getSystemUser(userParam, 'USERNAME', function (status, data) {
+            if (status == 1) {
+                utils.sendResponse(res, 200, 'Data retrieved successfully', data);
+            } else {
+                if (status == 2) {
+                    utils.sendResponse(res, 500, 'Internal Server Error - Error occurred at system_users entity database check', 'EMPTY');
+                } else {
+                    utils.sendResponse(res, 204, 'No records found from given system user-id or username', 'EMPTY');
+                }
+            }
+        });
+    }
 };
 
-module.exports.handleGetSystemUserFromUsernameGet = function (req, res) {
+/*module.exports.handleGetSystemUserFromUsernameGet = function (req, res) {
     logger.info('NodeGrid:system_services/handleGetSystemUserFromUsernameGet - Query given system user from username');
 
     var username = req.params.username;
@@ -45,10 +74,10 @@ module.exports.handleGetSystemUserFromUsernameGet = function (req, res) {
             }
         }
     });
-};
+};*/
 
-module.exports.handleRemoveSystemUserGet = function (req, res) {
-    logger.info('NodeGrid:system_services/handleRemoveSystemUserGet - Remove given system user');
+module.exports.handleRemoveSystemUserDelete = function (req, res) {
+    logger.info('NodeGrid:system_services/handleRemoveSystemUserDelete - Remove given system user');
     systemDb.removeSystemUser(req, res);
 };
 

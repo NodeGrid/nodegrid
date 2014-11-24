@@ -8,31 +8,31 @@ var systemService = require('../services/system_services');
 module.exports.createSystemEndPoints = function(app) {
 
     //Create new system user
-    app.post('/system/user/create', function(req, res) {
+    app.post('/system/user', function(req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/user/create]');
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/user]');
         systemService.handleCreateSystemUserPost(req, res);
     });
 
     //Get given system user from userId
-    app.get('/system/user/get/user_id/:userId', function(req, res) {
+    app.get('/system/user/:userParam', function(req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/user/get/user_id/:userId]');
-        systemService.handleGetSystemUserFromUserIdGet(req, res);
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/user/:userParam]');
+        systemService.handleGetSystemUserFromUserParamGet(req, res);
     });
 
     //Get given system user from username
-    app.get('/system/user/get/username/:username', function(req, res) {
+    /*app.get('/system/user/get/username/:username', function(req, res) {
         logger.info("================================================================================================");
         logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/user/get/username/:username]');
         systemService.handleGetSystemUserFromUsernameGet(req, res);
-    });
+    });*/
 
     //Remove given system user
-    app.get('/system/user/remove/:userId', function(req, res) {
+    app.del('/system/user/:userId', function(req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/user/remove/:userId]');
-        systemService.handleRemoveSystemUserGet(req, res);
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [DELETE/system/user/:userId]');
+        systemService.handleRemoveSystemUserDelete(req, res);
     });
 
 

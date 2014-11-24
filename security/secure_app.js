@@ -13,8 +13,7 @@ function isSkippingURL(url){
     var base = url.split("/")[1];
     if(skipAuth.indexOf("/"+base+"/") >= 0 ){
         return true;
-    }
-    else{
+    } else{
         return false;
     }
 };
