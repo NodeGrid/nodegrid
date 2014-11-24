@@ -3,6 +3,9 @@ var logger = require('./utils/log');
 var utils = require('./utils/utils');
 var io = require('socket.io');
 
+var fs = require('fs');
+var configurations = JSON.parse(fs.readFileSync('config.json', encoding="ascii"));
+
 var analytics = require('./analytics/analytics_services');
 var storingEndPoints = require('./end_points/store_end_points');
 var relationsEndPoints = require('./end_points/relations_end_points');
@@ -28,7 +31,7 @@ queryEndPoints.createQueryEndPoints(app);
 pushEndPoints.createPushEndPoints(app);
 
 //starting the server
-var server = app.listen(3000, function () {
+var server = app.listen(configurations.APP_PORT, function () {
 	utils.createLoggerDir(); //check logs dir exists or not, if not create logs dir
     logger.info('NodeGrid:app/ NodeGrid app started. Listen on port: ' + server.address().port);
 });
