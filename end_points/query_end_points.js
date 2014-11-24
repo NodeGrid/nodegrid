@@ -12,16 +12,16 @@ var queryServices = require('../services/query_services');
 module.exports.createQueryEndPoints = function (app) {
 
     //Retrieve all data from given model (collection)
-    app.get('/:modelName', function (req, res) {
+    app.get('/api/:modelName', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/:modelName]');
+        logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/api/:modelName]');
         queryServices.handleQueryModelGet(req, res);
     });
 
     //Retrieve specifiv data from given model (collection)
-    app.get('/:modelName/:id', function (req, res) {
+    app.get('/api/:modelName/:id', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/:modelName]');
+        logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/api/:modelName]');
         queryServices.handleQueryModelGetOne(req, res);
     });
 };
