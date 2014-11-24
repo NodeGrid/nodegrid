@@ -8,16 +8,16 @@ var systemService = require('../services/system_services');
 module.exports.createSystemEndPoints = function(app) {
 
     //Create new system user
-    app.post('/api/system/user', function(req, res) {
+    app.post('/system/api/user', function(req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/api/system/user]');
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/api/user]');
         systemService.handleCreateSystemUserPost(req, res);
     });
 
     //Get given system user from userId
-    app.get('/api/system/user/:userParam', function(req, res) {
+    app.get('/system/api/user/:userParam', function(req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/api/system/user/:userParam]');
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/api/user/:userParam]');
         systemService.handleGetSystemUserFromUserParamGet(req, res);
     });
 
@@ -29,23 +29,23 @@ module.exports.createSystemEndPoints = function(app) {
     });*/
 
     //Remove given system user
-    app.del('/api/system/user/:userId', function(req, res) {
+    app.del('/system/api/user/:userId', function(req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [DELETE/api/system/user/:userId]');
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [DELETE/system/api/user/:userId]');
         systemService.handleRemoveSystemUserDelete(req, res);
     });
 
 
     //Generate security token
-    app.post('/api/system/security/generateToken', function(req, res){
+    app.post('/system/api/security/generateToken', function(req, res){
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/api/system/security/generateToken]');
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/api/security/generateToken]');
         systemService.handleGenerateTokenPost(req, res);
     });
 
-    app.get('/api/system/status', function(req, res){
+    app.get('/system/api/status', function(req, res){
         logger.info("================================================================================================");
-        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/api/system/status]');
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/api/status]');
         systemService.getSystemStatus(req, res);
     });
 

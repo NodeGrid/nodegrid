@@ -73,10 +73,10 @@ After you install and start `NodeGrid` you can check the application status
 
 #### **check status**
 
-URL: `http://localhost:3000/api/system/status`
+URL: `http://localhost:3000/system/api/status`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json" http://localhost:3000/api/system/status
+> curl -X GET -H "Content-Type: application/json" http://localhost:3000/system/api/status
 
 <br/>
 
@@ -86,38 +86,38 @@ To use NodeGrid you need to create users, Those users can access the REST API.
 
 #### **Create user**
 
-URL: `http://localhost:3000/api/system/user`
+URL: `http://localhost:3000/system/user`
 <br/>Request Type: `POST`
 <br/>Data Object: `{"name":"John Smith", "username":"john", "password":"john123"}`
 
-> curl -X POST -H "Content-Type: application/json" -d '{"name":"John Smith", "username":"john", "password":"john123"}' http://localhost:3000/api/system/user
+> curl -X POST -H "Content-Type: application/json" -d '{"name":"John Smith", "username":"john", "password":"john123"}' http://localhost:3000/system/api/user
 
 #### **Get user from** - *userId*
 
 Replace the `<userId>` from your user's id.
 
-URL: `http://localhost:3000/system/user/<userId>`
+URL: `http://localhost:3000/system/api/user/<userId>`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/\<userId\>
+> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/api/user/\<userId\>
 
 #### **Get user from** - *username*
 
 Replace the `<username>` from your user's username.
 
-URL: `http://localhost:3000/system/user/<username>`
+URL: `http://localhost:3000/system/api/user/<username>`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/\<username\>
+> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/api/user/\<username\>
 
 #### **Delete user from** - *userId*
 
 Replace the `<userId>` from your user's id.
 
-URL: `http://localhost:3000/system/user/<userId>`
+URL: `http://localhost:3000/system/api/user/<userId>`
 <br/>Request Type: `DELETE`
 
-> curl -X DELETE -H "Content-Type: application/json"http://localhost:3000/system/user/\<userId\>
+> curl -X DELETE -H "Content-Type: application/json"http://localhost:3000/system/api/user/\<userId\>
 
 <br/>
 
@@ -127,8 +127,8 @@ Created user need to authenticate NodeGrid to access the REST API. This authenti
 
 #### **Generate AccessToken**
 
-URL: `http://localhost:3000/system/security/generateToken`
+URL: `http://localhost:3000/system/api/security/generateToken`
 <br/>Request Type: `POST`
 <br/>Data Object: `{"username":"john", "password":"john123"}`
 
-> curl -X POST -H "Content-Type: application/json" -d '{"username":"john", "password":"john123"}' http://localhost:3000/system/security/generateToken
+> curl -X POST -H "Content-Type: application/json" -d '{"username":"john", "password":"john123"}' http://localhost:3000/system/api/security/generateToken
