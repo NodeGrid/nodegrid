@@ -78,6 +78,14 @@ URL: `http://localhost:3000/system/api/status`
 
 > curl -X GET -H "Content-Type: application/json" http://localhost:3000/system/api/status
 
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "mongo-connection": "CONNECTED"
+}
+```
+
 <br/>
 
 ### Users
@@ -91,6 +99,25 @@ URL: `http://localhost:3000/system/user`
 <br/>Data Object: `{"name":"John Smith", "username":"john", "password":"john123"}`
 
 > curl -X POST -H "Content-Type: application/json" -d '{"name":"John Smith", "username":"john", "password":"john123"}' http://localhost:3000/system/api/user
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "New system user added successfully",
+    "data": {
+        "__v": 0,
+        "data": {
+            "lastAccessedTime": "",
+            "createdTime": 1416892013,
+            "password": "$2a$10$pUu03u5k260tuIKaJpM1cODK0D2CsTj.GxzFHMBfwrHLRHmCOn5/u",
+            "username": "john",
+            "name": "John Smith"
+        },
+        "_id": "54740e6d721de8b8135dfb4e"
+    }
+}
+```
 
 #### **Get user from** - *userId*
 
