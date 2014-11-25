@@ -229,3 +229,9 @@ Sample Response:
     }
 }
 ```
+
+</br>
+
+### App
+
+Users can create dynmic entities and do CRUD operations from NodeGrid. 
