@@ -12,23 +12,23 @@ var storeServices = require('../services/store_services');
 module.exports.createStoreEndPoints = function (app) {
 
     //Store new model or store data to given model (collection)
-    app.post('/api/:modelName', function (req, res) {
+    app.post('/app/:modelName', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [POST/api/:modelName]');
+        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [POST/app/:modelName]');
         storeServices.handleStoreModelsPost(req, res);
     });
 
     //Update given model
-    app.put('/api/:modelName/:id', function (req, res) {
+    app.put('/app/:modelName/:id', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [PUT/api/:modelName/:id]');
+        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [PUT/app/:modelName/:id]');
         storeServices.handleStoreModelsPut(req, res);
     });
 
     //Delete given model
-    app.del('/api/:modelName/:id', function (req, res) {
+    app.del('/app/:modelName/:id', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [DELETE/api/:modelName/:id]');
+        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [DELETE/app/:modelName/:id]');
         storeServices.handleDeleteModelsItem(req, res);
     });
 };

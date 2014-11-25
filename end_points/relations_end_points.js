@@ -12,21 +12,21 @@ var relationsServices = require('../services/relations_services');
 module.exports.createRelationsEndPoints = function(app) {
 
     //Create new relation between given models
-    app.post('/api/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier', function (req, res) {
+    app.post('/app/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier', function (req, res) {
         logger.info("================================================================================================");
-        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [POST/api/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
+        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [POST/app/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
         relationsServices.handleCreateRelationsPost(req, res);
     });
 
-    app.get('/api/:entity/:identifier/:type/:secondEntity', function(req, res){
+    app.get('/app/:entity/:identifier/:type/:secondEntity', function(req, res){
         logger.info("================================================================================================");
-        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/api/:entity/:identifier/:type]');
+        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/app/:entity/:identifier/:type]');
         relationsServices.handleRetrieveRelationsWithType(req, res);
     });
 
-    app.del('/api/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier', function(req, res){
+    app.del('/app/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier', function(req, res){
         logger.info("================================================================================================");
-        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [DELETE/api/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
+        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [DELETE/app/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
         relationsServices.handleDeleteRelations(req, res);
     });
 };
