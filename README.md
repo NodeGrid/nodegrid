@@ -73,10 +73,10 @@ After you install and start `NodeGrid` you can check the application status
 
 #### **check status**
 
-URL: `http://localhost:3000/system/api/status`
+URL: `http://localhost:3000/system/status`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json" http://localhost:3000/system/api/status
+> curl -X GET -H "Content-Type: application/json" http://localhost:3000/system/status
 
 Sample Response:
 ```
@@ -98,7 +98,7 @@ URL: `http://localhost:3000/system/user`
 <br/>Request Type: `POST`
 <br/>Data Object: `{"name":"John Smith", "username":"john", "password":"john123"}`
 
-> curl -X POST -H "Content-Type: application/json" -d '{"name":"John Smith", "username":"john", "password":"john123"}' http://localhost:3000/system/api/user
+> curl -X POST -H "Content-Type: application/json" -d '{"name":"John Smith", "username":"john", "password":"john123"}' http://localhost:3000/system/user
 
 Sample Response:
 ```
@@ -123,28 +123,79 @@ Sample Response:
 
 Replace the `<userId>` from your user's id.
 
-URL: `http://localhost:3000/system/api/user/<userId>`
+URL: `http://localhost:3000/system/user/<userId>`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/api/user/\<userId\>
+> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/\<userId\>
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "Data retrieved successfully",
+    "data": [
+        {
+            "_id": "54740e6d721de8b8135dfb4e",
+            "data": {
+                "name": "John Smith",
+                "username": "john",
+                "password": "$2a$10$pUu03u5k260tuIKaJpM1cODK0D2CsTj.GxzFHMBfwrHLRHmCOn5/u",
+                "createdTime": 1416892013,
+                "lastAccessedTime": ""
+            },
+            "__v": 0
+        }
+    ]
+}
+```
 
 #### **Get user from** - *username*
 
 Replace the `<username>` from your user's username.
 
-URL: `http://localhost:3000/system/api/user/<username>`
+URL: `http://localhost:3000/system/user/<username>`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/api/user/\<username\>
+> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/\<username\>
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "Data retrieved successfully",
+    "data": [
+        {
+            "_id": "54740e6d721de8b8135dfb4e",
+            "data": {
+                "name": "John Smith",
+                "username": "john",
+                "password": "$2a$10$pUu03u5k260tuIKaJpM1cODK0D2CsTj.GxzFHMBfwrHLRHmCOn5/u",
+                "createdTime": 1416892013,
+                "lastAccessedTime": ""
+            },
+            "__v": 0
+        }
+    ]
+}
+```
 
 #### **Delete user from** - *userId*
 
 Replace the `<userId>` from your user's id.
 
-URL: `http://localhost:3000/system/api/user/<userId>`
+URL: `http://localhost:3000/system/user/<userId>`
 <br/>Request Type: `DELETE`
 
-> curl -X DELETE -H "Content-Type: application/json"http://localhost:3000/system/api/user/\<userId\>
+> curl -X DELETE -H "Content-Type: application/json"http://localhost:3000/system/user/\<userId\>
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "System user removed from the collection successfully.",
+    "data": 1
+}
+```
 
 <br/>
 
@@ -154,8 +205,27 @@ Created user need to authenticate NodeGrid to access the REST API. This authenti
 
 #### **Generate AccessToken**
 
-URL: `http://localhost:3000/system/api/security/generateToken`
+URL: `http://localhost:3000/system/security/generateToken`
 <br/>Request Type: `POST`
 <br/>Data Object: `{"username":"john", "password":"john123"}`
 
-> curl -X POST -H "Content-Type: application/json" -d '{"username":"john", "password":"john123"}' http://localhost:3000/system/api/security/generateToken
+> curl -X POST -H "Content-Type: application/json" -d '{"username":"john", "password":"john123"}' http://localhost:3000/system/security/generateToken
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "New accessToken saved successfully",
+    "data": {
+        "__v": 0,
+        "data": {
+            "status": "valid",
+            "expiringTime": 1416980339,
+            "createdTime": 1416893939,
+            "userId": "547415c57cb17d271ce44ae7",
+            "accessToken": "f02a2e0e569b8fc216b3d1da6035d6581ea1cec4"
+        },
+        "_id": "547415f37cb17d271ce44ae8"
+    }
+}
+```
