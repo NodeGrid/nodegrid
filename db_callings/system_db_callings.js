@@ -279,7 +279,8 @@ function updateTokenObject(tokenRecord, status, callback) {
 module.exports.checkSystemStatus = function (req,res) {
     var statusCode = mongo_connection.mongoConnectionStatus();
      var statusObj = {
+        "status": "SUCCESS",
         "mongo-connection":statusCode
      };
      res.send(statusObj);
-}
+};
