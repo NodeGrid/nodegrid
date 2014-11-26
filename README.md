@@ -126,7 +126,7 @@ Replace the `<userId>` from your user's id.
 URL: `http://localhost:3000/system/user/<userId>`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/\<userId\>
+> curl -X GET -H "Content-Type: application/json" http://localhost:3000/system/user/\<userId\>
 
 Sample Response:
 ```
@@ -156,7 +156,7 @@ Replace the `<username>` from your user's username.
 URL: `http://localhost:3000/system/user/<username>`
 <br/>Request Type: `GET`
 
-> curl -X GET -H "Content-Type: application/json"http://localhost:3000/system/user/\<username\>
+> curl -X GET -H "Content-Type: application/json" http://localhost:3000/system/user/\<username\>
 
 Sample Response:
 ```
@@ -186,7 +186,7 @@ Replace the `<userId>` from your user's id.
 URL: `http://localhost:3000/system/user/<userId>`
 <br/>Request Type: `DELETE`
 
-> curl -X DELETE -H "Content-Type: application/json"http://localhost:3000/system/user/\<userId\>
+> curl -X DELETE -H "Content-Type: application/json" http://localhost:3000/system/user/\<userId\>
 
 Sample Response:
 ```
@@ -230,8 +230,142 @@ Sample Response:
 }
 ```
 
-</br>
+<br/>
 
 ### App
 
 Users can create dynmic entities and do CRUD operations from NodeGrid. 
+
+#### **Create new entity and store object**
+
+As an example let's get entity called `books`. In books entity has follwing type object `{"name":"NodeGrid Tutorials", "author":"John Smith"}`.
+<br/>
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+
+URL: `http://localhost:3000/app/books`
+<br/>Request Type: `POST`
+<br/>Data Object: `{"name":"NodeGrid Tutorials", "author":"John Smith"}`
+
+> curl -X POST -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" -d '{"name":"NodeGrid Tutorials", "Author":"John Smith"}' http://localhost:3000/app/books
+
+Sample Response:
+```
+{
+  "status": "SUCCESS",
+  "msg": "New model added successfully",
+  "data": {
+    "__v": 0,
+    "data": {
+      "Author": "John Smith",
+      "name": "NodeGrid Tutorials"
+    },
+    "_id": "54759bfb14706eb4488f9b7c"
+  }
+}
+```
+
+#### **Query objects from entity**
+
+Let's use the same example entity `books`.
+<br/>
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+
+URL: `http://localhost:3000/app/books`
+<br/>Request Type: `GET`
+
+> curl -X GET -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/books
+
+Sample Response:
+```
+{
+  "status": "SUCCESS",
+  "msg": "[books] data successfully retrieved",
+  "data": [
+    {
+      "_id": "5451bb4e3ab7a4760fed4fea",
+      "data": {
+        "type": "Story",
+        "author": "J. R. R. Tolkien",
+        "name": "The Hobbit"
+      },
+      "__v": 0
+    },
+    {
+      "_id": "54759bfb14706eb4488f9b7c",
+      "data": {
+        "type": "Tutorials"
+        "name": "NodeGrid Tutorials",
+        "Author": "John Smith"
+      },
+      "__v": 0
+    }
+  ]
+}
+```
+
+#### **Query object in entity from given object id**
+
+Let's use the same example entity `books`.
+<br/>
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<object id>` from your entity object id
+
+URL: `http://localhost:3000/app/books/<object id>`
+<br/>Request Type: `GET`
+
+> curl -X GET -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/books/\<object id\>
+
+Sample Response:
+```
+{
+  "status": "SUCCESS",
+  "msg": "[books] data successfully retrieved",
+  "data": [
+    {
+      "_id": "54759bfb14706eb4488f9b7c",
+      "data": {
+        "type": "Tutorials"
+        "name": "NodeGrid Tutorials",
+        "Author": "John Smith"
+      },
+      "__v": 0
+    }
+  ]
+}
+```
+
+#### **Delete object in entity from given object id**
+
+Let's use the same example entity `books`.
+<br/>
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<object id>` from your entity object id
+
+URL: `http://localhost:3000/app/books/<object id>`
+<br/>Request Type: `DELETE`
+
+> curl -X DELETE -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/books/\<object id\>
+
+Sample Response:
+```
+{
+  "status": "SUCCESS",
+  "msg": "[books] data successfully deleted",
+  "data": {
+    "_id": "54759bfb14706eb4488f9b7c",
+    "data": {
+      "name": "NodeGrid Tutorials",
+      "Author": "John Smith"
+    },
+    "__v": 0
+  }
+}
+```
