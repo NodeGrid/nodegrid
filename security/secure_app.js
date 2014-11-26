@@ -19,7 +19,6 @@ function isSkippingURL(url){
 };
 
 module.exports.setSecureApp = function (req, res, next) {
-    logger.info(req.path);
 
     //check mongo db connection availability
     var mongo_connection_status = mongo_connection.mongoConnectionStatus();

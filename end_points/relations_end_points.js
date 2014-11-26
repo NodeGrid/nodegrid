@@ -11,21 +11,18 @@ var relationsServices = require('../services/relations_services');
  */
 module.exports.createRelationsEndPoints = function(app) {
 
-    //Create new relation between given models
+    // Create new relation between given models
     app.post('/app/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier', function (req, res) {
-        logger.info("================================================================================================");
         logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [POST/app/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
         relationsServices.handleCreateRelationsPost(req, res);
     });
 
     app.get('/app/:entity/:identifier/:type/:secondEntity', function(req, res){
-        logger.info("================================================================================================");
         logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/app/:entity/:identifier/:type]');
         relationsServices.handleRetrieveRelationsWithType(req, res);
     });
 
     app.del('/app/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier', function(req, res){
-        logger.info("================================================================================================");
         logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [DELETE/app/:firstEntity/:firstIdentifier/:relationType/:secondEntity/:secondIdentifier]');
         relationsServices.handleDeleteRelations(req, res);
     });

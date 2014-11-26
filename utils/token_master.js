@@ -72,6 +72,7 @@ module.exports.generateUserToken = function (req, res) {
 module.exports.validateAccessToken = function (accessToken, callback) {
 
     systemDb.checkTokenValidity(accessToken, function (status, resultData) {
+        logger.info("================================================================================================");
         if (status == 1) {
             logger.info("NodeGrid:token_master/validateAccessToken - Valid accessToken received");
             callback(1, resultData);
