@@ -11,6 +11,11 @@ var queryServices = require('../services/query_services');
  */
 module.exports.createQueryEndPoints = function (app) {
 
+    app.get('/app/advance/:modelName', function (req, res) {
+        logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/app/advance/:modelName]');
+        queryServices.handleAdvanceQueryModelGet(req, res);
+    });
+
     // Retrieve all data from given model (collection)
     app.get('/app/:modelName', function (req, res) {
         logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/app/:modelName]');
