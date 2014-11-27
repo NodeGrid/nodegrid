@@ -238,7 +238,7 @@ Users can create dynmic entities and do CRUD operations from NodeGrid.
 
 #### **Create new entity and store object**
 
-As an example let's get entity called `books`. In books entity has follwing type object `{"name":"NodeGrid Tutorials", "author":"John Smith"}`.
+As an example let's get entity called `books`. In books entity has follwing type object `{"name":"NodeGrid Tutorials", "author":"John Smith", "type": "Tutorials"}`.
 <br/>
 This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
 
@@ -248,7 +248,7 @@ URL: `http://localhost:3000/app/books`
 <br/>Request Type: `POST`
 <br/>Data Object: `{"name":"NodeGrid Tutorials", "author":"John Smith"}`
 
-> curl -X POST -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" -d '{"name":"NodeGrid Tutorials", "Author":"John Smith"}' http://localhost:3000/app/books
+> curl -X POST -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" -d '{"name":"NodeGrid Tutorials", "Author":"John Smith", "type": "Tutorials"}' http://localhost:3000/app/books
 
 Sample Response:
 ```
@@ -258,6 +258,7 @@ Sample Response:
   "data": {
     "__v": 0,
     "data": {
+      "type": "Tutorials",
       "Author": "John Smith",
       "name": "NodeGrid Tutorials"
     },
@@ -297,7 +298,7 @@ Sample Response:
     {
       "_id": "54759bfb14706eb4488f9b7c",
       "data": {
-        "type": "Tutorials"
+        "type": "Tutorials",
         "name": "NodeGrid Tutorials",
         "Author": "John Smith"
       },
@@ -330,7 +331,7 @@ Sample Response:
     {
       "_id": "54759bfb14706eb4488f9b7c",
       "data": {
-        "type": "Tutorials"
+        "type": "Tutorials",
         "name": "NodeGrid Tutorials",
         "Author": "John Smith"
       },
@@ -362,6 +363,7 @@ Sample Response:
   "data": {
     "_id": "54759bfb14706eb4488f9b7c",
     "data": {
+      "type": "Tutorials",
       "name": "NodeGrid Tutorials",
       "Author": "John Smith"
     },
