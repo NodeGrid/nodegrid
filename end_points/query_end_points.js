@@ -4,6 +4,7 @@
  */
 var logger = require('../utils/log');
 var queryServices = require('../services/query_services');
+var dbService = require('../db_callings/query_db_callings');
 
 /**
  * Create REST end-points for querying
@@ -22,4 +23,8 @@ module.exports.createQueryEndPoints = function (app) {
         logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/app/:modelName]');
         queryServices.handleQueryModelGetOne(req, res);
     });
+
+    app.get('/hardcode', function (req, res) {
+         dbService.getOneFromDBHardCoded(req, res);
+    })
 };

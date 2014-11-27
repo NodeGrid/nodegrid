@@ -50,3 +50,33 @@ module.exports.getOneFromDB = function (req, res) {
     });
 
 };
+
+module.exports.getOneFromDBHardCoded = function (req, res) {
+
+    var entityModel = mongoose.model('cars', entity);
+    /*entityModel.findOne({"data.year": {$gt: "1992"}, "data.model":"Sunny"}, "price year", function (err, records) {
+        if (err) {
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
+            utils.sendResponse(res, 500, 'Internal Server Error - ['+ req.params.modelName +'] data querying was failed', err);
+        } else {
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data successfully retrieved");
+            utils.sendResponse(res, 200, '['+ req.params.modelName +'] data successfully retrieved', records);
+        }
+    });*/
+
+    entityModel.find({})
+        .where('data.model').equals('corolla')
+        .where('data.model').equals('Sunny')
+        .select("data.price data.year")
+        .sort("data.price")
+        .exec(function (err, records) {
+            if (err) {
+                logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
+                utils.sendResponse(res, 500, 'Internal Server Error - ['+ req.params.modelName +'] data querying was failed', err);
+            } else {
+                logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data successfully retrieved");
+                utils.sendResponse(res, 200, '['+ req.params.modelName +'] data successfully retrieved', records);
+            }
+        });
+
+};
