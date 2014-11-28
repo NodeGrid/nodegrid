@@ -49,4 +49,12 @@ module.exports.createSystemEndPoints = function(app) {
         logger.info('NodeGrid:system_end_points/createSystemEndPoints - [POST/system/security/generateToken]');
         systemService.handleGenerateTokenPost(req, res);
     });
+
+    //Getting system collections
+    app.get('/system/collections', function(req, res){
+        logger.info("================================================================================================");	
+        logger.info('NodeGrid:system_end_points/createSystemEndPoints - [GET/system/collections]');
+   	systemService.handleGetCollections(req, res);
+    });
+
 };

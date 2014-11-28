@@ -284,3 +284,15 @@ module.exports.checkSystemStatus = function (req,res) {
      };
      res.send(statusObj);
 };
+
+module.exports.getCollections = function(req,res){
+    var collectionList = [];
+    mongoose.connection.db.collectionNames(function (err, names) {
+	names.forEach(function(item) {
+		if(item.name.indexOf('system.indexes') < 0){
+			collectionList.push(item.name);
+		}
+	});
+	res.send(collectionList);
+    });
+};
