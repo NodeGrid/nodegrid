@@ -63,10 +63,10 @@ module.exports.getFromDBAdvance = function (selectObj, whereObj, sort, limit, re
     }
     query.exec(function (err, records) {
         if (err) {
-            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
+            logger.info("NodeGrid:query_db_callings/getFromDBAdvance - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
             utils.sendResponse(res, 500, 'Internal Server Error - ['+ req.params.modelName +'] data querying was failed', err);
         } else {
-            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data successfully retrieved");
+            logger.info("NodeGrid:query_db_callings/getFromDBAdvance - [" + req.params.modelName + "] data successfully retrieved");
             utils.sendResponse(res, 200, '['+ req.params.modelName +'] data successfully retrieved', records);
         }
     });

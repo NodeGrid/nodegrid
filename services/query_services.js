@@ -71,8 +71,8 @@ module.exports.handleAdvanceQueryModelGet = function (req, res) {
             }
         }
 
-        logger.info('NodeGrid:query_services / handleAdvanceQueryModelGet - Select Object: ' + JSON.stringify(selectObj));
-        logger.info('NodeGrid:query_services / handleAdvanceQueryModelGet - Where Object: ' + JSON.stringify(whereObj));
+        logger.info('NodeGrid:query_services/handleAdvanceQueryModelGet - Select Object: ' + JSON.stringify(selectObj));
+        logger.info('NodeGrid:query_services/handleAdvanceQueryModelGet - Where Object: ' + JSON.stringify(whereObj));
     }
 
     queryDb.getFromDBAdvance(selectObj, whereObj, sort, limit, req, res);
@@ -84,7 +84,7 @@ module.exports.handleAdvanceQueryModelGet = function (req, res) {
  * @param res
  */
 module.exports.handleQueryModelGet = function (req, res) {
-    logger.info('NodeGrid:query_services / handleQueryModelGet - Querying attempt data from given model (collection)');
+    logger.info('NodeGrid:query_services/handleQueryModelGet - Querying attempt data from given model (collection)');
     queryDb.getAllFromDB(req,res);
  
 };
@@ -95,7 +95,7 @@ module.exports.handleQueryModelGet = function (req, res) {
  * @param res
  */
 module.exports.handleQueryModelGetOne = function (req, res) {
-    logger.info('NodeGrid:query_services / handleQueryModelGetOne - Querying attempt data from given model (collection)');
+    logger.info('NodeGrid:query_services/handleQueryModelGetOne - Querying attempt data from given model (collection)');
     queryDb.getOneFromDB(req,res);
 
 };
