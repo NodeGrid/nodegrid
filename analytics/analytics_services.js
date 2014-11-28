@@ -18,7 +18,6 @@ module.exports.createSystemAnalyticsEndPoints = function (app) {
 module.exports.save = function (req,res,next) {
 
 	if (req.path.lastIndexOf('/analytics') == 0) {
-        next();
 	return;
     }
 	var token  = false;
@@ -38,7 +37,6 @@ module.exports.save = function (req,res,next) {
 	}
 
 	analyticsList.push(item);
-	next();
 }
 
 function getHitsforGivenDuration(durationInSeconds){
