@@ -9,7 +9,7 @@ var utils = require('../utils/utils');
  * @param res
  */
 module.exports.sendPushByEntities = function (req, res, sendToAll) {
-    logger.info('NodeGrid:push_services/ sendPushByEntities');
+    logger.info('NodeGrid:push_services/sendPushByEntities - sendPushByEntities');
     pushDb.getEntitiesForPush(req, res, sendToAll);
 
 };
@@ -20,7 +20,7 @@ module.exports.sendPushByEntities = function (req, res, sendToAll) {
  * @param res
  */
 module.exports.sendPushByEntityRelations = function (req, res) {
-    logger.info('NodeGrid:push_services/ sendPushByEntityRelations');
+    logger.info('NodeGrid:push_services/sendPushByEntityRelations - sendPushByEntityRelations');
     pushDb.getEntityRelationsForPush(req, res);
 
 };
@@ -31,7 +31,7 @@ module.exports.sendPushByEntityRelations = function (req, res) {
  * @param res
  */
 module.exports.setPushNotifiers = function (req, res, type) {
-    logger.info('NodeGrid:push_services/ setPushNotifiers');
+    logger.info('NodeGrid:push_services/setPushNotifiers - setPushNotifiers');
     pushNotifierDb.setNotifier(req, res, type);
 
 };
@@ -42,6 +42,6 @@ module.exports.setPushNotifiers = function (req, res, type) {
  * @param res
  */
 module.exports.getPushNotifiers = function (req, res, type) {
-    logger.info('NodeGrid:push_services/ setPushNotifiers');
+    logger.info('NodeGrid:push_services/getPushNotifiers - setPushNotifiers');
     pushNotifierDb.getNotifier(req, res, type);
 };
