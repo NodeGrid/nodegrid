@@ -14,33 +14,8 @@ var dbService = require('../db_callings/query_db_callings');
 module.exports.createQueryEndPoints = function (app) {
 
     app.get('/app/advance/:modelName', function (req, res) {
-        var url_parts = url.parse(req.url, true);
-        var query = url_parts.query;
-
-        console.log(query);
-
-        for (var key in query) {
-            if (key === 'qry')
-                var qry = query.qry;
-            else if (key === 'sort')
-                var sort = query.sort;
-            else if (key === 'limit')
-                var limit = query.limit;
-        }
-
-        if (qry != null) {
-            var mainObj = qry.split('where');
-            var select = mainObj[0].split('select')[1].trim();
-
-            console.log(select);
-
-            var where = mainObj[1].split(' and ');
-
-            console.log(where);
-        }
-
-        res.send({});
-        //dbService.getOneFromDBHardCoded(req, res);
+        logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/app/advance/:modelName]');
+        queryServices.handleAdvanceQueryModelGet(req, res);
     });
 
     // Retrieve all data from given model (collection)

@@ -13,7 +13,7 @@ var utils = require('../utils/utils');
  * @param res
  */
 module.exports.handleStoreModelsPost = function (req, res) {
-    logger.info('NodeGrid:store_services/ Adding attempt a new model (collection) with data');
+    logger.info('NodeGrid:store_services/handleStoreModelsPost - Adding attempt a new model (collection) with data');
     storeDb.saveModelOrEntityToDb(req, res);
 };
 
@@ -23,7 +23,7 @@ module.exports.handleStoreModelsPost = function (req, res) {
  * @param res
  */
 module.exports.handleStoreModelsPut = function (req, res) {
-    logger.info('NodeGrid:store_services/ handle put');
+    logger.info('NodeGrid:store_services/handleStoreModelsPut - handle put');
     storeDb.updateEntity(req, res);
 };
 
@@ -33,7 +33,7 @@ module.exports.handleStoreModelsPut = function (req, res) {
  * @param res
  */
 module.exports.handleDeleteModelsItem = function (req, res) {
-    logger.info('NodeGrid:store_services/ handle put');
+    logger.info('NodeGrid:store_services/handleDeleteModelsItem - handle put');
     storeDb.deleteEntity(req, res);
 
 };
