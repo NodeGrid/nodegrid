@@ -91,6 +91,11 @@ module.exports.getSystemStatus = function (req, res) {
     systemDb.checkSystemStatus(req, res);
 };
 
+module.exports.handleGetCollections = function(req, res){	
+    logger.info('NodeGrid:system_services/handleGetCollections - Get current system collection list');
+    systemDb.getCollections(req, res);
+};
+
 /*
 module.exports.handleGetTokenPost = function (req, res) {
     logger.info('NodeGrid:system_services/handleGetTokenPost - Returning generated user security token');
