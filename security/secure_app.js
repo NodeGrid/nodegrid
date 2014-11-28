@@ -43,3 +43,7 @@ module.exports.setSecureApp = function (req, res, next) {
         utils.sendResponse(res, 503, 'Service Unavailable - MongoDB connection unavailable', 'EMPTY');
     }
 };
+
+module.exports.setCORS = function(req,res,next){
+	res.header('Access-Control-Allow-Origin', '*');
+};

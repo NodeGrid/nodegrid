@@ -17,8 +17,10 @@ var secureApp = require('./security/secure_app');
 var app = express();
 app.use(express.bodyParser());
 app.use(function(req, res, next){
+	secureApp.setCORS(req, res, next);
 	analytics.save(req,res,next);
 	secureApp.setSecureApp(req, res, next);
+
 });
 app.use("/analytics", express.static(__dirname + '/analytics/ui'));
 
