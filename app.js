@@ -16,13 +16,19 @@ var secureApp = require('./security/secure_app');
 
 var app = express();
 app.use(express.bodyParser());
-app.use(function(req, res, next){
-	analytics.save(req,res,next);
-	next();
-});
-app.use(function(req,res,next){
-	secureApp.setSecureApp(req, res, next);
-});
+
+if(configurations.ENABLE_ANALYTICS){
+	app.use(function(req, res, next){
+		analytics.save(req,res,next);
+		next();
+	});
+};
+
+if(configurations.SECURE_APP){
+	app.use(function(req,res,next){
+		secureApp.setSecureApp(req, res, next);
+	});
+};
 
 app.use(function(req,res,next){
 	secureApp.setCORS(req, res, next);
