@@ -4,8 +4,6 @@
  */
 var logger = require('../utils/log');
 var queryServices = require('../services/query_services');
-var url = require('url');
-var dbService = require('../db_callings/query_db_callings');
 
 /**
  * Create REST end-points for querying

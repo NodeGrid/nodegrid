@@ -11,8 +11,6 @@ var url = require('url');
 module.exports.handleAdvanceQueryModelGet = function (req, res) {
     var url_parts = url.parse(req.url, true);
     var query = url_parts.query;
-    var selectList = [];
-    var whereList = [];
 
     for (var qryKey in query) {
         if (qryKey === 'qry')
