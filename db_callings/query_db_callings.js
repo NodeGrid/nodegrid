@@ -22,10 +22,10 @@ module.exports.getAllFromDB = function (req, res) {
     entityModel.find({}, function (err, records) {
         if (err) {
             logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
-            utils.sendResponse(res, 500, 'Internal Server Error - ['+ req.params.modelName +'] data querying was failed', err);
+            utils.sendResponse(res, 500, 'Internal Server Error - [' + req.params.modelName + '] data querying was failed', err);
         } else {
             logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data successfully retrieved");
-            utils.sendResponse(res, 200, '['+ req.params.modelName +'] data successfully retrieved', records);
+            utils.sendResponse(res, 200, '[' + req.params.modelName + '] data successfully retrieved', records);
         }
     });
 
@@ -42,11 +42,32 @@ module.exports.getOneFromDB = function (req, res) {
     entityModel.findOne({_id: req.params.id}, function (err, records) {
         if (err) {
             logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
+            utils.sendResponse(res, 500, 'Internal Server Error - [' + req.params.modelName + '] data querying was failed', err);
+        } else {
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data successfully retrieved");
+            utils.sendResponse(res, 200, '[' + req.params.modelName + '] data successfully retrieved', records);
+        }
+    });
+
+};
+
+module.exports.getFromDBAdvance = function (selectObj, whereObj, sort, limit, req, res) {
+
+    var entityModel = mongoose.model(req.params.modelName, entity);
+    var query = entityModel.find(whereObj, selectObj);
+    if (sort != 'undefined') {
+        query.sort(sort);
+    }
+    if (limit != 'undefined') {
+        query.limit(limit);
+    }
+    query.exec(function (err, records) {
+        if (err) {
+            logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
             utils.sendResponse(res, 500, 'Internal Server Error - ['+ req.params.modelName +'] data querying was failed', err);
         } else {
             logger.info("NodeGrid:query_db_callings/getAllFromDB - [" + req.params.modelName + "] data successfully retrieved");
             utils.sendResponse(res, 200, '['+ req.params.modelName +'] data successfully retrieved', records);
         }
     });
-
 };

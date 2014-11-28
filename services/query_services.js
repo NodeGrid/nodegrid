@@ -11,6 +11,8 @@ var url = require('url');
 module.exports.handleAdvanceQueryModelGet = function (req, res) {
     var url_parts = url.parse(req.url, true);
     var query = url_parts.query;
+    var selectList = [];
+    var whereList = [];
 
     console.log(query);
 
@@ -23,50 +25,57 @@ module.exports.handleAdvanceQueryModelGet = function (req, res) {
             var limit = query.limit;
     }
 
-    var qlObj = {};
+    var selectObj = {};
+    var whereObj = {};
     if (qry != null) {
         var mainObj = qry.split('where');
         var select = mainObj[0].split('select')[1].trim();
+        selectList = select.split(',');
 
-        console.log(select);
+        // create select parameters from selectList
+        var selectParam = "";
+        for (var iSelect = 0; iSelect < selectList.length; iSelect++) {
+            selectObj["data." + selectList[iSelect]] = true;
+        }
 
-        var whereList = mainObj[1].trim().split(' and ');
+        // Create where parameters from whereList
+        if (mainObj.length > 1 ) {
+            whereList = mainObj[1].trim().split(' and ');
+            for (var iWhere = 0; iWhere < whereList.length; iWhere++) {
+                var item = whereList[iWhere];
+                var temp = item.split(/[ = , > , < , != , => , =< ]+/);
 
-        console.log(whereList);
+                var key = whereObj[temp[0]];
+                if (typeof key === 'undefined') {
+                    whereObj["data." + temp[0]] = {};
+                }
 
-        /*for(var i = 0;i<whereList.length;i++){
-            var item = whereList[i];
-            var temp = item.split(/[ = , > , < , != , => , =< ]+/);
-
-            var key = qlObj[temp[0]];
-            if(typeof key === 'undefined'){
-                qlObj[temp[0]] = {};
-            }
-
-            if(item.indexOf(" = ") > 1){
-                qlObj[temp[0]] = temp[1];
-            }
-            else if(item.indexOf(" > ") > 1){
-                qlObj[temp[0]]["$gt"] = temp[1];
-            }
-            else if(item.indexOf(" < ") > 1){
-                qlObj[temp[0]]["$lt"] = temp[1];
-            }
-            else if(item.indexOf(" => ") > 1){
-                qlObj[temp[0]] = {"$gte":temp[1]};
-            }
-            else if(item.indexOf(" =< ") > 1){
-                qlObj[temp[0]] = {"$lte":temp[1]};
-            }
-            else if(item.indexOf(" != ") > 1){
-                qlObj[temp[0]] = {"$not":temp[1]};
+                if (item.indexOf(" = ") > 1 || item.indexOf("=") > 1) {
+                    whereObj["data." + temp[0]] = temp[1];
+                }
+                else if (item.indexOf(" > ") > 1 || item.indexOf(">") > 1) {
+                    whereObj["data." + temp[0]]["$gt"] = temp[1];
+                }
+                else if (item.indexOf(" < ") > 1 || item.indexOf("<") > 1) {
+                    whereObj["data." + temp[0]]["$lt"] = temp[1];
+                }
+                else if (item.indexOf(" => ") > 1 || item.indexOf("=>") > 1) {
+                    whereObj["data." + temp[0]] = {"$gte": temp[1]};
+                }
+                else if (item.indexOf(" =< ") > 1 || item.indexOf("=<") > 1) {
+                    whereObj["data." + temp[0]] = {"$lte": temp[1]};
+                }
+                else if (item.indexOf(" != ") > 1 || item.indexOf("!=") > 1) {
+                    whereObj["data." + temp[0]] = {"$not": temp[1]};
+                }
             }
         }
 
-        console.log(qlObj);*/
+        logger.info('NodeGrid:query_services / handleAdvanceQueryModelGet - Select Object: ' + JSON.stringify(selectObj));
+        logger.info('NodeGrid:query_services / handleAdvanceQueryModelGet - Where Object: ' + JSON.stringify(whereObj));
     }
 
-    res.send({});
+    queryDb.getFromDBAdvance(selectObj, whereObj, sort, limit, req, res);
 };
 
 /**
@@ -75,7 +84,7 @@ module.exports.handleAdvanceQueryModelGet = function (req, res) {
  * @param res
  */
 module.exports.handleQueryModelGet = function (req, res) {
-    logger.info('NodeGrid:query_services/ Querying attempt data from given model (collection)');
+    logger.info('NodeGrid:query_services / handleQueryModelGet - Querying attempt data from given model (collection)');
     queryDb.getAllFromDB(req,res);
  
 };
@@ -86,7 +95,7 @@ module.exports.handleQueryModelGet = function (req, res) {
  * @param res
  */
 module.exports.handleQueryModelGetOne = function (req, res) {
-    logger.info('NodeGrid:query_services/ Querying attempt data from given model (collection)');
+    logger.info('NodeGrid:query_services / handleQueryModelGetOne - Querying attempt data from given model (collection)');
     queryDb.getOneFromDB(req,res);
 
 };
