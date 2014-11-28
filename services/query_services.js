@@ -14,8 +14,6 @@ module.exports.handleAdvanceQueryModelGet = function (req, res) {
     var selectList = [];
     var whereList = [];
 
-    console.log(query);
-
     for (var qryKey in query) {
         if (qryKey === 'qry')
             var qry = query.qry;
