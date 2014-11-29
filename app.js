@@ -1,18 +1,18 @@
 var express = require('express');
-var logger = require('./utils/log');
-var utils = require('./utils/utils');
+var logger = require('./core/utils/log');
+var utils = require('./core/utils/utils');
 var io = require('socket.io');
 
 var fs = require('fs');
 var configurations = JSON.parse(fs.readFileSync('config.json', encoding="ascii"));
 
 var analytics = require('./analytics/analytics_services');
-var storingEndPoints = require('./end_points/store_end_points');
-var relationsEndPoints = require('./end_points/relations_end_points');
-var systemEndPoints = require('./end_points/system_end_points');
-var queryEndPoints = require('./end_points/query_end_points');
-var pushEndPoints = require('./end_points/push_end_points');
-var secureApp = require('./security/secure_app');
+var storingEndPoints = require('./core/end_points/store_end_points');
+var relationsEndPoints = require('./core/end_points/relations_end_points');
+var systemEndPoints = require('./core/end_points/system_end_points');
+var queryEndPoints = require('./core/end_points/query_end_points');
+var pushEndPoints = require('./core/end_points/push_end_points');
+var secureApp = require('./core/security/secure_app');
 
 var app = express();
 app.use(express.bodyParser());
