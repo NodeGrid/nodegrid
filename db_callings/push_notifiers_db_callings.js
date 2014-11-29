@@ -14,6 +14,8 @@ var entity = connectionObj.entityObj;
 module.exports.setNotifier = function (req, res, type) {
 
     var entityModel = mongoose.model('push_notifiers', entity);
+    // var dataObj = req.body;
+    req.body['name'] = type;
     entityModel.update({name:type}, {data:req.body}, {upsert:true},function (err, pushEntities) {
         if (err) {
             logger.info("NodeGrid:push_db_callings/setNotifier - ["+type+"] data querying was failed. ERROR: " + err);

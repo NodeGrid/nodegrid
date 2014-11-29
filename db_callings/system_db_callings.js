@@ -199,7 +199,7 @@ module.exports.checkTokenExistence = function (userId, callback) {
                     var tokenExpiringTime = tokenRecord[0].data.expiringTime;
                     if (tokenExpiringTime > currentTimestamp) {
                         logger.info("NodeGrid:system_db_callings/checkTokenExistence - Valid token already exist for given userId");
-                        callback(0, tokenRecord);
+                        callback(2, tokenRecord);
                     } else {
                         logger.info("NodeGrid:system_db_callings/checkTokenExistence - Token expired");
                         callback(2, tokenRecord);

@@ -35,7 +35,7 @@ app.use(function(req,res,next){
 	next();
 });
 app.use("/analytics", express.static(__dirname + '/analytics/ui'));
-
+app.use("/portal", express.static(__dirname + '/portal'));
 
 systemEndPoints.createSystemEndPoints(app);
 analytics.createSystemAnalyticsEndPoints(app);

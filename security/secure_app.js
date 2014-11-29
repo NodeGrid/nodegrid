@@ -6,7 +6,8 @@ var mongo_connection = require('../utils/mongoose_connection');
 //these URL are skips from the Token Valiations
 var skipAuth = [
     "/system/",
-    "/analytics/"
+    "/analytics/",
+    "/portal/"
 ];
 
 function isSkippingURL(url){

@@ -1,0 +1,73 @@
+body{
+    font-family: 'Raleway', sans-serif;
+    background-image: url("../images/bg.jpg");
+    color: #fff;
+}
+
+.logout{
+    margin-top: 8px;
+}
+
+#header-div{
+    background-color: rgba(0, 0, 0, 0.4);
+    border-width: 0px;
+}
+
+.small-logo{
+    float: left;
+    height: 50px;
+    width: auto;
+    padding:10px;
+}
+
+.side-div{
+    margin-top: 40px;
+    border-right: 1px solid #fff;
+}
+
+.mid-div{
+    margin-top: 40px;
+    border-right: 1px solid #fff;
+}
+
+.right-div{
+    margin-top: 40px;
+
+}
+
+.list-group-item{
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 18px;
+}
+
+a.list-group-item{
+    color: #fff;
+}
+a.list-group-item:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+
+a.list-group-item.active{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+
+a.list-group-item.active:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+
+.row h2{
+    color: rgba(255, 255, 255, 0.4);
+}
+.label{
+    font-weight: normal;
+}
+.label-default{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+h4{
+    margin-bottom: 15px;
+}

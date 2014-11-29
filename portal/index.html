@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="/portal/js/angular.min.js"></script>
+    <script type="text/javascript" src="/portal/js/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="/portal/js/dao.js"></script>
+    <title>NodeGrid - App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/portal/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/portal/css/jumbotron.css" rel="stylesheet">
+
+    <link href="/portal/css/custom-app.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="header-div">
+    <div class="container">
+        <div class="navbar-header">
+            <img class="small-logo" src="/portal/images/ng.png"/>
+            <a class="navbar-brand" href="#">Portal - NodeGrid Application</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container" ng-app="app">
+
+    <!-- Example row of columns -->
+    <div class="row" ng-controller="collectionsController">
+ 
+        <div class="col-md-3 side-div">
+
+            <h2>Collections</h2>
+            <div class="list-group"  >
+
+                <a href="#" class="list-group-item {{collectionActive[collection]}}" ng-repeat="collection in collections" ng-click="onCollectionClick(collection)">
+                 <span class="glyphicon glyphicon-hdd"></span>&nbsp;&nbsp;{{collection}}
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 mid-div">
+            
+            <h2>{{colloectionName}}</h2>
+
+            <div class="list-group"  >
+
+                <a href="#" class="list-group-item {{itemActive[row._id]}}" ng-repeat="row in objects" ng-click="onRowClick(row)">
+                 <span class="glyphicon glyphicon-file" ></span>&nbsp;&nbsp;{{row.data.name}}
+                </a>
+            </div>
+
+        </div>
+
+        <div class="col-md-5 right-div">
+            <h2>{{item.data.name}}</h2>
+            <div ng-if="item">
+                <h4><span class="label label-info">ID</span> {{item._id}}</h4>
+                <h4 ng-repeat="key in keyList | filter:'!password'"><span class="label label-default">{{key}}</span> {{item.data[key]}}</h4>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/portal/js/jquery.min.js"></script>
+<script src="/portal/js/bootstrap.min.js"></script>
+</body>
+</html>
