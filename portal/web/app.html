@@ -1,0 +1,36 @@
+    <!-- Example row of columns -->
+    <div class="row">
+ 
+        <div class="col-md-3 side-div">
+
+            <h2>Collections</h2>
+            <div class="list-group"  >
+
+                <a href="#app" class="list-group-item {{collectionActive[collection]}}" ng-repeat="collection in collections" ng-click="onCollectionClick(collection)">
+                 <span class="glyphicon glyphicon-hdd"></span>&nbsp;&nbsp;{{collection}}
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4 mid-div">
+            
+            <h2>{{colloectionName}}</h2>
+
+            <div class="list-group"  >
+
+                <a href="#app" class="list-group-item {{itemActive[row._id]}}" ng-repeat="row in objects" ng-click="onRowClick(row)">
+                 <span class="glyphicon glyphicon-file" ></span>&nbsp;&nbsp;{{row.data.name}}
+                </a>
+            </div>
+
+        </div>
+
+        <div class="col-md-5 right-div">
+            <h2>{{item.data.name}}</h2>
+            <div ng-if="item">
+                <h4><span class="label label-info">ID</span> {{item._id}}</h4>
+                <h4 ng-repeat="key in keyList | filter:'!password'"><span class="label label-default">{{key}}</span> {{item.data[key]}}</h4>
+            </div>
+        </div>
+
+    </div>
