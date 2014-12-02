@@ -7,19 +7,19 @@ app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/login', {
-        templateUrl: 'web/login.html',
+        templateUrl: '/portal/web/login.html',
         controller: 'loginController'
     }).
         when('/login/:status', {
-        templateUrl: 'web/login.html',
+        templateUrl: '/portal/web/login.html',
         controller: 'loginController'
         }).
       when('/app', {
-        templateUrl: 'web/app.html',
+        templateUrl: '/portal/web/app.html',
         controller: 'collectionsController'
       }).
         when('/register', {
-        templateUrl: 'web/register.html',
+        templateUrl: '/portal/web/register.html',
         controller: 'registerController'
       }).
       otherwise({
