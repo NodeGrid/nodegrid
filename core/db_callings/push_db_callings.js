@@ -1,4 +1,5 @@
 var logger = require('../utils/log');
+var push = require('../utils/push');
 var mongo_connection = require('../utils/mongoose_connection');
 
 var connectionObj = mongo_connection.createMongooseConnection();
@@ -25,6 +26,7 @@ module.exports.getEntitiesForPush = function (req, res, sendToAll) {
             logger.info("NodeGrid:push_db_callings/getEntitiesForPush - [push] data querying was failed. ERROR: " + err);
         } else {
             // TODO   SENDING PUSHHHH >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
+            push.sendPushNotification();
             res.send(pushEntities);
         }
     });
