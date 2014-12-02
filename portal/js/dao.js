@@ -53,7 +53,7 @@ app.controller("collectionsController", function collectionsController($scope, $
             response.data.forEach(function(i){
                 console.log(i);
                 if(typeof i.data.name == 'undefined'){
-                    i.data['name'] = "anonymous";
+                    i.data['name'] = i._id;
                 }
 
                 tempAry.push(i);
