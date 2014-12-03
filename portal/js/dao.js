@@ -78,13 +78,14 @@ app.controller("collectionsController", function collectionsController($scope, $
 
 app.controller("loginController", function($scope, $http, $window, $cookieStore,$routeParams){
 
-    
+
     if($routeParams.status){
        $scope.status = $routeParams.status    
     }
     
     $scope.login = function(username,password){
 
+            $scope.loginLoading = true;
             $http({
                 url: API_URL+"/system/security/generateToken",
                 method: "POST",
@@ -95,6 +96,7 @@ app.controller("loginController", function($scope, $http, $window, $cookieStore,
                 }).error(function(err){
                     console.log(err);
                     $scope.loginErr = "Invalid Username and Password .. !!";
+                    $scope.loginLoading = false;
                 });
     };
 });
@@ -103,6 +105,8 @@ app.controller("registerController", function($scope, $http, $window, $cookieSto
 
     $scope.register = function(username,name, password){
 
+            $scope.registerLoading = true;
+        
             $http({
                 url: API_URL+"/system/user",
                 method: "POST",
@@ -112,6 +116,7 @@ app.controller("registerController", function($scope, $http, $window, $cookieSto
                 }).error(function(err){
                     console.log(err);
                     $scope.loginErr = "Error While Registering the User";
+                    $scope.registerLoading = false;
                 });
     };
 });
