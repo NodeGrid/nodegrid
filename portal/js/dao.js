@@ -22,8 +22,12 @@ app.config(['$routeProvider',
         templateUrl: '/portal/web/register.html',
         controller: 'registerController'
       }).
+        when('/shell', {
+        templateUrl: '/portal/web/shell.html',
+        controller: 'shellController'
+      }).
       otherwise({
-        redirectTo: '/login'
+        redirectTo: '/app'
       });
 }]);
 
