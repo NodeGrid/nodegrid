@@ -3,7 +3,9 @@ body{
     background-image: url("../images/bg.jpg");
     color: #fff;
 }
-
+.container{
+    width: 1300px;
+}
 .logout{
     margin-top: 8px;
 }
@@ -70,4 +72,33 @@ a.list-group-item.active:hover{
 }
 h4{
     margin-bottom: 15px;
+}
+.custom-tab{
+    margin-top: 30px;
+    border-bottom: none;
+
+}
+
+.nav-tabs>li.active>a,.nav-tabs>li.active>a:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 18px;
+    border-bottom-color: #fff; 
+    border: 1px solid #fff;
+}
+
+.nav-tabs>li>a{
+    color: #fff;
+    font-size: 18px;
+}
+
+.nav-tabs>li>a:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border: 1px solid transparent;
+}
+
+.row {
+    border:1px solid #fff;
+    padding-bottom: 20px;
 }
