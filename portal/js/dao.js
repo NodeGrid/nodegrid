@@ -167,6 +167,7 @@ app.controller("shellController", function($scope, $http, $cookieStore){
             if(history.length-count > 0){
                 count ++;
                 $("#cmdTxt").val(history[history.length-count]);
+                $scope.cmd = history[history.length-count];
             }
             
         }
@@ -177,6 +178,7 @@ console.log(history + " "+ count);
             if(count > 0 && history.length-count >= 0){
                 count --;
                 $("#cmdTxt").val(history[history.length-count]);
+                $scope.cmd = history[history.length-count];
             }
         }
     };
