@@ -124,3 +124,30 @@ app.controller("registerController", function($scope, $http, $window, $cookieSto
                 });
     };
 });
+
+app.controller("shellController", function($scope, $http, $cookieStore){
+
+    $scope.submitCMD = function(cmd){
+
+        var cmds = cmd.split(" ");
+        if(cmds.length < 2){
+            $scope.systaxErr = true;
+            return;
+        }
+
+        $http({
+                url: API_URL+cmds[1],
+                method: cmds[0],
+                headers: {
+                    'Authorization': $cookieStore.get('token')
+                },
+                data: cmds[2]
+                }).success(function(data, status){
+                    $scope.status = status;
+                    $scope.data = JSON.stringify(data, undefined, 2);
+                }).error(function(data, status){
+                    $scope.status = status;
+                    $scope.data = JSON.stringify(data, undefined, 2);
+                });
+    };
+});

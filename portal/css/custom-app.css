@@ -102,3 +102,32 @@ h4{
     border:1px solid #fff;
     padding-bottom: 20px;
 }
+
+.cmd-text{
+    margin-top: 20px;
+    font-family: 'Consolas';
+    font-size: 20px;
+}
+
+.cmd-text input{
+    font-size: 20px;
+    height: 48px;
+}
+
+.custom-panel{
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border:none;
+}
+
+.json-text{
+    background-color: transparent;
+    border:none;
+    font-size: 16px;
+    color: #fff;
+}
+
+.eg-tip{
+    font-size: 12px;
+    color: #fff;
+}

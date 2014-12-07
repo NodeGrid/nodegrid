@@ -9,8 +9,26 @@
 
     <div class="row">
 
-    	<div class="col-md-12 side-div">
-        	<h2>SHELL</h2>
+    	<div class="col-md-12">
+        	
+        	<form class="cmd-text">
+        	
+            <input class="form-control" placeholder="<REQTYPE> <URL> <DATA>" ng-model="cmd">
+            <p class="eg-tip">E.g - POST /app/books {"name":"Harry Potter"}</p>
+            <button class="btn btn-lg btn-info btn-block"  style="display:none;" ng-click="submitCMD(cmd)">Login</button>
+
+<div class="alert alert-danger" role="alert" ng-if="systaxErr">Syntax Error</div>
+
+<div class="panel panel-default custom-panel" ng-show="status">
+  <div class="panel-body">
+   <h3 >STATUS&nbsp;<span class="label label-success" ng-if="status==200">{{status}}</span>
+   <span class="label label-warning" ng-if="status!=200">{{status}}</span>
+   </h3>
+    <pre class="json-text">{{data}}</pre>
+  </div>
+</div>
+          </form>
+
         </div>
 
     </div>
