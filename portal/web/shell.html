@@ -13,8 +13,9 @@
         	
         	<form class="cmd-text">
         	
-            <input class="form-control" placeholder="<REQTYPE> <URL> <DATA>" ng-model="cmd">
-            <p class="eg-tip">E.g - POST /app/books {"name":"Harry Potter"}</p>
+            <input class="form-control" placeholder="<REQTYPE> <URL> <DATA>" id="cmdTxt" ng-model="cmd" ng-keyup="showHistory($event)">
+
+           <p class="eg-tip">E.g - POST /app/books {"name":"Harry Potter"}</p>
             <button class="btn btn-lg btn-info btn-block"  style="display:none;" ng-click="submitCMD(cmd)">Login</button>
 
 <div class="alert alert-danger" role="alert" ng-if="systaxErr">Syntax Error</div>

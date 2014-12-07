@@ -127,7 +127,13 @@ app.controller("registerController", function($scope, $http, $window, $cookieSto
 
 app.controller("shellController", function($scope, $http, $cookieStore){
 
+    var history = [];
+    var count = 1;
+
     $scope.submitCMD = function(cmd){
+
+        history.push(cmd);
+        count = 0;
 
         var cmds = cmd.split(" ");
         if(cmds.length < 2){
@@ -149,5 +155,29 @@ app.controller("shellController", function($scope, $http, $cookieStore){
                     $scope.status = status;
                     $scope.data = JSON.stringify(data, undefined, 2);
                 });
+    };
+
+    $scope.showHistory = function(evt){
+
+        
+
+        if(evt.keyCode == 38){
+            
+            console.log(history + " "+ count);
+            if(history.length-count > 0){
+                count ++;
+                $("#cmdTxt").val(history[history.length-count]);
+            }
+            
+        }
+        else if(evt.keyCode == 40){
+
+console.log(history + " "+ count);
+
+            if(count > 0 && history.length-count >= 0){
+                count --;
+                $("#cmdTxt").val(history[history.length-count]);
+            }
+        }
     };
 });
