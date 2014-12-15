@@ -10,11 +10,11 @@
 	    <div class="row">
 
 	    	<div class="col-md-6">
-	        	<h2>GCM Notifier</h2>
-	        	<h4 ng-repeat="key in gcmkeyList"><span class="label label-info">{{key}}</span>&nbsp;&nbsp;{{GoogleNotifier[key]}}</h4>
+	        	<h2><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>&nbsp;&nbsp;GCM Notifier</h2>
+	        	<h4 ng-repeat="key in gcmkeyList | filter:'!name'"><span class="label label-info">{{key}}</span>&nbsp;&nbsp;{{GoogleNotifier[key]}}</h4>
 
-	        	<h2>APNS Notifier</h2>
-	        	<h4 ng-repeat="key in apnskeyList"><span class="label label-info">{{key}}</span>&nbsp;&nbsp;{{AppleNotifier[key]}}</h4>
+	        	<h2><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;&nbsp;APNS Notifier</h2>
+	        	<h4 ng-repeat="key in apnskeyList | filter:'!name'"><span class="label label-info">{{key}}</span>&nbsp;&nbsp;{{AppleNotifier[key]}}</h4>
 
 	        </div>
 
@@ -22,7 +22,7 @@
 	        	
 	        	<div class="push-div">
 
-	        	<h2>SENDING PUSH</h2>
+	        	<h2><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;&nbsp;SENDING PUSH</h2>
 
 	        	<h4>Entity for Sending Push</h4>
 	        		<input class="form-control" placeholder="/ENTITYNAME" ng-model="pushEntity">
@@ -40,9 +40,12 @@
 					<h4>PUSH Message</h4>
 	        		<input class="form-control" type="text" ng-model="pushMsg">
 
-	        		<button type="button" class="btn btn-warning" ng-click="sendPush()">SEND PUSH</button>
+	        		<button ng-if="!pushLoading" type="button" class="btn btn-warning" ng-click="sendPush()">SEND PUSH</button>
 
-	        		<div class="panel panel-default custom-panel" ng-show="status">
+	        		<button ng-if="pushLoading" class="btn btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> &nbsp;Sending...</button>
+
+
+	        		<div class="panel panel-default custom-panel" ng-show="status && !pushLoading">
 	  <div class="panel-body">
 	   <h3 >STATUS&nbsp;<span class="label label-success" ng-if="status==200">{{status}}</span>
 	   <span class="label label-warning" ng-if="status!=200">{{status}}</span>

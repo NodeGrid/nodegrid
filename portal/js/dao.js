@@ -216,6 +216,8 @@ app.controller("pushController", function($scope, $http, $window, $cookieStore){
 
     $scope.sendPush = function(){
 
+        $scope.pushLoading = true;
+
         var pushEndPoint = API_URL+"/app/push"+$scope.pushEntity;
         var dataArry = [];
         if($scope.isToAll){
@@ -237,10 +239,12 @@ app.controller("pushController", function($scope, $http, $window, $cookieStore){
                     console.log(status+data);
                     $scope.status = status;
                     $scope.data = JSON.stringify(data, undefined, 2);
+                    $scope.pushLoading = false;
                 }).error(function(data, status){
                     console.log(status+data);
                     $scope.status = status;
                     $scope.data = JSON.stringify(data, undefined, 2);
+                    $scope.pushLoading = false;
                 });
 
     }
