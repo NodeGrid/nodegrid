@@ -26,6 +26,10 @@ app.config(['$routeProvider',
         templateUrl: '/portal/web/shell.html',
         controller: 'shellController'
       }).
+        when('/push', {
+        templateUrl: '/portal/web/push.html',
+        controller: 'pushController'
+      }).
       otherwise({
         redirectTo: '/app'
       });
@@ -155,7 +159,7 @@ app.controller("shellController", function($scope, $http, $cookieStore){
                     $scope.status = status;
                     $scope.data = JSON.stringify(data, undefined, 2);
                 });
-    };
+        };
 
     $scope.showHistory = function(evt){
 
@@ -182,4 +186,63 @@ console.log(history + " "+ count);
             }
         }
     };
+});
+
+app.controller("pushController", function($scope, $http, $window, $cookieStore){
+
+    $http.get(API_URL+"/app/push/notifier/google",{
+        headers: {'Authorization': $cookieStore.get('token')}
+    })
+    .success(function(response) {
+        console.log(response);
+        $scope.GoogleNotifier = response.data;
+        $scope.gcmkeyList = Object.keys(response.data);
+    })
+    .error(function(error) {
+          $window.location.href = '#login';
+    });
+
+    $http.get(API_URL+"/app/push/notifier/apple",{
+        headers: {'Authorization': $cookieStore.get('token')}
+    })
+    .success(function(response) {
+        console.log(response);
+        $scope.AppleNotifier = response.data;
+        $scope.apnskeyList = Object.keys(response.data);
+    })
+    .error(function(error) {
+          $window.location.href = '#login';
+    });
+
+    $scope.sendPush = function(){
+
+        var pushEndPoint = API_URL+"/app/push"+$scope.pushEntity;
+        var dataArry = [];
+        if($scope.isToAll){
+            pushEndPoint = pushEndPoint+"/all";
+        }
+        else{
+            var idArray = $scope.pushEntityIDS.split(",");
+            idArray.forEach(function(e){
+                dataArry.push(e);
+            });
+        }
+
+        $http({
+                url: pushEndPoint,
+                method: "POST",
+                data: {"ids":dataArry, "msg":$scope.pushMsg},   
+                headers: {'Authorization': $cookieStore.get('token')}
+                }).success(function(data, status){
+                    console.log(status+data);
+                    $scope.status = status;
+                    $scope.data = JSON.stringify(data, undefined, 2);
+                }).error(function(data, status){
+                    console.log(status+data);
+                    $scope.status = status;
+                    $scope.data = JSON.stringify(data, undefined, 2);
+                });
+
+    }
+
 });

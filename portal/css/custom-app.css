@@ -23,18 +23,15 @@ body{
 }
 
 .side-div{
-    margin-top: 40px;
     border-right: 1px solid #fff;
 }
 
 .mid-div{
-    margin-top: 40px;
     border-right: 1px solid #fff;
 }
 
 .right-div{
-    margin-top: 40px;
-
+    border-left: 1px solid #fff;
 }
 
 .list-group-item{
@@ -132,4 +129,12 @@ h4{
 .eg-tip{
     font-size: 12px;
     color: #fff;
+}
+
+.push-div h4{
+    font-size: 15px;
+}
+
+.push-div button{
+    margin-top: 20px;
 }
