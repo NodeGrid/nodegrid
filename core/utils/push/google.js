@@ -7,20 +7,22 @@ var gcm = require('node-gcm');
 
 module.exports.sendPushToGCM = function (regIds, msg) {
 
+    console.log(msg);
+
     // create a message with default values
     var message = new gcm.Message({
         collapseKey: 'demo',
         delayWhileIdle: true,
         timeToLive: 3,
         data: {
-            price: "Test Message from Push"
-            //key2: 'message2'
+//            message: "Test Message from Push"
+            message: msg
         }
     });
 
-    var sender = new gcm.Sender('AIzaSyCAhLXMzr_Xzw_6unZ3zoMc-QsrKCkudas');
-    var registrationIds = ['APA91bER0aPdFg5__y6YOfjrSw49tdd4UsJUQl47aX1_3hJuFmbortDSfvQbNaYaxoLfCUkRQq3-5_-_hyXadL6j3ISsBdUFsYZpiJ1R9nAt7iGlHmXMOi84NDbdz0uKfWe4Sfv_W61jm93usWWL2TbXy4WPTLESmnId-KPGIY71S9zZ35OSVqs'];
-    //var registrationIds = regIds;
+    var sender = new gcm.Sender('AIzaSyD2KCj6ib1PG-8tDROMCJvO9_6eT11eJuM');
+//    var registrationIds = ['APA91bEWIUOEzbsnx3WHwOnrLqYC455p3hlPKU2366pxQJOGsdLdn59rQa6W2_KEF2LbdCNfR9IXQeSAa0XzyKjzIqJ0upWGIpVfUZlC21L7MMfIwBZdAdpk3ru6Yxz7Ksbxqb7vu-Fh2D94NCjPd9GVEYX8di87Ff11yv_300T6zxEb-JfFd3Q'];
+    var registrationIds = regIds;
 
     sender.send(message, registrationIds, 1, function (err, result) {
         console.log(result);
