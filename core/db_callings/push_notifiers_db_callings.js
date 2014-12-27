@@ -1,4 +1,5 @@
 var logger = require('../utils/log');
+var utils = require('../utils/utils');
 var mongo_connection = require('../utils/mongoose_connection');
 
 var connectionObj = mongo_connection.createMongooseConnection();
@@ -14,14 +15,13 @@ var entity = connectionObj.entityObj;
 module.exports.setNotifier = function (req, res, type) {
 
     var entityModel = mongoose.model('push_notifiers', entity);
-    // var dataObj = req.body;
     req.body['name'] = type;
-    entityModel.update({name:type}, {data:req.body}, {upsert:true},function (err, pushEntities) {
+    entityModel.update({name:type}, {data:req.body}, {upsert:true},function (err, notifiers) {
         if (err) {
-            logger.info("NodeGrid:push_db_callings/setNotifier - ["+type+"] data querying was failed. ERROR: " + err);
+            logger.info("NodeGrid:push_db_callings/setNotifier - ["+type+"] data updating was failed. ERROR: " + err);
+            utils.sendResponse(res, 500, 'Internal Server Error - ['+type+'] data updating was failed', err);
         } else {
-            var resuObj = {"status":"SUCCESS", "data":req.body, "type":type};
-            res.send(resuObj);
+            utils.sendResponse(res, 200, '['+type+'] Push notifier updated successfully', req.body);
         }
     });
 };
@@ -34,11 +34,12 @@ module.exports.setNotifier = function (req, res, type) {
 module.exports.getNotifier = function (req, res, type) {
 
     var entityModel = mongoose.model('push_notifiers', entity);
-    entityModel.findOne({name:type},function (err, pushEntities) {
+    entityModel.findOne({name:type},function (err, notifiers) {
         if (err) {
             logger.info("NodeGrid:push_db_callings/getNotifier - ["+type+"] data querying was failed. ERROR: " + err);
+            utils.sendResponse(res, 500, 'Internal Server Error - ['+type+'] data retrieving was failed', err);
         } else {
-            res.send(pushEntities);
+            utils.sendResponse(res, 200, '['+type+'] Push notifier retrieved successfully', notifiers);
         }
     });
 };
