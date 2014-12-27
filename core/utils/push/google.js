@@ -4,10 +4,10 @@
  */
 
 var gcm = require('node-gcm');
+var logger = require('../log');
+var utils = require('../utils');
 
-module.exports.sendPushToGCM = function (regIds, msg) {
-
-    console.log(msg);
+module.exports.sendPushToGCM = function (regIds, req, res) {
 
     // create a message with default values
     var message = new gcm.Message({
@@ -15,16 +15,21 @@ module.exports.sendPushToGCM = function (regIds, msg) {
         delayWhileIdle: true,
         timeToLive: 3,
         data: {
-//            message: "Test Message from Push"
-            message: msg
+            message: req.body.message
         }
     });
 
     var sender = new gcm.Sender('AIzaSyD2KCj6ib1PG-8tDROMCJvO9_6eT11eJuM');
-//    var registrationIds = ['APA91bEWIUOEzbsnx3WHwOnrLqYC455p3hlPKU2366pxQJOGsdLdn59rQa6W2_KEF2LbdCNfR9IXQeSAa0XzyKjzIqJ0upWGIpVfUZlC21L7MMfIwBZdAdpk3ru6Yxz7Ksbxqb7vu-Fh2D94NCjPd9GVEYX8di87Ff11yv_300T6zxEb-JfFd3Q'];
     var registrationIds = regIds;
 
     sender.send(message, registrationIds, 1, function (err, result) {
         console.log(result);
+        if (err) {
+            logger.info('NodeGrid:google/sendPushToGCM - Push sending unsuccessful from GCM');
+            utils.sendResponse(res, 417, 'Expectation Failed - Push is not completed from GCM side', err);
+        } else {
+            logger.info('NodeGrid:google/sendPushToGCM - Push sent successful to GCM');
+            utils.sendResponse(res, 200, 'Push is sent', result);
+        }
     });
 };

@@ -5,6 +5,8 @@
 
 var google = require("./push/google");
 var apple = require("./push/apple");
+var utils = require('./utils');
+var logger = require('../utils/log');
 
 module.exports.sendPushNotification = function (req, res, pushEntities) {
 
@@ -23,15 +25,14 @@ module.exports.sendPushNotification = function (req, res, pushEntities) {
     }
 
     if (googlePushIds.length == 0 && applePushIds.length == 0) {
-        //TODO Add a logger and send res.send()
+        logger.info('NodeGrid:push/sendPushNotification - Push contents not found in given collection');
+        utils.sendResponse(res, 204, 'No Contents - Push contents not found in given collection', 'EMPTY');
     } else {
         if (googlePushIds.length != 0)
-            google.sendPushToGCM(googlePushIds, req.body.message);
+            google.sendPushToGCM(googlePushIds, req, res);
 
         if (applePushIds.length != 0)
-            apple.sendPushToAPNS(applePushIds, req.body.message);
-
-        res.send({"status":"Success"})
+            apple.sendPushToAPNS(applePushIds, req, res);
     }
 
 };
