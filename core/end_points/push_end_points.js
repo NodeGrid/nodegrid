@@ -19,7 +19,6 @@ module.exports.createPushEndPoints = function (app) {
         pushServices.sendPushByEntityRelations(req,res);
     });
 
-
     app.post('/app/push/notifier/apple', function (req, res) {
         logger.info('NodeGrid:push_end_points/createPushEndPoints - [POST/app/push/notifier/apple]');
         pushServices.setPushNotifiers(req,res, "apple");
@@ -39,8 +38,6 @@ module.exports.createPushEndPoints = function (app) {
         logger.info('NodeGrid:push_end_points/createPushEndPoints - [GET/app/push/notifier/google]');
         pushServices.getPushNotifiers(req,res, "google");
     });
-
-
 };
 
 
