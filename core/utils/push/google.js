@@ -19,6 +19,7 @@ module.exports.sendPushToGCM = function (regIds, req, res) {
         }
     });
 
+    //TODO: Need to query the server_key from database and add as GCM sender
     var sender = new gcm.Sender('AIzaSyD2KCj6ib1PG-8tDROMCJvO9_6eT11eJuM');
     var registrationIds = regIds;
 
