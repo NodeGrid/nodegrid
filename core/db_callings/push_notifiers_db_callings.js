@@ -38,13 +38,28 @@ module.exports.setNotifier = function (req, res, type) {
  */
 module.exports.getNotifier = function (req, res, type) {
 
+    this.queryNotifier(type, function(status, resultObj) {
+       if (status == 0) {
+           utils.sendResponse(res, 200, '['+type+'] Push notifier retrieved successfully', resultObj);
+       } else if (status == 1){
+           utils.sendResponse(res, 500, 'Internal Server Error - ['+type+'] data retrieving was failed', resultObj);
+       }
+    });
+};
+
+/**
+ * Retrieve the notifier from type
+ * @param type
+ */
+module.exports.queryNotifier = function (type, callback) {
+
     var entityModel = mongoose.model('push_notifiers', entity);
     entityModel.findOne({name:type},function (err, notifiers) {
         if (err) {
             logger.info("NodeGrid:push_notifier_db_callings/getNotifier - ["+type+"] data querying was failed. ERROR: " + err);
-            utils.sendResponse(res, 500, 'Internal Server Error - ['+type+'] data retrieving was failed', err);
+            callback(1, err);
         } else {
-            utils.sendResponse(res, 200, '['+type+'] Push notifier retrieved successfully', notifiers);
+            callback(0, notifiers);
         }
     });
 };
