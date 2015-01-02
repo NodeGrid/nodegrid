@@ -1,0 +1,16 @@
+          <form class="form-signin" role="form"  id="form-div">
+
+            <div class="alert alert-danger" role="alert" ng-if="loginErr">{{loginErr}}</div>
+            <div class="alert alert-success" role="alert" ng-if="loginSuccess">{{loginSuccess}}</div>
+
+            <h1 class="form-signin-heading" id="form-header">Register</h1>
+            <input type="username" class="form-control" placeholder="Username" id="usernameTxt" ng-model="username">
+            <input type="name" class="form-control" placeholder="Name" id="nameTxt" ng-model="name">
+            <input type="password" class="form-control" placeholder="Password" id="passwordTxt" ng-model="password">
+            <button ng-if="!registerLoading"  class="btn btn-lg btn-warning btn-block" id="one-btn" ng-click="register(username,name,password)">Register</button>
+              
+              <button ng-if="registerLoading" class="btn btn-lg btn-warning btn-block" id="one-btn" ng-click="register(username,name,password)">Register</button>
+            <br/>
+            <h3> - OR -</h3>
+            <button class="btn btn-lg btn-info btn-block" id="two-btn" onclick="window.location='#login'" >Login</button>
+          </form>

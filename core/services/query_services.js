@@ -11,6 +11,8 @@ var url = require('url');
 module.exports.handleAdvanceQueryModelGet = function (req, res) {
     var url_parts = url.parse(req.url, true);
     var query = url_parts.query;
+    var selectList = [];
+    var whereList = [];
 
     for (var qryKey in query) {
         if (qryKey === 'qry')
@@ -29,9 +31,12 @@ module.exports.handleAdvanceQueryModelGet = function (req, res) {
         selectList = select.split(',');
 
         // create select parameters from selectList
-        var selectParam = "";
         for (var iSelect = 0; iSelect < selectList.length; iSelect++) {
-            selectObj["data." + selectList[iSelect]] = true;
+            if (selectList[iSelect] === '*') {
+                selectObj = {};
+            } else {
+                selectObj["data." + selectList[iSelect]] = true;
+            }
         }
 
         // Create where parameters from whereList

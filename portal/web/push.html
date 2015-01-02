@@ -1,0 +1,62 @@
+	    <!-- Example row of columns -->
+	    
+	<ul class="nav nav-tabs custom-tab">
+	  <li role="presentation" ><a href="#/app"><span class="glyphicon glyphicon-hdd" ></span>&nbsp;&nbsp;Data Explorer</a></li>
+	  <li role="presentation" ><a href="#/shell"><span class="glyphicon glyphicon-list-alt" ></span>&nbsp;&nbsp;SHELL</a></li>
+	  <li role="presentation" class="active"><a href="#/push"><span class="glyphicon glyphicon-send" ></span>&nbsp;&nbsp;Push Notifications</a></li>
+	  <li role="presentation"><a href="#/app"><span class="glyphicon glyphicon-cog" ></span>&nbsp;&nbsp;Settings</a></li>
+	</ul>
+
+	    <div class="row">
+
+	    	<div class="col-md-6">
+	        	<h2><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>&nbsp;&nbsp;GCM Notifier</h2>
+	        	<h4 ng-repeat="key in gcmkeyList | filter:'!name'"><span class="label label-info">{{key}}</span>&nbsp;&nbsp;{{GoogleNotifier[key]}}</h4>
+
+	        	<h2><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;&nbsp;APNS Notifier</h2>
+	        	<h4 ng-repeat="key in apnskeyList | filter:'!name'"><span class="label label-info">{{key}}</span>&nbsp;&nbsp;{{AppleNotifier[key]}}</h4>
+
+	        </div>
+
+	        <div class="col-md-6 right-div">
+	        	
+	        	<div class="push-div">
+
+	        	<h2><span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;&nbsp;SENDING PUSH</h2>
+
+	        	<h4>Entity for Sending Push</h4>
+	        		<input class="form-control" placeholder="/ENTITYNAME" ng-model="pushEntity">
+	        		<div class="checkbox">
+					    <label>
+					      <input type="checkbox" ng-model="isToAll" ng-init="isToAll=true"> Send to ALL
+					    </label>
+					  </div>
+
+					  <div ng-show="!isToAll">
+					  <h4>Entity IDs</h4>
+	        		<input class="form-control" placeholder="id1,id2,id3" ng-model="pushEntityIDS">
+	        		</div>
+
+					<h4>PUSH Message</h4>
+	        		<input class="form-control" type="text" ng-model="pushMsg">
+
+	        		<button ng-if="!pushLoading" type="button" class="btn btn-warning" ng-click="sendPush()">SEND PUSH</button>
+
+	        		<button ng-if="pushLoading" class="btn btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> &nbsp;Sending...</button>
+
+
+	        		<div class="panel panel-default custom-panel" ng-show="status && !pushLoading">
+	  <div class="panel-body">
+	   <h3 >STATUS&nbsp;<span class="label label-success" ng-if="status==200">{{status}}</span>
+	   <span class="label label-warning" ng-if="status!=200">{{status}}</span>
+	   </h3>
+	    <pre class="json-text">{{data}}</pre>
+	  </div>
+	</div>
+
+	        	</div>
+
+	        </div>
+
+
+	    </div>

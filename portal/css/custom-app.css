@@ -1,0 +1,140 @@
+body{
+    font-family: 'Raleway', sans-serif;
+    background-image: url("../images/bg.jpg");
+    color: #fff;
+}
+.container{
+    width: 1300px;
+}
+.logout{
+    margin-top: 8px;
+}
+
+#header-div{
+    background-color: rgba(0, 0, 0, 0.4);
+    border-width: 0px;
+}
+
+.small-logo{
+    float: left;
+    height: 50px;
+    width: auto;
+    padding:10px;
+}
+
+.side-div{
+    border-right: 1px solid #fff;
+}
+
+.mid-div{
+    border-right: 1px solid #fff;
+}
+
+.right-div{
+    border-left: 1px solid #fff;
+}
+
+.list-group-item{
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 18px;
+}
+
+a.list-group-item{
+    color: #fff;
+}
+a.list-group-item:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+
+a.list-group-item.active{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+
+a.list-group-item.active:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+
+.row h2{
+    color: rgba(255, 255, 255, 0.4);
+}
+.label{
+    font-weight: normal;
+}
+.label-default{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+h4{
+    margin-bottom: 15px;
+}
+.custom-tab{
+    margin-top: 30px;
+    border-bottom: none;
+
+}
+
+.nav-tabs>li.active>a,.nav-tabs>li.active>a:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 18px;
+    border-bottom-color: #fff; 
+    border: 1px solid #fff;
+}
+
+.nav-tabs>li>a{
+    color: #fff;
+    font-size: 18px;
+}
+
+.nav-tabs>li>a:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    border: 1px solid transparent;
+}
+
+.row {
+    border:1px solid #fff;
+    padding-bottom: 20px;
+}
+
+.cmd-text{
+    margin-top: 20px;
+    font-family: 'Consolas';
+    font-size: 20px;
+}
+
+.cmd-text input{
+    font-size: 20px;
+    height: 48px;
+}
+
+.custom-panel{
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    border:none;
+}
+
+.json-text{
+    background-color: transparent;
+    border:none;
+    font-size: 16px;
+    color: #fff;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.eg-tip{
+    font-size: 12px;
+    color: #fff;
+}
+
+.push-div h4{
+    font-size: 15px;
+}
+
+.push-div button{
+    margin-top: 20px;
+}

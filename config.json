@@ -1,10 +1,11 @@
 {
     "APP_PORT":3000,
-
     "DB_HOST": "localhost",
     "DB_PORT": 27017,
     "DB_NAME": "nodegrid",
     "RELATIONS_TABLE":"entity_relations",
     "USERS_TABLE":"users",
-    "TOKEN_TABLE":"tokens"
+    "TOKEN_TABLE":"tokens",
+    "SECURE_APP":true,
+    "EABLE_ANALYTICS":true
 }

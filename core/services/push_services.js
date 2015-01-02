@@ -2,6 +2,7 @@ var pushDb = require('../db_callings/push_db_callings');
 var pushNotifierDb = require('../db_callings/push_notifiers_db_callings');
 var logger = require('../utils/log');
 var utils = require('../utils/utils');
+var push = require('../utils/push');
 
 /**
  * This method sends the push notifications based on the devices
@@ -10,7 +11,13 @@ var utils = require('../utils/utils');
  */
 module.exports.sendPushByEntities = function (req, res, sendToAll) {
     logger.info('NodeGrid:push_services/sendPushByEntities - sendPushByEntities');
-    pushDb.getEntitiesForPush(req, res, sendToAll);
+    pushDb.getEntitiesForPush(req, res, sendToAll, function(status, responseResults){
+        if (status == 0) {
+            push.sendPushNotification(req, res, responseResults);
+        } else if (status == 1) {
+            res.send(responseResults);
+        }
+    });
 
 };
 

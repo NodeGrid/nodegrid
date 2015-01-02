@@ -1,0 +1,66 @@
+body{
+
+    font-family: 'Raleway', sans-serif;
+    background-image: url("../images/bg.jpg");
+    color: #fff;
+}
+
+.form-control{
+    background-color: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff;
+}
+
+.form-signin{
+    text-align: center;
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    max-width: 430px;
+    margin-top: 30px;
+}
+.form-signin-heading{
+    font-size: 72px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.form-signin input[type="username"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="name"] {
+    margin-bottom: -1px;
+    border-radius: 0;
+}
+
+.alert-danger{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: red;
+    border-color: red;
+}
+
+.alert-success{
+    background-color: rgba(0, 0, 0, 0.4);
+    color: green;
+    border-color: green;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}

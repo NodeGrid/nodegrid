@@ -6,7 +6,8 @@ var mongo_connection = require('../utils/mongoose_connection');
 //these URL are skips from the Token Valiations
 var skipAuth = [
     "/system/",
-    "/analytics/"
+    "/analytics/",
+    "/portal/"
 ];
 
 function isSkippingURL(url){
@@ -42,4 +43,8 @@ module.exports.setSecureApp = function (req, res, next) {
         //mongo db connection is not available
         utils.sendResponse(res, 503, 'Service Unavailable - MongoDB connection unavailable', 'EMPTY');
     }
+};
+
+module.exports.setCORS = function(req,res,next){
+	res.header('Access-Control-Allow-Origin', '*');
 };

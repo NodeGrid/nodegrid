@@ -1,4 +1,5 @@
 var logger = require('../utils/log');
+var push = require('../utils/push');
 var mongo_connection = require('../utils/mongoose_connection');
 
 var connectionObj = mongo_connection.createMongooseConnection();
@@ -11,7 +12,7 @@ var entity = connectionObj.entityObj;
  * @param req
  * @param res
  */
-module.exports.getEntitiesForPush = function (req, res, sendToAll) {
+module.exports.getEntitiesForPush = function (req, res, sendToAll, callback) {
 
     var entityModel = mongoose.model(req.params.modelName, entity);
     var qryObj = {};
@@ -23,9 +24,10 @@ module.exports.getEntitiesForPush = function (req, res, sendToAll) {
     entityModel.find(qryObj, function (err, pushEntities) {
         if (err) {
             logger.info("NodeGrid:push_db_callings/getEntitiesForPush - [push] data querying was failed. ERROR: " + err);
+            callback(1, err);
         } else {
-            // TODO   SENDING PUSHHHH >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
-            res.send(pushEntities);
+            logger.info("NodeGrid:push_db_callings/getEntitiesForPush - [push] data retrieved successfully.");
+            callback(0, pushEntities);
         }
     });
 };
