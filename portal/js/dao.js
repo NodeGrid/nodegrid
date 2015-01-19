@@ -233,7 +233,7 @@ app.controller("pushController", function($scope, $http, $window, $cookieStore){
         $http({
                 url: pushEndPoint,
                 method: "POST",
-                data: {"ids":dataArry, "msg":$scope.pushMsg},   
+                data: {"ids":dataArry, "message":$scope.pushMsg},
                 headers: {'Authorization': $cookieStore.get('token')}
                 }).success(function(data, status){
                     console.log(status+data);
