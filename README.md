@@ -371,3 +371,7 @@ Sample Response:
   }
 }
 ```
+
+#### **Create relations between entity objects**
+
+Stored entity objects can have relations. NodeGrid facilitate developers to keep those relations in the database. That also can do from simple end_points like above examples.
