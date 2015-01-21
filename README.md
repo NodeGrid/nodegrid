@@ -374,4 +374,37 @@ Sample Response:
 
 #### **Create relations between entity objects**
 
-Stored entity objects can have relations. NodeGrid facilitate developers to keep those relations in the database. That also can do from simple end_points like above examples.
+Stored entity objects can have relationships. NodeGrid facilitate developers to keep those relations in the database. That also can do from simple end_points like above examples.
+<br/>
+Let's use simple example. There are two entities called `users` & `books`. There can be relationship like **users has books**
+
+First Entity: `users`
+<br/>Relationship: `has`
+<br/>Second Entity: `books`
+
+Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<object id>` from your entity object id
+
+URL: `http://localhost:3000/app/users/<object id>/has/books/<object id>`
+<br/>Request Type: `POST`
+
+> curl -X POST -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/users/\<object id\>/has/boooks/\<object id\>
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "New relations added successfully",
+    "data": {
+        "__v": 0,
+        "data": {
+            "secondIdentifier": "544e1c45c9c22bea2dc046cb",
+            "secondEntity": "books",
+            "relationType": "has",
+            "firstIdentifier": "547415c57cb17d271ce44ae7",
+            "firstEntity": "users"
+        },
+        "_id": "54bf3c8a1c89390000d6c2bd"
+    }
+}
+```
