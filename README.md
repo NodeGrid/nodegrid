@@ -29,6 +29,7 @@ Authenticated user can create, read, update, delete entities just using simple R
 This is one of special feature NodeGrid provide to developers. Developers can create relations between the objects and entities they created dynamically. This also can do from simple REST call.
 
 #### **Send push notification**
+From this feature, NodeGrid facilitate all the backend functionalities for GCM (Google Cloud Messaging) & APNS (Apple Push Notification Service). Developers only need to care about there client application.
 
 #### **Enable server side events**
 
