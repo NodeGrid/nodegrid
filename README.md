@@ -235,9 +235,13 @@ Sample Response:
 
 ### App
 
-Users can create dynmic entities and do CRUD operations from NodeGrid. 
+Users can create dynmic entities and do CRUD operations from NodeGrid. NodeGrid facilitate keep relationships between created dynamic entities.
 
-#### **Create new entity and store object**
+<br/>
+#### **Store**
+--------------
+
+#### *Create new entity and store object*
 
 As an example let's get entity called `books`. In books entity has follwing type object `{"name":"NodeGrid Tutorials", "author":"John Smith", "type": "Tutorials"}`.
 <br/>
@@ -268,7 +272,7 @@ Sample Response:
 }
 ```
 
-#### **Query objects from entity**
+#### *Query objects from entity*
 
 Let's use the same example entity `books`.
 <br/>
@@ -309,7 +313,7 @@ Sample Response:
 }
 ```
 
-#### **Query object in entity from given object id**
+#### *Query object in entity from given object id*
 
 Let's use the same example entity `books`.
 <br/>
@@ -342,7 +346,7 @@ Sample Response:
 }
 ```
 
-#### **Delete object in entity from given object id**
+#### *Delete object in entity from given object id*
 
 Let's use the same example entity `books`.
 <br/>
@@ -373,9 +377,15 @@ Sample Response:
 }
 ```
 
-#### **Create relations between entity objects**
+<br/>
+#### **Relationships**
+----------------------
+
+#### *Create relationship between entity objects*
 
 Stored entity objects can have relationships. NodeGrid facilitate developers to keep those relations in the database. That also can do from simple end_points like above examples.
+<br/>
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
 <br/>
 Let's use simple example. There are two entities called `users` & `books`. There can be relationship like **users has books**
 
@@ -407,5 +417,40 @@ Sample Response:
         },
         "_id": "54bf3c8a1c89390000d6c2bd"
     }
+}
+```
+
+#### *Query relationships between entities*
+
+This created relationships supports to build relational mapping between entiry objects. This following relations can query as follows.
+
+Let's use the relationship, created above.
+<br/>
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<object id>` from your entity object id
+
+URL: `http://localhost:3000/app/users/<object id>/has/books`
+<br/>Request Type: `GET`
+
+> curl -X GET -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/users/\<object id\>/has/boooks
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "[entity_relations] data retrieved successfully",
+    "data": [
+        {
+            "_id": "54bf698e1c89390000d6c2be",
+            "data": {
+                "name": "NodeGrid Tutorials",
+                "Author": "John Smith",
+                "type": "Tutorials"
+            },
+            "__v": 0
+        }
+    ]
 }
 ```
