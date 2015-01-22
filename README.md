@@ -454,3 +454,35 @@ Sample Response:
     ]
 }
 ```
+#### *Delete relationships between entities*
+
+Let's use the relationship, created above.
+<br/>
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<object id>` from your entity object id
+
+URL: `http://localhost:3000/app/users/<object id>/has/books/<object id>`
+<br/>Request Type: `DELETE`
+
+> curl -X DELETE -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/users/\<object id\>/has/boooks/\<object id\>
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "[entity_relations] data relationship successfully deleted",
+    "data": {
+        "_id": "54bf69f31c89390000d6c2bf",
+        "data": {
+            "firstEntity": "users",
+            "firstIdentifier": "547415c57cb17d271ce44ae7",
+            "relationType": "has",
+            "secondEntity": "books",
+            "secondIdentifier": "54bf698e1c89390000d6c2be"
+        },
+        "__v": 0
+    }
+}
+```
