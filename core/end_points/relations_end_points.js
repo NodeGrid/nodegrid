@@ -18,7 +18,7 @@ module.exports.createRelationsEndPoints = function(app) {
     });
 
     app.get('/app/:entity/:identifier/:type/:secondEntity', function(req, res){
-        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/app/:entity/:identifier/:type]');
+        logger.info('NodeGrid:relations_end_points/createRelationsEndPoints - [GET/app/:entity/:identifier/:type/:secondEntity]');
         relationsServices.handleRetrieveRelationsWithType(req, res);
     });
 
