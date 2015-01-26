@@ -493,4 +493,31 @@ Sample Response:
 
 Nower days in web application, notifications plays a big roll. That helps to notify some thing to clients, devices, or any server in instant. NodeGrid mBaaS supports for Push Notifications as a backend. This facilitate GCM (Google Cloud Messaging) & APNS (Apple Push Notification Service) implementations. Developer can configure the keys in to NodeGrid and simply can do the push notification in there applications.
 
+#### *Set Google Notifier to NodeGrid*
+
+In GCM (Google Cloud Messaging) developer has to configure server side configurations. First developer need to create an app in Google AppEngine. From the Google AppEngine app, we have to create server-key for push sender. That server-key must configure to NodeGrid to send push notification using GCM.
+<br/>
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<server-key-from-google-app>` from your google AppEngine app server-key.
+
+URL: `http://localhost:3000/app/push/notifier/google`
+<br/>Request Type: `POST`
+<br/>Data Object: `{"server_key":"<server-key-from-google-app>"}`
+
+> curl -X POST -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" -d '{"server_key":"\<server-key-from-google-app\>"}' http://localhost:3000/app/push/notifier/google
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "[google] Push notifier updated successfully",
+    "data": {
+        "server_key": "AIzaSyD2KCj6ib1PG-8tDROMCJvO9_6eT11eJuM",
+        "name": "google"
+    }
+}
+```
+
 #### *Set Apple Notifier to NodeGrid*
