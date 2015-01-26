@@ -496,7 +496,8 @@ Nower days in web application, notifications plays a big roll. That helps to not
 #### *Set Google Notifier to NodeGrid*
 
 In GCM (Google Cloud Messaging) developer has to configure server side configurations. First developer need to create an app in Google AppEngine. From the Google AppEngine app, we have to create server-key for push sender. That server-key must configure to NodeGrid to send push notification using GCM.
-<br/>
+
+
 This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
 
 Replace the `<accessToken>` from your user's accessToken.
