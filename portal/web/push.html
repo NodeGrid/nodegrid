@@ -4,14 +4,15 @@
 	  <li role="presentation" ><a href="#/app"><span class="glyphicon glyphicon-hdd" ></span>&nbsp;&nbsp;Data Explorer</a></li>
 	  <li role="presentation" ><a href="#/shell"><span class="glyphicon glyphicon-list-alt" ></span>&nbsp;&nbsp;SHELL</a></li>
 	  <li role="presentation" class="active"><a href="#/push"><span class="glyphicon glyphicon-send" ></span>&nbsp;&nbsp;Push Notifications</a></li>
-	  <li role="presentation"><a href="#/app"><span class="glyphicon glyphicon-cog" ></span>&nbsp;&nbsp;Settings</a></li>
+	  <!--<li role="presentation"><a href="#/app"><span class="glyphicon glyphicon-cog" ></span>&nbsp;&nbsp;Settings</a></li>-->
 	</ul>
 
 	    <div class="row">
 
 	    	<div class="col-md-6">
 	        	<h2><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>&nbsp;&nbsp;GCM Notifier</h2>
-	        	<h4 ng-repeat="key in gcmkeyList | filter:'!name'"><span class="label label-info">{{key}}</span>&nbsp;&nbsp;{{GoogleNotifier[key]}}</h4>
+                <h4><span class="label label-info">name</span>&nbsp;&nbsp;{{GoogleNotifier.data.name}}</h4>
+	        	<h4><span class="label label-info">server key</span>&nbsp;&nbsp;{{GoogleNotifier.data.server_key}}</h4>
 
 	        	<h2><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;&nbsp;APNS Notifier</h2>
 	        	<h4 ng-repeat="key in apnskeyList | filter:'!name'"><span class="label label-info">{{key}}</span>&nbsp;&nbsp;{{AppleNotifier[key]}}</h4>
