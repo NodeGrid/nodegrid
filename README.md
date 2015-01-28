@@ -231,6 +231,5 @@ Sample Response:
 }
 ```
 
-### Using Application
-
+<br/>
 This [App README](https://github.com/PahanPerera/nodegrid/blob/master/core/README.md) will show how to use NodeGrid as an App
