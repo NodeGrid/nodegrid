@@ -3,6 +3,7 @@ var pushServices = require('../services/push_services');
 
 module.exports.createPushEndPoints = function (app) {
 
+    // Send push notifications
     app.post('/app/push/:modelName', function (req, res) {
         logger.info('NodeGrid:push_end_points/createPushEndPoints - [POST/app/push/modelName]');
         pushServices.sendPushByEntities(req,res, false);
@@ -19,6 +20,7 @@ module.exports.createPushEndPoints = function (app) {
         pushServices.sendPushByEntityRelations(req,res);
     });
 
+    // Set push configurations
     app.post('/app/push/notifier/apple', function (req, res) {
         logger.info('NodeGrid:push_end_points/createPushEndPoints - [POST/app/push/notifier/apple]');
         pushServices.setPushNotifiers(req,res, "apple");
@@ -29,6 +31,7 @@ module.exports.createPushEndPoints = function (app) {
         pushServices.setPushNotifiers(req,res, "google");
     });
 
+    // Get push configurations
     app.get('/app/push/notifier/apple', function (req, res) {
         logger.info('NodeGrid:push_end_points/createPushEndPoints - [GET/app/push/notifier/apple]');
         pushServices.getPushNotifiers(req,res, "apple");
