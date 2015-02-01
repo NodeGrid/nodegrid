@@ -161,6 +161,7 @@ First Entity: `users`
 <br/>Second Entity: `books`
 
 Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<entity name>` from your entity
 <br/>Replace the `<object id>` from your entity object id
 
 URL: `http://localhost:3000/app/users/<object id>/has/books/<object id>`
@@ -196,9 +197,9 @@ Let's use the relationship, created above.
 This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
 
 Replace the `<accessToken>` from your user's accessToken.
-<br/>Replace the `<object id>` from your entity object id
+<br/>Replace the `<entity name>` from your entity
 
-URL: `http://localhost:3000/app/users/<object id>/has/books`
+URL: `http://localhost:3000/app/users/<entity name>/has/books`
 <br/>Request Type: `GET`
 
 > curl -X GET -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/users/\<object id\>/has/boooks
@@ -228,9 +229,10 @@ Let's use the relationship, created above.
 This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
 
 Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<entity name>` from your entity
 <br/>Replace the `<object id>` from your entity object id
 
-URL: `http://localhost:3000/app/users/<object id>/has/books/<object id>`
+URL: `http://localhost:3000/app/users/<entity name>/has/books/<object id>`
 <br/>Request Type: `DELETE`
 
 > curl -X DELETE -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/users/\<object id\>/has/boooks/\<object id\>
@@ -324,3 +326,72 @@ Feature is still on development
 #### *Get Apple Notifier*
 
 Feature is still on development
+
+#### *Notify all desitinations in the given entity*
+
+Send notifications to all configured objects in the given entity.  
+
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<entity name>` from your entity object id
+
+URL: `http://localhost:3000/app/push/<entity name>/all`
+<br/>Request Type: `POST`
+<br/>Data Object: `{"message":"<message object you need to send>"}`
+
+> curl -X POST -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" -d '{"message":"Hi NodeGrid"}' http://localhost:3000/app/push/\<entity name\>/all
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "Push is sent",
+    "data": {
+        "multicast_id": 4755411179386174000,
+        "success": 1,
+        "failure": 0,
+        "canonical_ids": 0,
+        "results": [
+            {
+                "message_id": "0:1422777415039749%29557986002efde3"
+            }
+        ]
+    }
+}
+```
+
+#### *Notify given desitinations in the given entity*
+
+Send notifications to given people who configured in the given entity.  
+
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+<br/>Replace the `<entity name>` from your entity
+<br/>Replace the `<object id>` from your entity object id
+
+URL: `http://localhost:3000/app/push/<entity name>/all`
+<br/>Request Type: `POST`
+<br/>Data Object: `{"ids":[<object id 1>, <object id 2>, <object id 3>], "message":"<message object you need to send>"}`
+
+> curl -X POST -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" -d '{"ids":[\<object id 1\>, \<object id 2\>, \<object id 3\>], "message":"\<message object you need to send\>"}' http://localhost:3000/app/push/\<entity name\>
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "Push is sent",
+    "data": {
+        "multicast_id": 8815822366424330000,
+        "success": 1,
+        "failure": 0,
+        "canonical_ids": 0,
+        "results": [
+            {
+                "message_id": "0:1422778963162858%29557986002efde3"
+            }
+        ]
+    }
+}
+```
