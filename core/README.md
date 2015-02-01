@@ -288,4 +288,39 @@ Sample Response:
 }
 ```
 
+#### *Get Google Notifier*
+
+This is for query the configured `Google Notifier` 
+
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+
+URL: `http://localhost:3000/app/push/notifier/google`
+<br/>Request Type: `GET`
+
+> curl -X GET -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/push/notifier/google
+
+Sample Response:
+```
+{
+    "status": "SUCCESS",
+    "msg": "[google] Push notifier retrieved successfully",
+    "data": {
+        "_id": "549ee5b917dfc0af5768ab5b",
+        "name": "google",
+        "data": {
+            "name": "google",
+            "server_key": "AIzaSyD2KCj6ib1PG-8tDROMCJvO9_6eT11eJuM"
+        }
+    }
+}
+```
+
 #### *Set Apple Notifier to NodeGrid*
+
+Feature is still on development
+
+#### *Get Apple Notifier*
+
+Feature is still on development
