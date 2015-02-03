@@ -66,6 +66,28 @@ After setup the pre-requisite clone the NodeGrid to your system.
 
 <br/>
 
+## Portal & Analytics
+
+NodeGrid provide interfaces for access your backend data & check analytics through your web.
+
+### Portal
+
+![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/portal_login.png)
+
+![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/portal_entities.png)
+
+![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/portal_shell.png)
+
+![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/portal_push.png)
+
+### Analytics
+
+![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/analytics.png)
+
+----------
+
+<br/>
+
 ## Samples
 
 ### Application Status
