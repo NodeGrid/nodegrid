@@ -77,13 +77,13 @@ Access the web portal through following url.
 URL: `http://localhost:3000/portal`
 <br/>Request Type: `GET`
 
-![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/portal_login.png)
+![alt tag](https://raw.githubusercontent.com/wiki/nodegrid/nodegrid/images/portal_login.png)
 
-![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/portal_entities.png)
+![alt tag](https://raw.githubusercontent.com/wiki/nodegrid/nodegrid/images/portal_entities.png)
 
-![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/portal_shell.png)
+![alt tag](https://raw.githubusercontent.com/wiki/nodegrid/nodegrid/images/portal_shell.png)
 
-![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/portal_push.png)
+![alt tag](https://raw.githubusercontent.com/wiki/nodegrid/nodegrid/images/portal_push.png)
 
 ### Analytics
 
@@ -92,7 +92,7 @@ Access the web analytics through following url.
 URL: `http://localhost:3000/analytics`
 <br/>Request Type: `GET`
 
-![alt tag](https://raw.githubusercontent.com/wiki/PahanPerera/nodegrid/images/analytics.png)
+![alt tag](https://raw.githubusercontent.com/wiki/nodegrid/nodegrid/images/analytics.png)
 
 ----------
 
