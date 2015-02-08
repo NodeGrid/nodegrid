@@ -1,6 +1,6 @@
 # NodeGrid
 
-NodeGrid is a simple, light-weight ***backend as a service*** framework for mobile applications. Build you app, we care about your backend. NodeGrid core is built top of light-weight NodeJS and MongoDB 
+NodeGrid is a simple, light-weight ***backend as a service*** framework for mobile applications. Build you app, we care about your backend. NodeGrid core is built on top of light-weight NodeJS and MongoDB
 
 ----------
 
