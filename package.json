@@ -1,10 +1,17 @@
 {
   "name": "nodegrid",
+  "description": "NodeGrid is a simple, light-weight backend as a service framework for mobile applications",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "start": "forever start -l nodegrid.log -a app.js",
+    "stop": "forever stop app.js",
+    "restart": "forever restartall"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "express": "3.3.4",
+    "forever": "^0.14.1",
     "mongoose": "3.8.14",
     "node-gcm": "0.9.12",
     "node.extend": "1.1.2",
