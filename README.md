@@ -60,6 +60,10 @@ After setup the pre-requisite clone the NodeGrid to your system.
  * Run the NodeGrid,
 
 	> node app.js
+	
+ * Run the NodeGrid with forever,
+ 
+ 	> npm start
 
 
 ----------
