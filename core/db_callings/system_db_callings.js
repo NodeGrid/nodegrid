@@ -280,7 +280,12 @@ module.exports.checkSystemStatus = function (req,res) {
     var statusCode = mongo_connection.mongoConnectionStatus();
      var statusObj = {
         "status": "SUCCESS",
-        "mongo-connection":statusCode
+        "msg": "NodeGrid mBaaS status",
+        "data": [
+            {
+                "mongo-connection": statusCode
+            }
+        ]
      };
      res.send(statusObj);
 };
