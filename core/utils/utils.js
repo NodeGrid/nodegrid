@@ -37,11 +37,22 @@ module.exports.sendResponse = function (res, statusCode, statusMessage, dataObje
 
     var responseObj;
     if (dataObject != 'EMPTY') {
-        responseObj = {
-            "status":"ERROR",
-            "msg":statusMessage,
-            "data":dataObject
-        };
+        // If dataObject is not an array, it sends as an array to data key
+        if (dataObject instanceof Array) {
+            responseObj = {
+                "status":"ERROR",
+                "msg":statusMessage,
+                "data":dataObject
+            };
+        } else {
+            responseObj = {
+                "status":"ERROR",
+                "msg":statusMessage,
+                "data":[
+                    dataObject
+                 ]
+            };
+        }
     } else {
         responseObj = {
             "status":"ERROR",

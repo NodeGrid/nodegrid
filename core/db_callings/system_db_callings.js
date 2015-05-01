@@ -278,16 +278,42 @@ function updateTokenObject(tokenRecord, status, callback) {
 
 module.exports.checkSystemStatus = function (req,res) {
     var statusCode = mongo_connection.mongoConnectionStatus();
-     var statusObj = {
+    var dataObject = {
+        "nodegridStatus":"",
+        "mongoStatus": ""
+    };
+
+    switch (statusCode) {
+        case 0:
+            dataObject.nodegridStatus = "BAD";
+            dataObject.mongoStatus = "DISCONNECTED"
+            break;
+        case 1:
+            dataObject.nodegridStatus = "GOOD";
+            dataObject.mongoStatus = "CONNECTED"
+            break;
+        case 2:
+            dataObject.nodegridStatus = "TRY TO BE GOOD";
+            dataObject.mongoStatus = "CONNECTING"
+            break;
+        case 3:
+            dataObject.nodegridStatus = "TRY TO BE BAD";
+            dataObject.mongoStatus = "DISCONNECTING"
+            break;
+        default:
+            dataObject.nodegridStatus = "BAD";
+            dataObject.mongoStatus = "UNDEFINED"
+            break;
+    }
+
+    var statusObj = {
         "status": "SUCCESS",
         "msg": "NodeGrid mBaaS status",
         "data": [
-            {
-                "mongo-connection": statusCode
-            }
+            dataObject
         ]
-     };
-     res.send(statusObj);
+    };
+    res.send(statusObj);
 };
 
 module.exports.getCollections = function(req,res){

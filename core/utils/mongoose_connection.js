@@ -32,19 +32,5 @@ mongoose.connection.on('error', function (err) {
 });
 
 module.exports.mongoConnectionStatus = function() {
-	var status = mongoose.connection.readyState;
-	if(status === 0){
-		return "DISCONNECTED";
-	}else if(status === 1){
-		return "CONNECTED";
-	}
-	else if(status === 2){
-		return "CONNECTING";
-	}
-	else if(status === 3){
-		return "DISCONNECTING";
-	}
-	else{
-		return "UNDEFINED";
-	}
+	return mongoose.connection.readyState;
 };

@@ -24,7 +24,7 @@ module.exports.setSecureApp = function (req, res, next) {
     //check mongo db connection availability
     var mongo_connection_status = mongo_connection.mongoConnectionStatus();
 
-    if (mongo_connection_status == 'CONNECTED') {
+    if (mongo_connection_status == 1) {
         if (isSkippingURL(req.path)) {
             next();
             return;
