@@ -24,18 +24,20 @@ URL: `http://localhost:3000/app/books`
 
 Sample Response:
 ```
-{
-  "status": "SUCCESS",
-  "msg": "New model added successfully",
-  "data": {
-    "__v": 0,
-    "data": {
-      "type": "Tutorials",
-      "Author": "John Smith",
-      "name": "NodeGrid Tutorials"
-    },
-    "_id": "54759bfb14706eb4488f9b7c"
-  }
+{  
+   "status":"SUCCESS",
+   "msg":"New model added successfully",
+   "data":[  
+      {  
+         "__v":0,
+         "data":{  
+            "type":"Tutorials",
+            "Author":"John Smith",
+            "name":"NodeGrid Tutorials"
+         },
+         "_id":"54759bfb14706eb4488f9b7c"
+      }
+   ]
 }
 ```
 
@@ -129,18 +131,20 @@ URL: `http://localhost:3000/app/books/<object id>`
 
 Sample Response:
 ```
-{
-  "status": "SUCCESS",
-  "msg": "[books] data successfully deleted",
-  "data": {
-    "_id": "54759bfb14706eb4488f9b7c",
-    "data": {
-      "type": "Tutorials",
-      "name": "NodeGrid Tutorials",
-      "Author": "John Smith"
-    },
-    "__v": 0
-  }
+{  
+   "status":"SUCCESS",
+   "msg":"[books] data successfully deleted",
+   "data":[  
+      {  
+         "_id":"54759bfb14706eb4488f9b7c",
+         "data":{  
+            "type":"Tutorials",
+            "name":"NodeGrid Tutorials",
+            "Author":"John Smith"
+         },
+         "__v":0
+      }
+   ]
 }
 ```
 
@@ -171,20 +175,22 @@ URL: `http://localhost:3000/app/users/<object id>/has/books/<object id>`
 
 Sample Response:
 ```
-{
-    "status": "SUCCESS",
-    "msg": "New relations added successfully",
-    "data": {
-        "__v": 0,
-        "data": {
-            "secondIdentifier": "544e1c45c9c22bea2dc046cb",
-            "secondEntity": "books",
-            "relationType": "has",
-            "firstIdentifier": "547415c57cb17d271ce44ae7",
-            "firstEntity": "users"
-        },
-        "_id": "54bf3c8a1c89390000d6c2bd"
-    }
+{  
+   "status":"SUCCESS",
+   "msg":"New relations added successfully",
+   "data":[  
+      {  
+         "__v":0,
+         "data":{  
+            "secondIdentifier":"544e1c45c9c22bea2dc046cb",
+            "secondEntity":"books",
+            "relationType":"has",
+            "firstIdentifier":"547415c57cb17d271ce44ae7",
+            "firstEntity":"users"
+         },
+         "_id":"54bf3c8a1c89390000d6c2bd"
+      }
+   ]
 }
 ```
 
@@ -239,20 +245,22 @@ URL: `http://localhost:3000/app/users/<entity name>/has/books/<object id>`
 
 Sample Response:
 ```
-{
-    "status": "SUCCESS",
-    "msg": "[entity_relations] data relationship successfully deleted",
-    "data": {
-        "_id": "54bf69f31c89390000d6c2bf",
-        "data": {
-            "firstEntity": "users",
-            "firstIdentifier": "547415c57cb17d271ce44ae7",
-            "relationType": "has",
-            "secondEntity": "books",
-            "secondIdentifier": "54bf698e1c89390000d6c2be"
-        },
-        "__v": 0
-    }
+{  
+   "status":"SUCCESS",
+   "msg":"[entity_relations] data relationship successfully deleted",
+   "data":[  
+      {  
+         "_id":"54bf69f31c89390000d6c2bf",
+         "data":{  
+            "firstEntity":"users",
+            "firstIdentifier":"547415c57cb17d271ce44ae7",
+            "relationType":"has",
+            "secondEntity":"books",
+            "secondIdentifier":"54bf698e1c89390000d6c2be"
+         },
+         "__v":0
+      }
+   ]
 }
 ```
 
@@ -280,13 +288,15 @@ URL: `http://localhost:3000/app/push/notifier/google`
 
 Sample Response:
 ```
-{
-    "status": "SUCCESS",
-    "msg": "[google] Push notifier updated successfully",
-    "data": {
-        "server_key": "AIzaSyD2KCj6ib1PG-8tDROMCJvO9_6eT11eJuM",
-        "name": "google"
-    }
+{  
+   "status":"SUCCESS",
+   "msg":"[google] Push notifier updated successfully",
+   "data":[  
+      {  
+         "server_key":"AIzaSyD2KCj6ib1PG-8tDROMCJvO9_6eT11eJuM",
+         "name":"google"
+      }
+   ]
 }
 ```
 
@@ -305,17 +315,19 @@ URL: `http://localhost:3000/app/push/notifier/google`
 
 Sample Response:
 ```
-{
-    "status": "SUCCESS",
-    "msg": "[google] Push notifier retrieved successfully",
-    "data": {
-        "_id": "549ee5b917dfc0af5768ab5b",
-        "name": "google",
-        "data": {
-            "name": "google",
-            "server_key": "AIzaSyD2KCj6ib1PG-8tDROMCJvO9_6eT11eJuM"
-        }
-    }
+{  
+   "status":"SUCCESS",
+   "msg":"[google] Push notifier retrieved successfully",
+   "data":[  
+      {  
+         "_id":"549ee5b917dfc0af5768ab5b",
+         "name":"google",
+         "data":{  
+            "name":"google",
+            "server_key":"AIzaSyD2KCj6ib1PG-8tDROMCJvO9_6eT11eJuM"
+         }
+      }
+   ]
 }
 ```
 
@@ -344,20 +356,22 @@ URL: `http://localhost:3000/app/push/<entity name>/all`
 
 Sample Response:
 ```
-{
-    "status": "SUCCESS",
-    "msg": "Push is sent",
-    "data": {
-        "multicast_id": 4755411179386174000,
-        "success": 1,
-        "failure": 0,
-        "canonical_ids": 0,
-        "results": [
-            {
-                "message_id": "0:1422777415039749%29557986002efde3"
+{  
+   "status":"SUCCESS",
+   "msg":"Push is sent",
+   "data":[  
+      {  
+         "multicast_id":4755411179386174000,
+         "success":1,
+         "failure":0,
+         "canonical_ids":0,
+         "results":[  
+            {  
+               "message_id":"0:1422777415039749%29557986002efde3"
             }
-        ]
-    }
+         ]
+      }
+   ]
 }
 ```
 
@@ -379,19 +393,21 @@ URL: `http://localhost:3000/app/push/<entity name>/all`
 
 Sample Response:
 ```
-{
-    "status": "SUCCESS",
-    "msg": "Push is sent",
-    "data": {
-        "multicast_id": 8815822366424330000,
-        "success": 1,
-        "failure": 0,
-        "canonical_ids": 0,
-        "results": [
-            {
-                "message_id": "0:1422778963162858%29557986002efde3"
+{  
+   "status":"SUCCESS",
+   "msg":"Push is sent",
+   "data":[  
+      {  
+         "multicast_id":8815822366424330000,
+         "success":1,
+         "failure":0,
+         "canonical_ids":0,
+         "results":[  
+            {  
+               "message_id":"0:1422778963162858%29557986002efde3"
             }
-        ]
-    }
+         ]
+      }
+   ]
 }
 ```
