@@ -277,8 +277,6 @@ Sample Response:
       }
    ]
 }
-
-#
 ```
 
 <br/>
