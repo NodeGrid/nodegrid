@@ -41,11 +41,12 @@ module.exports.setSecureApp = function (req, res, next) {
         });
     } else {
         //mongo db connection is not available
-        console.log(req.path);
-        console.log(req.path.search("/portal"));
+        //console.log(req.path);
         if (req.path == '/system/status') {
+            // skip the mongo connection check @ NodeGrid status check REST call
             next();
         } else if (req.path.search("/portal") == 0) {
+            // skip the mongo connection check @ portal loading
             next();
         } else {
             utils.sendResponse(res, 503, 'Service Unavailable - MongoDB connection unavailable', 'EMPTY');
