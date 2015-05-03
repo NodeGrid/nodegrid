@@ -42,7 +42,10 @@ module.exports.setSecureApp = function (req, res, next) {
     } else {
         //mongo db connection is not available
         console.log(req.path);
+        console.log(req.path.search("/portal"));
         if (req.path == '/system/status') {
+            next();
+        } else if (req.path.search("/portal") == 0) {
             next();
         } else {
             utils.sendResponse(res, 503, 'Service Unavailable - MongoDB connection unavailable', 'EMPTY');

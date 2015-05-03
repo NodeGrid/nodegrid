@@ -101,10 +101,16 @@ app.controller("loginController", function($scope, $http, $window, $cookieStore,
                 }).success(function(responce){
                     $cookieStore.put('token',responce.data.data.accessToken);
                     $window.location.href ='#app';
-                }).error(function(err){
+                }).error(function(err, status){
                     console.log(err);
-                    $scope.loginErr = "Invalid Username and Password .. !!";
-                    $scope.loginLoading = false;
+                    console.log(status);
+                    if (status == 409) {
+                        $cookieStore.put('token', err.data[0].data.accessToken);
+                        $window.location.href ='#app';
+                    } else {
+                        $scope.loginErr = err.msg + " ...!!";
+                        $scope.loginLoading = false;
+                    }
                 });
     };
 });
