@@ -41,7 +41,12 @@ module.exports.setSecureApp = function (req, res, next) {
         });
     } else {
         //mongo db connection is not available
-        utils.sendResponse(res, 503, 'Service Unavailable - MongoDB connection unavailable', 'EMPTY');
+        console.log(req.path);
+        if (req.path == '/system/status') {
+            next();
+        } else {
+            utils.sendResponse(res, 503, 'Service Unavailable - MongoDB connection unavailable', 'EMPTY');
+        }
     }
 };
 
