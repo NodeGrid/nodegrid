@@ -122,8 +122,8 @@ Sample Response:
     "msg": "NodeGrid mBaaS status",
     "data": [
         {
-            "nodegridStatus": "BAD",
-            "mongoStatus": "DISCONNECTED"
+            "nodegridStatus": "GOOD",
+            "mongoStatus": "CONNECTED"
         }
     ]
 }
