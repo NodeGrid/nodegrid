@@ -99,7 +99,7 @@ app.controller("loginController", function($scope, $http, $window, $cookieStore,
                 method: "POST",
                 data: { 'username' : username, "password":password}
                 }).success(function(responce){
-                    $cookieStore.put('token',responce.data.data.accessToken);
+                    $cookieStore.put('token',responce.data[0].data.accessToken);
                     $window.location.href ='#app';
                 }).error(function(err, status){
                     console.log(err);
