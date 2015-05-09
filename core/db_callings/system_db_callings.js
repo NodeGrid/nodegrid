@@ -306,14 +306,7 @@ module.exports.checkSystemStatus = function (req,res) {
             break;
     }
 
-    var statusObj = {
-        "status": "SUCCESS",
-        "msg": "NodeGrid mBaaS status",
-        "data": [
-            dataObject
-        ]
-    };
-    res.send(statusObj);
+    utils.sendResponse(res, 200, "NodeGrid mBaaS status", dataObject);
 };
 
 module.exports.getCollections = function(req,res){

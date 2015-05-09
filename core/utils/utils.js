@@ -42,15 +42,15 @@ module.exports.sendResponse = function (res, statusCode, statusMessage, dataObje
             responseObj = {
                 "status":"ERROR",
                 "msg":statusMessage,
+                "res":"N/A",
                 "data":dataObject
             };
         } else {
             responseObj = {
                 "status":"ERROR",
                 "msg":statusMessage,
-                "data":[
-                    dataObject
-                 ]
+                "res":dataObject,
+                "data":"N/A"
             };
         }
     } else {
