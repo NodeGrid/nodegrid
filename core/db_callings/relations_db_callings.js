@@ -162,8 +162,13 @@ module.exports.deleteRelationsFromDB = function (req, res) {
             logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data querying was failed. ERROR: " + err);
             utils.sendResponse(res, 500, "Internal Server Error - [entity_relations] data querying was failed", err);
         } else {
-            logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data relationship successfully deleted");
-            utils.sendResponse(res, 200, "[entity_relations] data relationship successfully deleted", records);
+            if (records != 0) {
+                logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data relationship successfully deleted");
+                utils.sendResponse(res, 200, "[entity_relations] data relationship successfully deleted", records);
+            } else {
+                logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data relationship successfully deleted");
+                utils.sendResponse(res, 204, "No [entity_relations] relationship data content deleted", "EMPTY");
+            }
         }
     });
 };

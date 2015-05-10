@@ -77,8 +77,13 @@ module.exports.deleteEntity = function (req, res) {
             logger.info("NodeGrid:query_db_callings/deleteEntity - [" + req.params.modelName + "] data querying was failed. ERROR: " + err);
             utils.sendResponse(res, 500, "Internal Server Error - [" + req.params.modelName + "] data querying was failed.", err);
         } else {
-            logger.info("NodeGrid:query_db_callings/deleteEntity - [" + req.params.modelName + "] data successfully deleted");
-            utils.sendResponse(res, 200, "[" + req.params.modelName + "] data successfully deleted", records);
+            if (records != 0) {
+                logger.info("NodeGrid:query_db_callings/deleteEntity - [" + req.params.modelName + "] data successfully deleted");
+                utils.sendResponse(res, 200, "[" + req.params.modelName + "] data successfully deleted", records);
+            } else {
+                logger.info("NodeGrid:query_db_callings/deleteEntity - No [" + req.params.modelName + "] data content deleted");
+                utils.sendResponse(res, 204, "No [" + req.params.modelName + "] data content deleted", "EMPTY");
+            }
         }
     });
 

@@ -136,8 +136,13 @@ module.exports.removeSystemUser = function (req, res) {
             logger.info("NodeGrid:system_db_callings/removeSystemUser - Error occurred at system_users database check. ERROR: " + systemUserExistenceErr);
             utils.sendResponse(res, 500, "Internal Server Error - Error occurred at system_users entity database check.", systemUserExistenceErr);
         } else {
-            logger.info("NodeGrid:system_db_callings/removeSystemUser - System user removed from the collection successfully. STATUS: " + systemUserDelete);
-            utils.sendResponse(res, 200, "System user removed from the collection successfully.", systemUserDelete);
+            if (systemUserDelete == 1) {
+                logger.info("NodeGrid:system_db_callings/removeSystemUser - System user removed from the collection successfully. STATUS: " + systemUserDelete);
+                utils.sendResponse(res, 200, "System user removed from the collection successfully.", "EMPTY");
+            } else {
+                logger.info("NodeGrid:system_db_callings/removeSystemUser - No any system user record from given userId ["+ userId +"]. STATUS: " + systemUserDelete);
+                utils.sendResponse(res, 204, "No any system user record from given userId ["+ userId +"].", "EMPTY");
+            }
         }
     });
 };
