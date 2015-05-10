@@ -26,7 +26,7 @@ module.exports.sendPushNotification = function (req, res, pushEntities) {
 
     if (googlePushIds.length == 0 && applePushIds.length == 0) {
         logger.info('NodeGrid:push/sendPushNotification - Push contents not found in given collection');
-        utils.sendResponse(res, 410, 'No Contents - Push contents not found in given collection', 'EMPTY');
+        utils.sendResponse(res, 204, 'No Contents - Push contents not found in given collection', 'EMPTY');
     } else {
         if (googlePushIds.length != 0)
             google.sendPushToGCM(googlePushIds, req, res);

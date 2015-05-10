@@ -36,7 +36,7 @@ module.exports.handleGetSystemUserFromUserParamGet = function (req, res) {
                             if (status == 2) {
                                 utils.sendResponse(res, 500, 'Internal Server Error - Error occurred at system_users entity database check', 'EMPTY');
                             } else {
-                                utils.sendResponse(res, 410, 'No records found from given system user-id or username', 'EMPTY');
+                                utils.sendResponse(res, 204, 'No records found from given system user-id or username', 'EMPTY');
                             }
                         }
                     });
@@ -52,7 +52,7 @@ module.exports.handleGetSystemUserFromUserParamGet = function (req, res) {
                 if (status == 2) {
                     utils.sendResponse(res, 500, 'Internal Server Error - Error occurred at system_users entity database check', 'EMPTY');
                 } else {
-                    utils.sendResponse(res, 410, 'No records found from given system user-id or username', 'EMPTY');
+                    utils.sendResponse(res, 204, 'No records found from given system user-id or username', 'EMPTY');
                 }
             }
         });
