@@ -164,10 +164,10 @@ module.exports.deleteRelationsFromDB = function (req, res) {
         } else {
             if (records != 0) {
                 logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data relationship successfully deleted");
-                utils.sendResponse(res, 200, "[entity_relations] data relationship successfully deleted", records);
+                utils.sendResponse(res, 200, "[entity_relations] data relationship successfully deleted", "EMPTY");
             } else {
                 logger.info("NodeGrid:relations_db_callings/deleteRelationsFromDB - [entity_relations] data relationship successfully deleted");
-                utils.sendResponse(res, 204, "No [entity_relations] relationship data content deleted", "EMPTY");
+                utils.sendResponse(res, 410, "No [entity_relations] relationship data content deleted", "EMPTY");
             }
         }
     });

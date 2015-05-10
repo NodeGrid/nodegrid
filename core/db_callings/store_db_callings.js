@@ -79,10 +79,10 @@ module.exports.deleteEntity = function (req, res) {
         } else {
             if (records != 0) {
                 logger.info("NodeGrid:query_db_callings/deleteEntity - [" + req.params.modelName + "] data successfully deleted");
-                utils.sendResponse(res, 200, "[" + req.params.modelName + "] data successfully deleted", records);
+                utils.sendResponse(res, 200, "[" + req.params.modelName + "] data successfully deleted", "EMPTY");
             } else {
                 logger.info("NodeGrid:query_db_callings/deleteEntity - No [" + req.params.modelName + "] data content deleted");
-                utils.sendResponse(res, 204, "No [" + req.params.modelName + "] data content deleted", "EMPTY");
+                utils.sendResponse(res, 410, "No [" + req.params.modelName + "] data content deleted", "EMPTY");
             }
         }
     });
