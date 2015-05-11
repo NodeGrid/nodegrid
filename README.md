@@ -120,12 +120,10 @@ Sample Response:
 {
     "status": "SUCCESS",
     "msg": "NodeGrid mBaaS status",
-    "data": [
-        {
-            "nodegridStatus": "GOOD",
-            "mongoStatus": "CONNECTED"
-        }
-    ]
+    "res": {
+        "nodegridStatus": "GOOD",
+        "mongoStatus": "CONNECTED"
+    }
 }
 ```
 
@@ -145,22 +143,20 @@ URL: `http://localhost:3000/system/user`
 
 Sample Response:
 ```
-{  
-   "status":"SUCCESS",
-   "msg":"New system user added successfully",
-   "data":[  
-      {  
-         "__v":0,
-         "data":{  
-            "lastAccessedTime":"",
-            "createdTime":1416892013,
-            "password":"$2a$10$pUu03u5k260tuIKaJpM1cODK0D2CsTj.GxzFHMBfwrHLRHmCOn5/u",
-            "username":"john",
-            "name":"John Smith"
-         },
-         "_id":"54740e6d721de8b8135dfb4e"
-      }
-   ]
+{
+  "status": "SUCCESS",
+  "msg": "New system user added successfully",
+  "res": {
+    "__v": 0,
+    "data": {
+      "lastAccessedTime": "",
+      "createdTime": 1416892013,
+      "password": "$2a$10$pUu03u5k260tuIKaJpM1cODK0D2CsTj.GxzFHMBfwrHLRHmCOn5/u",
+      "username": "john",
+      "name": "John Smith"
+    },
+    "_id": "54740e6d721de8b8135dfb4e"
+  }
 }
 ```
 
@@ -237,10 +233,7 @@ Sample Response:
 ```
 {
     "status": "SUCCESS",
-    "msg": "System user removed from the collection successfully.",
-    "data": [
-    	1
-    ]
+    "msg": "System user removed from the collection successfully."
 }
 ```
 
@@ -260,22 +253,20 @@ URL: `http://localhost:3000/system/security/generateToken`
 
 Sample Response:
 ```
-{  
-   "status":"SUCCESS",
-   "msg":"New accessToken saved successfully",
-   "data":[  
-      {  
-         "__v":0,
-         "data":{  
-            "status":"valid",
-            "expiringTime":1416980339,
-            "createdTime":1416893939,
-            "userId":"547415c57cb17d271ce44ae7",
-            "accessToken":"f02a2e0e569b8fc216b3d1da6035d6581ea1cec4"
-         },
-         "_id":"547415f37cb17d271ce44ae8"
-      }
-   ]
+{
+  "status": "SUCCESS",
+  "msg": "New accessToken saved successfully",
+  "res": {
+    "__v": 0,
+    "data": {
+      "status": "valid",
+      "expiringTime": 1416980339,
+      "createdTime": 1416893939,
+      "userId": "547415c57cb17d271ce44ae7",
+      "accessToken": "f02a2e0e569b8fc216b3d1da6035d6581ea1cec4"
+    },
+    "_id": "547415f37cb17d271ce44ae8"
+  }
 }
 ```
 
