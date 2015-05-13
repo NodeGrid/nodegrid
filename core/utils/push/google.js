@@ -39,7 +39,7 @@ module.exports.sendPushToGCM = function (regIds, req, res) {
                     }
                 });
             } else {
-                utils.sendResponse(res, 204, 'Not Contents - No notifier found from ['+ notifier_type +']', 'EMPTY');
+                utils.sendResponse(res, 410, 'Not Contents - No notifier found from ['+ notifier_type +']', 'EMPTY');
             }
         } else if (status == 1) {
             utils.sendResponse(res, 500, 'Internal Server Error - [google] data retrieving was failed', notifier);
