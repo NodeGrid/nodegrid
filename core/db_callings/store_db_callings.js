@@ -83,3 +83,12 @@ module.exports.deleteEntity = function (req, res) {
     });
 
 };
+
+/**
+ * Store uploaded file in mongo db with mongo object relation
+ * @param req
+ * @param res
+ */
+module.exports.saveFileModelOrEntityToDb = function (req, res) {
+    // Do file storing in mongo db
+};

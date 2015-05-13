@@ -11,6 +11,8 @@ var storeServices = require('../services/store_services');
  */
 module.exports.createStoreEndPoints = function (app) {
 
+    // Objects & Collections ...........................................................................................
+
     // Store new model or store data to given model (collection)
     app.post('/app/:modelName', function (req, res) {
         logger.info('NodeGrid:store_end_points/createStoreEndPoints - [POST/app/:modelName]');
@@ -27,5 +29,15 @@ module.exports.createStoreEndPoints = function (app) {
     app.del('/app/:modelName/:id', function (req, res) {
         logger.info('NodeGrid:store_end_points/createStoreEndPoints - [DELETE/app/:modelName/:id]');
         storeServices.handleDeleteModelsItem(req, res);
+    });
+
+
+
+    // Files ...........................................................................................................
+
+    // Store uploaded file to mongo db and create relational mapping with given collection
+    app.post('/app/file/:modelName', function(req, res) {
+        logger.info('NodeGrid:store_end_points/createStoreEndPoints - [POST/app/file/:modelName]');
+        storeServices.handleFileStoreModelPost(req, res);
     });
 };

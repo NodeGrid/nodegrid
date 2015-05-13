@@ -37,3 +37,13 @@ module.exports.handleDeleteModelsItem = function (req, res) {
     storeDb.deleteEntity(req, res);
 
 };
+
+/**
+ * This method handles file storing and add objects to given collections
+ * @param req
+ * @param res
+ */
+module.exports.handleFileStoreModelPost = function (req, res) {
+    logger.info('NodeGrid:store_services/handleFileStoreModelPost - Adding attempt a new file to model (collection) with data');
+    storeDb.saveFileModelOrEntityToDb(req, res);
+};
