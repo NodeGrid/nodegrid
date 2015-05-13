@@ -87,7 +87,6 @@ module.exports.handleAdvanceQueryModelGet = function (req, res) {
 module.exports.handleQueryModelGet = function (req, res) {
     logger.info('NodeGrid:query_services/handleQueryModelGet - Querying attempt data from given model (collection)');
     queryDb.getAllFromDB(req,res);
- 
 };
 
 /**
@@ -98,5 +97,9 @@ module.exports.handleQueryModelGet = function (req, res) {
 module.exports.handleQueryModelGetOne = function (req, res) {
     logger.info('NodeGrid:query_services/handleQueryModelGetOne - Querying attempt data from given model (collection)');
     queryDb.getOneFromDB(req,res);
+};
 
+module.exports.handleQueryFileModelGet = function (req, res) {
+    logger.info('NodeGrid:query_services/handleQueryFileModelGet - Querying attempt file from given model (collection)');
+    queryDb.getFileFromDB(req,res);
 };

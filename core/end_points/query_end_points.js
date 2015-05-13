@@ -11,6 +11,9 @@ var queryServices = require('../services/query_services');
  */
 module.exports.createQueryEndPoints = function (app) {
 
+    //Objects ..........................................................................................................
+
+    // Retrieve data from given criteria s in mongo ['SELECT', 'WHERE', 'SORT', 'LIMIT']
     app.get('/app/advance/:modelName', function (req, res) {
         logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/app/advance/:modelName]');
         queryServices.handleAdvanceQueryModelGet(req, res);
@@ -26,5 +29,14 @@ module.exports.createQueryEndPoints = function (app) {
     app.get('/app/:modelName/:id', function (req, res) {
         logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/app/:modelName]');
         queryServices.handleQueryModelGetOne(req, res);
+    });
+
+
+    // Files ...........................................................................................................
+
+    // Retrieve the file from given mongo collection
+    app.get('/app/file/:modelName/:id', function (req, res) {
+        logger.info('NodeGrid:query_end_points/createQueryEndPoints - [GET/app/file/:modelName/:id]');
+        queryServices.handleQueryFileModelGet(req, res);
     });
 };

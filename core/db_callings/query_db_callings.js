@@ -51,6 +51,25 @@ module.exports.getOneFromDB = function (req, res) {
 
 };
 
+/**
+ * Query file from given mongo collection
+ * @param req
+ * @param res
+ */
+module.exports.getFileFromDB = function (req, res) {
+    //Do file query from mongo database
+};
+
+/**
+ * Query object according to given criteria
+ * Facilitate developer to 'SELECT', 'WHERE', 'SORT', 'LIMIT' SQL keywords in mongo
+ * @param selectObj
+ * @param whereObj
+ * @param sort
+ * @param limit
+ * @param req
+ * @param res
+ */
 module.exports.getFromDBAdvance = function (selectObj, whereObj, sort, limit, req, res) {
 
     var entityModel = mongoose.model(req.params.modelName, entity);
@@ -71,3 +90,4 @@ module.exports.getFromDBAdvance = function (selectObj, whereObj, sort, limit, re
         }
     });
 };
+
