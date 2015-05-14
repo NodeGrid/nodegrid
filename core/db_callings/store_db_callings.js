@@ -7,6 +7,10 @@ var logger = require('../utils/log');
 var utils = require('../utils/utils');
 var mongo_connection = require('../utils/mongoose_connection');
 var extend = require('node.extend');
+var formidable = require('formidable');
+var grid = require('gridfs-stream');
+var fs = require('fs');
+var configurations = JSON.parse(fs.readFileSync('config.json', encoding="ascii"));
 
 var connectionObj = mongo_connection.createMongooseConnection();
 
@@ -95,5 +99,27 @@ module.exports.deleteEntity = function (req, res) {
  * @param res
  */
 module.exports.saveFileModelOrEntityToDb = function (req, res) {
-    // Do file storing in mongo db
+    // TODO - This must be couple with the existing structure and test
+    var form = new formidable.IncomingForm();
+    form.uploadDir = __dirname + "/data";
+    form.keepExtensions = true;
+
+    form.parse(req, function(err, fields, files) {
+        if (!err) {
+            console.log('File uploaded : ' + files.file.path);
+            grid.mongo = mongoose.mongo;
+            var conn = mongoose.createConnection('mongodb://'+configurations.DB_HOST+'/'+configurations.DB_NAME);
+            conn.once('open', function () {
+                var gfs = grid(conn.db);
+                var writestream = gfs.createWriteStream({
+                    filename: files.file.name
+                });
+                fs.createReadStream(files.file.path).pipe(writestream);
+            });
+        }
+    });
+
+    form.on('end', function() {
+        res.send('Completed ..... go and check fs.files & fs.chunks in  mongodb');
+    });
 };

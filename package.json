@@ -17,6 +17,8 @@
     "node.extend": "1.1.2",
     "socket.io": "1.1.0",
     "ua-parser": "0.3.3",
-    "winston": "0.7.3"
+    "winston": "0.7.3",
+    "formidable":"1.0.17",
+    "gridfs-stream":"1.1.1"
   }
 }
