@@ -113,6 +113,57 @@ Sample Response:
 }
 ```
 
+#### *Advance Quering*
+
+This is a special feature developer get from NodeGrid.From advance quering, developer can pass a `SQL` query to NodeGrid. Then NodeGrid process the given 'SQL' query and return objects from 'MongoDB'.
+
+Let's use the same example entity `books`.
+<br/>
+This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
+
+Replace the `<accessToken>` from your user's accessToken.
+Replace the `<sql query>` from your query that you are going to use in SQL.
+Replace the `<sort>` from your sorting column in the SQL table.
+Replace the `<limit>` from your limiting column in the SQL table.
+
+URL: `http://localhost:3000/app/advance/books?qry=<sql query>&sort=<sorting column name>&limit=<limit column name>`
+<br/>Request Type: `GET`
+
+> curl -X GET -H "Content-Type: application/json" -H "Authorization: \<accessToken\>" http://localhost:3000/app/advance/books?qry=\<sql query\>&sort=\<sorting column name\>&limit=\<limit column name\>
+
+Example:
+`http://localhost:3000/app/advance/books?qry=SELECT name, author, price WHERE price < 1000&sort=price`
+</br>
+Above is a example url, that you have send for advance quering.
+
+Sample Response:
+```
+{
+  "status": "SUCCESS",
+  "msg": "[books] data successfully retrieved",
+  "data": [
+    {
+      "_id": "54759bfb14706eb4488f9b7c",
+      "data": {
+        "name": "NodeGrid Tutorials",
+        "Author": "John Smith",
+        "price": "999"
+      },
+      "__v": 0
+    },
+    {
+      "_id": "54759bfb14706eb4488f9b7b",
+      "data": {
+        "name": "Practical NodeJS",
+        "Author": "Azat Mardan",
+        "price": "800"
+      },
+      "__v": 0
+    }
+  ]
+}
+```
+
 #### *Delete object in entity from given object id*
 
 Let's use the same example entity `books`.
