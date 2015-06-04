@@ -115,7 +115,7 @@ Sample Response:
 
 #### *Advance Quering*
 
-This is a special feature developer get from NodeGrid.From advance quering, developer can pass a `SQL` query to NodeGrid. Then NodeGrid process the given 'SQL' query and return objects from 'MongoDB'.
+This is a special feature, that developer can get from NodeGrid. From advance quering, developer can pass a `SQL` query to NodeGrid. Then NodeGrid process the given `SQL` query and return objects from 'MongoDB'.
 
 Let's use the same example entity `books`.
 <br/>
