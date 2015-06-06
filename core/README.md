@@ -122,9 +122,9 @@ Let's use the same example entity `books`.
 This request is authenticated from user accessToken. Therefore you need to set `Authorization` HEADER to request.
 
 Replace the `<accessToken>` from your user's accessToken.
-Replace the `<sql query>` from your query that you are going to use in SQL.
-Replace the `<sort>` from your sorting column in the SQL table.
-Replace the `<limit>` from your limiting column in the SQL table.
+<br/>Replace the `<sql query>` from your query that you are going to use in SQL.
+<br/>Replace the `<sort>` from your sorting column in the SQL table.
+<br/>Replace the `<limit>` from your limiting column in the SQL table.
 
 URL: `http://localhost:3000/app/advance/books?qry=<sql query>&sort=<sorting column name>&limit=<limit column name>`
 <br/>Request Type: `GET`
