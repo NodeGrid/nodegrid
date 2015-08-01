@@ -360,7 +360,7 @@ Feature is still on development
 
 Feature is still on development
 
-#### *Notify all desitinations in the given entity*
+#### *Notify all destinations in the given entity*
 
 Send notifications to all configured objects in the given entity.  
 
@@ -394,7 +394,7 @@ Sample Response:
 }
 ```
 
-#### *Notify given desitinations in the given entity*
+#### *Notify given destinations in the given entity*
 
 Send notifications to given people who configured in the given entity.  
 
@@ -404,7 +404,7 @@ Replace the `<accessToken>` from your user's accessToken.
 <br/>Replace the `<entity name>` from your entity
 <br/>Replace the `<object id>` from your entity object id
 
-URL: `http://localhost:3000/app/push/<entity name>/all`
+URL: `http://localhost:3000/app/push/<entity name>`
 <br/>Request Type: `POST`
 <br/>Data Object: `{"ids":[<object id 1>, <object id 2>, <object id 3>], "message":"<message object you need to send>"}`
 
