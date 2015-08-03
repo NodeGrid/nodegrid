@@ -28,7 +28,13 @@ module.exports.sendPushByEntities = function (req, res, sendToAll) {
  */
 module.exports.sendPushByEntityRelations = function (req, res) {
     logger.info('NodeGrid:push_services/sendPushByEntityRelations - sendPushByEntityRelations');
-    pushDb.getEntityRelationsForPush(req, res);
+    pushDb.getEntityRelationsForPush(req, res, function(status, responseResults){
+        if (status == 0) {
+            push.sendPushNotification(req, res, responseResults);
+        } else if (status == 1) {
+            res.send(responseResults);
+        }
+    });
 
 };
 
