@@ -37,7 +37,7 @@ module.exports.getEntitiesForPush = function (req, res, sendToAll, callback) {
  * @param req
  * @param res
  */
-module.exports.getEntityRelationsForPush = function (req, res) {
+module.exports.getEntityRelationsForPush = function (req, res, callback) {
 
     var firstEntity = req.params.firstEntity;
     var firstId = req.params.firstId;
@@ -69,7 +69,8 @@ module.exports.getEntityRelationsForPush = function (req, res) {
                     logger.info("NodeGrid:relations_db_callings/getEntityRelationsForPush - [entity_relations] data querying was failed. ERROR: " + err);
                 } else {
                     // TODO   SENDING PUSHHHH >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
-                    res.send(relationRecords);
+                    //res.send(relationRecords);
+                    callback(0, relationRecords);
                 }
             });
 
